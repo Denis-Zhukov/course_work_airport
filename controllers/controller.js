@@ -206,6 +206,31 @@ class controller {
             ["id", "username"],
         );
     }
+
+    async deleteAccount(req, res) {
+        await deletePrototype(req, res,
+            ["admin"],
+            ["id"],
+            "accounts",
+            ["id"],
+        );
+    }
+    async depriveRole(req, res) {
+        await deletePrototype(req, res,
+            ["admin"],
+            ["id_account"],
+            "accounts_roles",
+            ["id_account"],
+        );
+    }
+    async deleteRole(req, res){
+        await deletePrototype(req, res,
+            ["admin"],
+            ["id_role"],
+            "roles",
+            ["id"],
+        );
+    }
 }
 
 async function addPrototype(req, res, validRoles, fieldNames, tableName, tableFields, mustBeUniq, nonUniqueError) {
@@ -251,6 +276,34 @@ async function getPrototype(req, res, validRoles, tableName, tableFields) {
 
         let query = `SELECT ${tableFields.map(field=>"\`"+field+"\`").join(", ")} FROM \`${tableName}\``;
         let [result] = await connection.execute(query);
+        connection.end();
+        return res.json({result});
+    } catch(e) {
+        return res.status(500).json(e);
+    }
+}
+
+async function deletePrototype(req, res, validRoles, paramsNames, tableName, tableFields) {
+    if( !validRoles.includes(req.user.role) )
+        return res.status(403).json({message: "User have no permission"});
+
+    const values = paramsNames.map(fieldName => req.params[fieldName]);
+
+    if( values.some(field => !field) )
+        return res.status(400).json({message: `Something is missing: ${paramsNames.join(", ")}`});
+
+    try {
+        const connection = await mysql.createConnection(databaseConfig);
+        await connection.connect(err => {
+            if( err ) res.status(500).json({message: "Connection problem", ...err});
+        });
+
+        let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
+        let [result] = await connection.query(query, values);
+        if( result[0].count == 0 ) return res.status(400).json({message: "This entry does not exist"});
+
+        query = `DELETE FROM ${tableName} WHERE ${tableFields.map(field=>"\`"+field+"\`=?").join(" AND ")}`;
+        [result] = await connection.execute(query, values);
         connection.end();
         return res.json({result});
     } catch(e) {
