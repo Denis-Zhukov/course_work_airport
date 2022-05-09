@@ -2,6 +2,7 @@ package com.assets.services;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -41,51 +42,7 @@ public class Requests {
         return null;
     }
 
-    public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
-        JSONObject json = new JSONObject() {{
-            put("username", login);
-            put("hashPassword", PasswordHashing.hash(password));
-        }};
 
-        try {
-            String requestBody = json.toString();
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(Constants.api + "add_account"))
-                    .setHeader("Authorization", token)
-                    .setHeader("Content-type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            HttpResponse<String> response = client.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-            var AddAccountResponse = new JSONObject(response.body());
-            if (AddAccountResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-
-
-            json = new JSONObject() {{
-                put("id_account", AddAccountResponse.getInt("insertId"));
-                put("id_role", id_role);
-            }};
-            requestBody = json.toString();
-            request = HttpRequest.newBuilder()
-                    .uri(URI.create(Constants.api + "set_role"))
-                    .setHeader("Authorization", token)
-                    .setHeader("Content-type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            var SetRoleResponse = new JSONObject(response.body());
-            if (SetRoleResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-
-        } catch (ConnectException e) {
-            e.printStackTrace();
-            System.out.println("Connection problem.");
-        }
-    }
 
     public static Map<String, Integer> getRoles(String token) {
         try {
@@ -167,5 +124,78 @@ public class Requests {
             System.out.println("Shipping problem.");
         }
         return null;
+    }
+    public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
+        JSONObject json = new JSONObject() {{
+            put("username", login);
+            put("hashPassword", PasswordHashing.hash(password));
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_account"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var AddAccountResponse = new JSONObject(response.body());
+            if (AddAccountResponse.isNull("insertId"))
+                throw new Exception(AddAccountResponse.getString("message"));
+
+
+            json = new JSONObject() {{
+                put("id_account", AddAccountResponse.getInt("insertId"));
+                put("id_role", id_role);
+            }};
+            requestBody = json.toString();
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "set_role"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            var SetRoleResponse = new JSONObject(response.body());
+            if (SetRoleResponse.isNull("insertId"))
+                throw new Exception(AddAccountResponse.getString("message"));
+
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        }
+    }
+
+    public static void setRole(Integer idAccount, Integer idRole,String token) throws Exception {
+        JSONObject json = new JSONObject() {{
+            put("id_account", idAccount);
+            put("id_role", idRole);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "set_role"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var AddAccountResponse = new JSONObject(response.body());
+            if (AddAccountResponse.isNull("insertId"))
+                throw new Exception(AddAccountResponse.getString("message"));
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        }
     }
 }
