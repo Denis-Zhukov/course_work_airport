@@ -1,0 +1,14 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3000,
+    "private-key": "jP0gzTBMYiFrJwCwbU6fI0HumjHXDOVNuLRTsgufoZwWlXilHeof2Txc22XtHI4ZhMGyS0B5OXRXIX8gZkjS1FSRxGb2c5PiFkEoa5hMSWArJwvyHCew5Xetrdjt8ZzE",
+    "lifetime-token": "24h"
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "database": "airtravel",
+    "user": "root",
+    "password": "root"
+  }
+}
