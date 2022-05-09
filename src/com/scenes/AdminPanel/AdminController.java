@@ -4,7 +4,12 @@ import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.AdminPanel.AddRolePanel.AddRolePanel;
 import com.scenes.AdminPanel.CreateAccountPanel.CreateAccountPanel;
+import com.scenes.AdminPanel.DeleteAccountPanel.DeleteAccountPanel;
+import com.scenes.AdminPanel.DeleteRolePanel.DeleteRoleController;
+import com.scenes.AdminPanel.DeleteRolePanel.DeleteRolePanel;
+import com.scenes.AdminPanel.DepriveRolePanel.DepriveRolePanel;
 import com.scenes.AdminPanel.SetAccountRolePanel.SetAccountRolePanel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -32,5 +37,17 @@ public class AdminController {
 
     public void openSetRoleWindow() {
         SetAccountRolePanel.showModal();
+    }
+
+    public void openDeleteAccountWindow() {
+        DeleteAccountPanel.showModal();
+    }
+
+    public void openDepriveRoleWindow() {
+        DepriveRolePanel.showModal();
+    }
+
+    public void openDeleteRoleWindow() {
+        DeleteRolePanel.showModal();
     }
 }

@@ -11,6 +11,8 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public class Requests {
     public static JSONObject getJWTToken(String login, String password) {
         JSONObject json = new JSONObject() {{
@@ -43,7 +45,6 @@ public class Requests {
     }
 
 
-
     public static Map<String, Integer> getRoles(String token) {
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -72,6 +73,7 @@ public class Requests {
         }
         return null;
     }
+
     public static void addRole(String role, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("role", role);
@@ -125,6 +127,7 @@ public class Requests {
         }
         return null;
     }
+
     public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("username", login);
@@ -171,7 +174,53 @@ public class Requests {
         }
     }
 
-    public static void setRole(Integer idAccount, Integer idRole,String token) throws Exception {
+    public static void deleteAccount(Integer id_account, String token) throws Exception {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "delete_account/" + id_account))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var deleteAccountResponse = new JSONObject(response.body());
+            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
+                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
+                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        }
+    }
+
+    public static void depriveRole(Integer id_account, String token) throws Exception {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "deprive_role/" + id_account))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var deleteAccountResponse = new JSONObject(response.body());
+            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
+                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
+                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        }
+    }
+
+    public static void setRole(Integer idAccount, Integer idRole, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("id_account", idAccount);
             put("id_role", idRole);
@@ -193,6 +242,29 @@ public class Requests {
             var AddAccountResponse = new JSONObject(response.body());
             if (AddAccountResponse.isNull("insertId"))
                 throw new Exception(AddAccountResponse.getString("message"));
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        }
+    }
+
+    public static void deleteRole(Integer id_role, String token) throws Exception {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "delete_role/" + id_role))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var deleteAccountResponse = new JSONObject(response.body());
+            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
+                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
+                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
         } catch (ConnectException e) {
             e.printStackTrace();
             System.out.println("Connection problem.");

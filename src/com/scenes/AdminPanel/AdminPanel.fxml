@@ -17,9 +17,9 @@
       <Button onAction="#openAddingRoleWindow" layoutX="324.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Add role" />
       <Button onAction="#openSetRoleWindow" layoutX="324.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Set account role" />
       <Button onAction="#openCreateAccountWindow"  layoutX="324.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Create account" />
-      <Button layoutX="444.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Deprive account role" />
-      <Button  layoutX="444.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete role" />
-      <Button  layoutX="444.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete account" />
+      <Button onAction="#openDepriveRoleWindow" layoutX="444.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Deprive account role" />
+      <Button onAction="#openDeleteRoleWindow" layoutX="444.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete role" />
+      <Button onAction="#openDeleteAccountWindow" layoutX="444.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete account" />
       <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login:">
          <font>
             <Font name="Tahoma" size="14.0" />

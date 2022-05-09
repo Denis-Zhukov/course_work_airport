@@ -76,5 +76,4 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
         else comboBox.getEditor().positionCaret(caretPos);
         moveCaretToPos = false;
     }
-
 }

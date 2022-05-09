@@ -30,4 +30,13 @@ module client {
 
     opens com.scenes.AdminPanel.SetAccountRolePanel to javafx.fxml;
     exports com.scenes.AdminPanel.SetAccountRolePanel;
+
+    opens com.scenes.AdminPanel.DeleteAccountPanel to javafx.fxml;
+    exports com.scenes.AdminPanel.DeleteAccountPanel;
+
+    opens com.scenes.AdminPanel.DepriveRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.DepriveRolePanel;
+
+    opens com.scenes.AdminPanel.DeleteRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.DeleteRolePanel;
 }

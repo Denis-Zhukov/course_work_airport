@@ -45,7 +45,8 @@ public class LoginController {
 
         var json = Requests.getJWTToken(login, password);
 
-        if (json.isNull("token"))
+        if (json == null) ModalWindow.show("Error", "Connection problem", ModalWindow.Icon.error);
+        else if (json.isNull("token"))
             ModalWindow.show("Error", "Wrong login or password", ModalWindow.Icon.error);
         else {
             App.setJWTToken(json.getString("token"));
