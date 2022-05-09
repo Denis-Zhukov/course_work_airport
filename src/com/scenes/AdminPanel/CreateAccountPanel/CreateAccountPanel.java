@@ -23,7 +23,10 @@ public class CreateAccountPanel {
         roles = Requests.getRoles(App.getJWToken());
         if(roles != null)
         rolesCB.getItems().addAll(roles.keySet());
-        else ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
+        else {
+            ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
+            stage.close();
+        }
 
         stage.show();
     }

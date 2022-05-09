@@ -40,34 +40,7 @@ public class Requests {
         }
         return null;
     }
-    public static Map<String, Integer> getRoles(String token) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(Constants.api + "get_roles"))
-                    .setHeader("Authorization", token)
-                    .setHeader("Content-type", "application/json")
-                    .build();
 
-            HttpResponse<String> response = client.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-            var res = new JSONObject(response.body());
-            Map<String, Integer> roles = new HashMap<>();
-            for (var r : res.getJSONArray("result")) {
-                JSONObject role = ((JSONObject) r);
-                roles.put(role.getString("role"), role.getInt("id"));
-            }
-
-            return roles;
-        } catch (ConnectException e) {
-            e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Shipping problem.");
-        }
-        return null;
-    }
     public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("username", login);
@@ -113,6 +86,35 @@ public class Requests {
             System.out.println("Connection problem.");
         }
     }
+
+    public static Map<String, Integer> getRoles(String token) {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_roles"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var res = new JSONObject(response.body());
+            Map<String, Integer> roles = new HashMap<>();
+            for (var r : res.getJSONArray("result")) {
+                JSONObject role = ((JSONObject) r);
+                roles.put(role.getString("role"), role.getInt("id"));
+            }
+
+            return roles;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shipping problem.");
+        }
+        return null;
+    }
     public static void addRole(String role, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("role", role);
@@ -137,5 +139,33 @@ public class Requests {
             e.printStackTrace();
             System.out.println("Connection problem.");
         }
+    }
+
+    public static Map<String, Integer> getAccounts(String token) {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_accounts"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var res = new JSONObject(response.body());
+            Map<String, Integer> accounts = new HashMap<>();
+            for (var acc : res.getJSONArray("result")) {
+                JSONObject account = ((JSONObject) acc);
+                accounts.put(account.getString("username"), account.getInt("id"));
+            }
+            return accounts;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shipping problem.");
+        }
+        return null;
     }
 }

@@ -4,12 +4,13 @@ import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.AdminPanel.AddRolePanel.AddRolePanel;
 import com.scenes.AdminPanel.CreateAccountPanel.CreateAccountPanel;
+import com.scenes.AdminPanel.SetAccountRolePanel.SetAccountRolePanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AdminPanelController {
+public class AdminController {
     @FXML
     Button logOutBtn;
 
@@ -27,5 +28,9 @@ public class AdminPanelController {
 
     public void openAddingRoleWindow() {
         AddRolePanel.showModal();
+    }
+
+    public void openSetRoleWindow() {
+        SetAccountRolePanel.showModal();
     }
 }
