@@ -23,8 +23,10 @@ public class SetAccountRoleController {
         if (!SetAccountRolePanel.roles.containsKey(role))
             error += "Invalid account specified";
 
-        if (!error.equals(""))
+        if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
+            return;
+        }
 
         try {
             Requests.setRole(SetAccountRolePanel.accounts.get(login), SetAccountRolePanel.roles.get(role), App.getJWToken());
