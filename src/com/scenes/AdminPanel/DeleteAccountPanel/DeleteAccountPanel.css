@@ -1,8 +1,8 @@
-#root {
-    -fx-background-color: #F4F4F4;
+.label, .button, .combo-box {
+    -fx-font: 14 Tahoma, sans-serif;
 }
 
-.btn {
+.button {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-text-fill: #FFFFFF;
@@ -13,14 +13,6 @@
     -fx-font: 14 Tahoma, sans-serif;
 }
 
-.btn:hover{
+.button:hover {
     -fx-background-color: #2060D0;
-}
-
-#loginText, #roleText{
-    -fx-fill: #2871FF;
-}
-
-.text{
-    -fx-font: 14 Tahoma, sans-serif;
 }

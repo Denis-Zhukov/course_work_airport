@@ -10,7 +10,6 @@ public class AdminPanel {
     public static void openChangingScene(Stage stage) {
         FXMLLoader loader = new FXMLLoader(AdminPanel.class.getResource("AdminPanel.fxml"));
         InteractingWithWindow.changeScene(stage, loader);
-        ((Text)stage.getScene().lookup("#loginText")).setText(App.getUsername());
         stage.centerOnScreen();
     }
 }

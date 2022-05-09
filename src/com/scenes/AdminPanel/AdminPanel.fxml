@@ -1,44 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@AdminPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.AdminController">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="510.0" stylesheets="@AdminPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.AdminController">
     <children>
-        <Button fx:id="logOutBtn" layoutX="527.0" layoutY="361.0" mnemonicParsing="false" onAction="#logOut" text="Log out">
-            <font>
-                <Font name="Tahoma" size="12.0" />
-            </font>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </Button>
-      <Button onAction="#openAddingRoleWindow" layoutX="324.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Add role" />
-      <Button onAction="#openSetRoleWindow" layoutX="324.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Set account role" />
-      <Button onAction="#openCreateAccountWindow"  layoutX="324.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="btn" text="Create account" />
-      <Button onAction="#openDepriveRoleWindow" layoutX="444.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Deprive account role" />
-      <Button onAction="#openDeleteRoleWindow" layoutX="444.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete role" />
-      <Button onAction="#openDeleteAccountWindow" layoutX="444.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" styleClass="btn" text="Delete account" />
-      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login:">
-         <font>
-            <Font name="Tahoma" size="14.0" />
-         </font>
-      </Text>
-      <Text layoutX="20.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role:">
-         <font>
-            <Font name="Tahoma" size="14.0" />
-         </font>
-      </Text>
-      <Text fx:id="loginText" fill="#00aaaa" layoutX="60.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text fill="#00aaaa" layoutX="60.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Text>
+        <Text styleClass="text" layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
+        <Text styleClass="text" layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
+        <Text styleClass="text" fx:id="loginText" layoutX="60.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." />
+        <Text styleClass="text" fx:id="roleText" layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." />
+        <Text styleClass="text" layoutX="47.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
+        <Text styleClass="text" layoutX="47.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
+        <Button layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#openCreateAccountWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Create account" />
+        <Button layoutX="199.0" layoutY="59.0" mnemonicParsing="false" onAction="#openDeleteAccountWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Delete account" />
+        <Button layoutX="14.0" layoutY="99.0" mnemonicParsing="false" onAction="#openAddingRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Add role" />
+        <Button layoutX="199.0" layoutY="99.0" mnemonicParsing="false" onAction="#openDeleteRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Delete role" />
+        <Button layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#openSetRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Set account role" />
+        <Button layoutX="199.0" layoutY="139.0" mnemonicParsing="false" onAction="#openDepriveRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Deprive account role" />
+        <Button fx:id="logOutBtn" layoutX="427.0" layoutY="139.0" mnemonicParsing="false" onAction="#logOut" styleClass="btn" text="Log out" />
     </children>
 </AnchorPane>

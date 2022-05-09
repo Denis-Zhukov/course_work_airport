@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="160.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.AdminPanel.DeleteRolePanel.DeleteRoleController">
+<AnchorPane prefHeight="145.0" prefWidth="300.0" stylesheets="@DeleteRolePanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.DeleteRolePanel.DeleteRoleController">
     <children>
-        <ComboBox fx:id="rolesComboBox" editable="true" layoutX="75.0" layoutY="35.0" prefWidth="150.0"/>
-        <Button onAction="#submit" layoutX="125.0" layoutY="95.0" mnemonicParsing="false" text="Delete"/>
+        <Label layoutX="60.0" layoutY="24.0" text="Role" />
+        <ComboBox fx:id="rolesComboBox" editable="true" layoutX="60.0" layoutY="42.0" prefHeight="28.0" prefWidth="180.0" />
+        <Button layoutX="120.0" layoutY="95.0" mnemonicParsing="false" onAction="#submit" text="Delete" />
     </children>
 </AnchorPane>

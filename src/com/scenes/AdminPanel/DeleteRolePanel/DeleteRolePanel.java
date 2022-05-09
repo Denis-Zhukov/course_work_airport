@@ -1,6 +1,7 @@
 package com.scenes.AdminPanel.DeleteRolePanel;
 
 import com.App;
+import com.assets.services.AutoCompleteComboBoxListener;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.AdminPanel.DeleteAccountPanel.DeleteAccountPanel;
@@ -21,6 +22,7 @@ public class DeleteRolePanel {
         stage.centerOnScreen();
 
         ComboBox<String> rolesCB = (ComboBox)stage.getScene().lookup("#rolesComboBox");
+        new AutoCompleteComboBoxListener<>(rolesCB);
         roles = Requests.getRoles(App.getJWToken());
         if(roles != null)
             rolesCB.getItems().addAll(roles.keySet());

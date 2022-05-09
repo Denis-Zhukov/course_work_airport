@@ -1,6 +1,7 @@
 package com.scenes.AdminPanel.DeleteAccountPanel;
 
 import com.App;
+import com.assets.services.AutoCompleteComboBoxListener;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.AdminPanel.CreateAccountPanel.CreateAccountPanel;
@@ -21,6 +22,7 @@ public class DeleteAccountPanel {
         stage.centerOnScreen();
 
         ComboBox<String> accountsCB = (ComboBox)stage.getScene().lookup("#accountsComboBox");
+        new AutoCompleteComboBoxListener<>(accountsCB);
         accounts = Requests.getAccounts(App.getJWToken());
         if(accounts != null)
             accountsCB.getItems().addAll(accounts.keySet());

@@ -12,8 +12,10 @@ public class AddRoleController {
 
     public void submit() {
         String newRole = roleField.getText();
-        if (newRole.equals("") || newRole.length() > 255)
+        if (newRole.equals("") || newRole.length() > 255) {
             ModalWindow.show("Error", "Role cannot be empty or longer than 255 characters", ModalWindow.Icon.error);
+            return;
+        }
         try {
             Requests.addRole(newRole, App.getJWToken());
             ModalWindow.show("Success", "Role added", ModalWindow.Icon.success);
