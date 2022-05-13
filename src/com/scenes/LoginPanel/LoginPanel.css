@@ -1,3 +1,7 @@
+* {
+    -fx-font-family: Tahoma, sans-serif;
+}
+
 .button {
     -fx-background-color: transparent;
     -fx-border-color: #003EB7;
@@ -5,13 +9,14 @@
     -fx-background-radius: 10;
     -fx-border-width: 2;
     -fx-text-fill: white;
+    -fx-cursor: HAND;
 }
 
-.button:focused, .button:hover {
+.button:hover {
     -fx-background-color: #003EB7;
 }
 
-.field {
+.text-field, .password-field {
     -fx-background-color: transparent;
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: #003EB7;
@@ -19,5 +24,4 @@
     -fx-font: 14 Tahoma;
     -fx-text-fill: white;
     -fx-padding: 5 0;
-    -fx-hgap: 0;
 }

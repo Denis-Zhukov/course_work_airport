@@ -15,7 +15,7 @@ public class InteractingWithWindow {
         try {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
             System.out.println(String.format("Error loading %s: ", loader.getLocation()) + e.getMessage());
         }
@@ -27,11 +27,16 @@ public class InteractingWithWindow {
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);
+
             Image icon = new Image(Objects.requireNonNull(InteractingWithWindow.class.getResourceAsStream("/com/assets/images/icon.png")));
             stage.getIcons().add(icon);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            System.out.println(String.format("Error loading %s: ", loader.getLocation()) + e.getMessage());
+            //Logger!!
         }
+    }
+
+    public static void showModal(FXMLLoader loader) throws ResourceLoadingException {
+        showModal(new Stage(), loader);
     }
 }

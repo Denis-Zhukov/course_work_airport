@@ -1,8 +1,8 @@
-.label,.button, .text-field{
+* {
     -fx-font: 14 Tahoma, sans-serif;
 }
 
-.text-field{
+.text-field {
     -fx-background-color: transparent;
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: #003EB7;

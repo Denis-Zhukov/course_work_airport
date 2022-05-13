@@ -8,25 +8,20 @@
 <HBox fx:controller="com.AppController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" stylesheets="@App.css"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <ImageView onMouseClicked="#openCustomerPanel" fitHeight="550.0" fitWidth="400.0" pickOnBounds="true">
-            <image>
-                <Image url="@assets/images/Enter/customer_panel.png"/>
-            </image>
-            <cursor>
-                <Cursor fx:constant="HAND"/>
-            </cursor>
-        </ImageView>
-        <ImageView fx:id="loginPanel" onMouseClicked="#openLoginPanel"  fitHeight="550.0" fitWidth="400.0" pickOnBounds="true">
-            <image>
-                <Image url="@assets/images/Enter/login_panel.png"/>
-            </image>
-            <viewport>
-                <Rectangle2D/>
-            </viewport>
-            <cursor>
-                <Cursor fx:constant="HAND"/>
-            </cursor>
-        </ImageView>
-    </children>
+    <ImageView onMouseClicked="#openCustomerPanel" fitHeight="550.0" fitWidth="400.0" pickOnBounds="true">
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+        <Image url="@assets/images/Enter/customer_panel.png"/>
+    </ImageView>
+    <ImageView fx:id="loginPanel" onMouseClicked="#openLoginPanel" fitHeight="550.0" fitWidth="400.0"
+               pickOnBounds="true">
+        <viewport>
+            <Rectangle2D/>
+        </viewport>
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+        <Image url="@assets/images/Enter/login_panel.png"/>
+    </ImageView>
 </HBox>

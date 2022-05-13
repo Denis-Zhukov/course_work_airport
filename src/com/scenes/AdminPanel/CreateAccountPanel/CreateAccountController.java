@@ -7,7 +7,6 @@ import com.assets.services.Constants;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 public class CreateAccountController {
@@ -17,8 +16,6 @@ public class CreateAccountController {
     LengthLimitedTextField loginField;
     @FXML
     LengthLimitedPasswordField passwordField;
-    @FXML
-    Button submitBtn;
 
 
     public void submit() {
@@ -26,6 +23,7 @@ public class CreateAccountController {
         String password = passwordField.getText();
         String role = rolesComboBox.getValue();
 
+        //Validation data
         String error = "";
         if (!Constants.regexLogin.matcher(login).find())
             error += "Invalid login\n";
@@ -39,8 +37,9 @@ public class CreateAccountController {
             return;
         }
 
+        //API Request
         try {
-            Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getJWToken());
+            Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getAccessToken());
             ModalWindow.show("Success", "Account added", ModalWindow.Icon.success);
         } catch (Exception e){
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);

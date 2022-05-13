@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="510.0" stylesheets="@AdminPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.AdminController">
-    <children>
-        <Text styleClass="text" layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" />
-        <Text styleClass="text" layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
-        <Text styleClass="text" fx:id="loginText" layoutX="60.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." />
-        <Text styleClass="text" fx:id="roleText" layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." />
-        <Text styleClass="text" layoutX="47.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
-        <Text styleClass="text" layoutX="47.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
-        <Button layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#openCreateAccountWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Create account" />
-        <Button layoutX="199.0" layoutY="59.0" mnemonicParsing="false" onAction="#openDeleteAccountWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Delete account" />
-        <Button layoutX="14.0" layoutY="99.0" mnemonicParsing="false" onAction="#openAddingRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Add role" />
-        <Button layoutX="199.0" layoutY="99.0" mnemonicParsing="false" onAction="#openDeleteRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Delete role" />
-        <Button layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#openSetRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Set account role" />
-        <Button layoutX="199.0" layoutY="139.0" mnemonicParsing="false" onAction="#openDepriveRoleWindow" prefHeight="32.0" prefWidth="170.0" styleClass="btn" text="Deprive account role" />
-        <Button fx:id="logOutBtn" layoutX="427.0" layoutY="139.0" mnemonicParsing="false" onAction="#logOut" styleClass="btn" text="Log out" />
-    </children>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0"
+            prefWidth="554.0" stylesheets="@AdminPanel.css" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.AdminController">
+    <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Login"/>
+    <Text layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Role"/>
+    <Text fx:id="loginText" layoutX="60.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+          text="..."/>
+    <Text fx:id="roleText" layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+          text="..."/>
+    <Text layoutX="47.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
+    <Text layoutX="47.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
+    <Button layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#openCreateAccountWindow"
+            prefHeight="32.0" prefWidth="170.0" text="Create account"/>
+    <Button layoutX="14.0" layoutY="99.0" mnemonicParsing="false" onAction="#openDeleteAccountWindow"
+            prefHeight="32.0" prefWidth="170.0" text="Delete account"/>
+    <Button layoutX="14.0" layoutY="139.0" minHeight="30.0" mnemonicParsing="false"
+            onAction="#openChangeAccountWindow" prefWidth="170.0" text="Change account"/>
+    <Button layoutX="192.0" layoutY="59.0" mnemonicParsing="false" onAction="#openAddingRoleWindow"
+            prefHeight="32.0" prefWidth="170.0" text="Add role"/>
+    <Button layoutX="192.0" layoutY="99.0" mnemonicParsing="false" onAction="#openDeleteRoleWindow"
+            prefHeight="32.0" prefWidth="170.0" text="Delete role"/>
+    <Button layoutX="370.0" layoutY="59.0" mnemonicParsing="false" onAction="#openSetRoleWindow" prefHeight="32.0"
+            prefWidth="170.0" text="Set account role"/>
+    <Button layoutX="370.0" layoutY="99.0" mnemonicParsing="false" onAction="#openDepriveRoleWindow"
+            prefHeight="32.0" prefWidth="170.0" text="Deprive account role"/>
+    <Button layoutX="469.0" layoutY="178.0" mnemonicParsing="false" onAction="#logOut"
+            prefHeight="31.0" prefWidth="70.0" text="Log out"/>
 </AnchorPane>

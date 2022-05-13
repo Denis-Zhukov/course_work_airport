@@ -8,16 +8,15 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Objects.isNull;
-
 public class Requests {
-    public static JSONObject getJWTToken(String login, String password) {
+    public static JSONObject getJWTToken(String login, String password) throws NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("username", login);
-            put("hashPassword", PasswordHashing.hash(password));
+            put("hashPassword", Security.hash(password));
         }};
 
         try {
@@ -28,22 +27,19 @@ public class Requests {
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .setHeader("Content-type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
                     .build();
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            return new JSONObject(response.body());
+            return new JSONObject(response.body()).put("statusServer", response.statusCode());
         } catch (ConnectException e) {
-            e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Shipping problem.");
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (InterruptedException | IOException e) {
+            throw new NoServerResponseException(e, "Server not responding");
         }
-        return null;
     }
-
 
     public static Map<String, Integer> getRoles(String token) {
         try {
@@ -64,6 +60,40 @@ public class Requests {
             }
 
             return roles;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shipping problem.");
+        }
+        return null;
+    }
+
+    public static String getRole(Integer id_account, String token) {
+        JSONObject json = new JSONObject() {{
+            put("id_account", id_account);
+        }};
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_role"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var res = new JSONObject(response.body());
+            Map<String, Integer> roles = new HashMap<>();
+            for (var r : res.getJSONArray("result")) {
+                JSONObject role = ((JSONObject) r);
+                return role.getString("role");
+            }
+
         } catch (ConnectException e) {
             e.printStackTrace();
             System.out.println("Connection problem.");
@@ -131,7 +161,7 @@ public class Requests {
     public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("username", login);
-            put("hashPassword", PasswordHashing.hash(password));
+            put("hashPassword", Security.hash(password));
         }};
 
         try {
@@ -268,6 +298,37 @@ public class Requests {
         } catch (ConnectException e) {
             e.printStackTrace();
             System.out.println("Connection problem.");
+        }
+    }
+
+    public static void updateAccount(Integer id_account, String newUsername, String newPassword, Integer newId_Role, String token) {
+        JSONObject json = new JSONObject() {{
+            put("id_account", id_account);
+            put("id_role", newId_Role);
+            put("newUsername", newUsername);
+            put("newHashPassword", newPassword.equals("") ? "" : Security.hash(newPassword));
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "update_account"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var queryResponse = new JSONObject(response.body());
+            if (queryResponse.isNull("accounts") || queryResponse.getJSONObject("accounts").getInt("affectedRows") == 0)
+                throw new Exception("No updates rows");
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

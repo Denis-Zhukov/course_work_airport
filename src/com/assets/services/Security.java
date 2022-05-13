@@ -6,13 +6,14 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class PasswordHashing {
+public class Security {
     public static String hash(String password) {
         StringBuilder result = new StringBuilder();
         try {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
             char[] passwordBytes = password.toCharArray();
 
+            //!!! Сделать хеширование и на сервере!!! Соль только на клиенте не безопасна
             String salt = "salt";
             byte[] saltBytes = salt.getBytes();
 

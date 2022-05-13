@@ -3,24 +3,20 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import com.assets.components.LengthLimitedPasswordField?>
 <?import com.assets.components.LengthLimitedTextField?>
-<AnchorPane prefHeight="200.0" prefWidth="375.0" stylesheets="@CreateAccountPanel.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+<?import com.assets.components.LengthLimitedPasswordField?>
+<AnchorPane prefHeight="303.0" prefWidth="260.0" stylesheets="@CreateAccountPanel.css"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.scenes.AdminPanel.CreateAccountPanel.CreateAccountController">
-    <children>
-        <Label layoutX="45.0" layoutY="26.0" text="Username:"/>
-        <LengthLimitedTextField fx:id="loginField" layoutX="113.0" layoutY="22.0" prefWidth="150.0" maxCharacters="32"/>
-        <Label layoutX="47.0" layoutY="66.0" text="Password:"/>
-        <LengthLimitedPasswordField fx:id="passwordField" layoutX="113.0" layoutY="62.0" prefWidth="150.0"
-                                    maxCharacters="32"/>
-        <Label layoutX="79.0" layoutY="106.0" text="Role:"/>
-        <ComboBox fx:id="rolesComboBox" layoutX="113.0" layoutY="100.0" prefWidth="150.0"/>
-        <Button fx:id="submitBtn" layoutX="146.0" layoutY="148.0" mnemonicParsing="false" onAction="#submit"
-                text="Add account"/>
-    </children>
+    <Label layoutX="55.0" layoutY="30.0" text="Username:"/>
+    <LengthLimitedTextField fx:id="loginField" layoutX="55.0" layoutY="49.0" prefHeight="26.0" prefWidth="150.0"
+                            maxCharacters="32"/>
+    <Label layoutX="55.0" layoutY="102.0" text="Password:"/>
+    <LengthLimitedPasswordField fx:id="passwordField" layoutX="55.0" layoutY="121.0" prefWidth="150.0"
+                                maxCharacters="32"/>
+    <Label layoutX="55.0" layoutY="174.0" text="Role:"/>
+    <ComboBox fx:id="rolesComboBox" depthTest="ENABLE" layoutX="55.0" layoutY="192.0" prefWidth="150.0"/>
+    <Button layoutX="84.0" layoutY="241.0" mnemonicParsing="false" onAction="#submit" text="Add account"/>
 </AnchorPane>

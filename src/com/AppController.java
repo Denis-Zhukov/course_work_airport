@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class AppController {
     @FXML
-    ImageView loginPanel;
+    private ImageView loginPanel;
 
     public void openLoginPanel() {
         LoginPanel.openChangingScene((Stage) loginPanel.getScene().getWindow());
