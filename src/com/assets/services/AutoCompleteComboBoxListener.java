@@ -19,6 +19,7 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
         this.comboBox = comboBox;
         sb = new StringBuilder();
         data = comboBox.getItems();
+        comboBox.setEditable(true);
         this.comboBox.setOnKeyPressed(t -> comboBox.hide());
         this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
     }

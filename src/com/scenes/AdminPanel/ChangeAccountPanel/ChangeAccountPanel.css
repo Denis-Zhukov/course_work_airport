@@ -2,6 +2,17 @@
     -fx-font: 14 Tahoma, sans-serif;
 }
 
+.field {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #003EB7;
+    -fx-border-width: 2;
+    -fx-font: 14 Tahoma;
+    -fx-text-fill: black;
+    -fx-padding: 5 0;
+    -fx-hgap: 0;
+}
+
 .button {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
@@ -17,17 +28,6 @@
     -fx-background-color: #2060D0;
 }
 
-.text-field, .password-field {
-    -fx-background-color: transparent;
-    -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #003EB7;
-    -fx-border-width: 2;
-    -fx-font: 14 Tahoma;
-    -fx-padding: 2 0;
-    -fx-text-fill: black;
-    -fx-hgap: 0;
-}
-
 .combo-box{
     -fx-background-color: transparent;
     -fx-border-style: hidden hidden solid hidden;
@@ -37,4 +37,15 @@
     -fx-padding: 0 0 -3 0;
     -fx-text-fill: black;
     -fx-hgap: 0;
+}
+
+.combo-box>.text-field{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-hgap: 0;
+}
+
+.arrow-button{
+    -fx-background-color: transparent;
+    -fx-border-style: hidden;
 }

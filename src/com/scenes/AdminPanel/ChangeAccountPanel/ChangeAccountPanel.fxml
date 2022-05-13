@@ -16,9 +16,9 @@
               prefHeight="26.0"
               prefWidth="150.0"/>
     <Label layoutX="65.0" layoutY="86.0" text="New username"/>
-    <LengthLimitedTextField fx:id="loginField" layoutX="65.0" layoutY="105.0" prefWidth="150.0" maxCharacters="32"/>
+    <LengthLimitedTextField styleClass="field" fx:id="loginField" layoutX="65.0" layoutY="105.0" prefWidth="150.0" maxCharacters="32"/>
     <Label layoutX="65.0" layoutY="151.0" text="New password"/>
-    <LengthLimitedPasswordField fx:id="passwordField" layoutX="65.0" layoutY="169.0" prefWidth="150.0"
+    <LengthLimitedPasswordField styleClass="field" fx:id="passwordField" layoutX="65.0" layoutY="169.0" prefWidth="150.0"
                                 maxCharacters="32"/>
     <Label layoutX="65.0" layoutY="215.0" text="New role"/>
     <ComboBox fx:id="newRoleComboBox" depthTest="ENABLE" layoutX="65.0" layoutY="234.0" prefWidth="150.0"/>

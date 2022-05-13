@@ -60,7 +60,13 @@ public class ChangeAccountController {
 
     public void preloadAccount() {
         loginField.setText(usernameComboBox.getValue());
-        String role = Requests.getRole(ChangeAccountPanel.accounts.get(usernameComboBox.getValue()), App.getAccessToken());
-        newRoleComboBox.setValue(role);
+        String username = usernameComboBox.getValue();
+        if (username != null && !username.equals("")) {
+            if(!ChangeAccountPanel.accounts.containsKey(usernameComboBox.getValue()))
+                return;
+
+            String role = Requests.getRole(ChangeAccountPanel.accounts.get(usernameComboBox.getValue()), App.getAccessToken());
+            newRoleComboBox.setValue(role);
+        }
     }
 }
