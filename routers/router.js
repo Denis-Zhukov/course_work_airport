@@ -20,11 +20,14 @@ router.post("/add_account", authMiddleware, controller.addAccount);
 router.post("/set_role", authMiddleware, controller.setRole);
 
 router.get("/get_roles", authMiddleware, controller.getRoles);
+router.post("/get_role", authMiddleware, controller.getRole);
 router.get("/get_accounts", authMiddleware, controller.getAccounts);
 
 router.delete("/delete_account/:id", authMiddleware, controller.deleteAccount)
 router.delete("/deprive_role/:id_account", authMiddleware, controller.depriveRole)
 router.delete("/delete_role/:id_role", authMiddleware, controller.deleteRole)
+
+router.post("/update_account", authMiddleware, controller.updateAccount)
 
 
 

@@ -69,23 +69,23 @@ class controller {
         const {id, id_class, count_rows, count_cols} = req.body;
         const tableName = "seating_layouts";
 
-        if( !validRoles.includes(req.user.role) )
+        if (!validRoles.includes(req.user.role))
             return res.status(403).json({message: "User have no permission"});
 
-        if( !id || !id_class || !count_rows || !count_cols )
+        if (!id || !id_class || !count_rows || !count_cols)
             return res.status(400)
                 .json({message: `Something is missing: id, id_class, count_rows, count_cols`});
 
         try {
             const connection = await mysql.createConnection(databaseConfig);
             await connection.connect(err => {
-                if( err ) return res.status(500).json({message: "Connection problem", ...err});
+                if (err) return res.status(500).json({message: "Connection problem", ...err});
             });
 
 
             let query = `SELECT COUNT(*) as count FROM \`seating_layouts\` WHERE id=${id} AND id_class=${id_class}`;
             let [[{count}]] = await connection.query(query);
-            if( count > 0 )
+            if (count > 0)
                 return res.status(400).json({message: "This seating layout already exists."});
 
             query = `INSERT INTO \`${tableName}\` (\`id\`, \`id_class\`, \`count_rows\`, \`count_cols\`) VALUES (?, ?, ?, ?)`;
@@ -93,7 +93,7 @@ class controller {
 
             connection.end();
             return res.json(result);
-        } catch(e) {
+        } catch (e) {
             return res.status(500).json(e);
         }
     }
@@ -134,29 +134,29 @@ class controller {
         const {username, hashPassword} = req.body;
         const tableName = "accounts";
 
-        if( !validRoles.includes(req.user.role) )
+        if (!validRoles.includes(req.user.role))
             return res.status(403).json({message: "User have no permission"});
 
-        if( !username || !hashPassword || hashPassword.length != 128 )
+        if (!username || !hashPassword || hashPassword.length != 128)
             return res.status(400)
                 .json({message: `Something is missing: username, hashPassword or uncorrect hashPassword`});
 
         try {
             const connection = await mysql.createConnection(databaseConfig);
             await connection.connect(err => {
-                if( err ) res.status(500).json({message: "Connection problem", ...err});
+                if (err) res.status(500).json({message: "Connection problem", ...err});
             });
 
             let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE  \`username\`=?`;
             let [result] = await connection.query(query, [username]);
-            if( result[0].count > 0 ) return res.status(400).json({message: "This account already exists."});
+            if (result[0].count > 0) return res.status(400).json({message: "This account already exists."});
 
             query = `INSERT INTO \`accounts\` (\`username\`, \`hashPassword\`) VALUES (?, ?)`;
             [result] = await connection.query(query, [username, hashPassword]);
 
             connection.end();
             return res.json(result);
-        } catch(e) {
+        } catch (e) {
             return res.status(500).json(e);
         }
     }
@@ -166,27 +166,27 @@ class controller {
         const {id_account, id_role} = req.body;
         const tableName = "accounts_roles";
 
-        if( !validRoles.includes(req.user.role) )
+        if (!validRoles.includes(req.user.role))
             return res.status(403).json({message: "User have no permission"});
 
-        if( !id_account || !id_role )
+        if (!id_account || !id_role)
             return res.status(400).json({message: `Something is missing: id_account, id_role.`});
 
         try {
             const connection = await mysql.createConnection(databaseConfig);
             await connection.connect(err => {
-                if( err ) res.status(500).json({message: "Connection problem", ...err});
+                if (err) res.status(500).json({message: "Connection problem", ...err});
             });
 
             let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE  \`id_account\`=?`;
             let [result] = await connection.query(query, [id_account]);
-            if( result[0].count > 0 ) query = "UPDATE `accounts_roles` SET `id_role` = ? WHERE `id_account` = ?";
+            if (result[0].count > 0) query = "UPDATE `accounts_roles` SET `id_role` = ? WHERE `id_account` = ?";
             else query = "INSERT INTO `accounts_roles` (`id_role`, `id_account`) VALUES (?, ?)";
 
             [result] = await connection.query(query, [id_role, id_account]);
             connection.end();
             return res.json(result);
-        } catch(e) {
+        } catch (e) {
             return res.status(500).json(e);
         }
     }
@@ -196,6 +196,15 @@ class controller {
             ["admin"],
             "roles",
             ["*"],
+        );
+    }
+
+    async getRole(req, res) {
+        await getPrototype(req, res,
+            ["admin"],
+            "`accounts_roles` JOIN roles",
+            ["role"],
+            ["id_account"]
         );
     }
 
@@ -215,6 +224,7 @@ class controller {
             ["id"],
         );
     }
+
     async depriveRole(req, res) {
         await deletePrototype(req, res,
             ["admin"],
@@ -223,7 +233,8 @@ class controller {
             ["id_account"],
         );
     }
-    async deleteRole(req, res){
+
+    async deleteRole(req, res) {
         await deletePrototype(req, res,
             ["admin"],
             ["id_role"],
@@ -231,27 +242,68 @@ class controller {
             ["id"],
         );
     }
+
+    async updateAccount(req, res) {
+        const validRoles = ["admin"];
+        const fieldNames = ["id_account", "id_role", "newUsername", "newHashPassword"];
+        const accountsRolesTable = "accounts_roles";
+        const accountsTable = "accounts";
+
+        if (!validRoles.includes(req.user.role))
+            return res.status(403).json({message: "User have no permission"});
+
+        const values = fieldNames.map(fieldName => req.body[fieldName]);
+
+        if (values.some((field, i) => !field && i !== 3))
+            return res.status(400).json({message: `Something is missing: ${fieldNames.join(", ")} or newValues`});
+
+        try {
+            const connection = await mysql.createConnection(databaseConfig);
+            await connection.connect(err => {
+                if (err) res.status(500).json({message: "Connection problem", ...err});
+            });
+
+            let query = `SELECT COUNT(*) as count FROM ${accountsTable} WHERE \`id\`=?`;
+            let [result] = await connection.execute(query, [values[0]]);
+            if (result?.[0]?.count === 0)
+                return res.status(410).json({message: "No account to update"});
+
+
+            query = `UPDATE ${accountsTable} SET \`username\`=?${values[3]!==""?',\`hashPassword\`=?':""} WHERE \`id\`=?`;
+            let updatedValues = [values[2], values[0]];
+            if (values[3] !== "") updatedValues.splice(1, 0, values[3]);
+            let [firstResult] = await connection.execute(query, updatedValues);
+
+            query = `UPDATE ${accountsRolesTable} SET \`id_role\`=? WHERE \`id_account\`=?`;
+            [result] = await connection.execute(query, [values[1], values[0]]);
+
+            connection.end();
+            return res.json({accounts: firstResult, roles: result});
+        } catch (e) {
+            return res.status(500).json(e);
+        }
+    }
 }
 
 async function addPrototype(req, res, validRoles, fieldNames, tableName, tableFields, mustBeUniq, nonUniqueError) {
-    if( !validRoles.includes(req.user.role) )
+    if (!validRoles.includes(req.user.role))
         return res.status(403).json({message: "User have no permission"});
 
     const values = fieldNames.map(fieldName => req.body[fieldName]);
 
-    if( values.some(field => !field) )
+    if (values.some(field => !field))
         return res.status(400).json({message: `Something is missing: ${fieldNames.join(", ")}`});
 
     try {
         const connection = await mysql.createConnection(databaseConfig);
         await connection.connect(err => {
-            if( err ) res.status(500).json({message: "Connection problem", ...err});
+            if (err) res.status(500).json({message: "Connection problem", ...err});
         });
 
-        if( mustBeUniq ) {
-            let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
+        if (mustBeUniq) {
+            let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field => `\`${field}\``).join("=? AND ") + "=?"}`;
             let [result] = await connection.query(query, values);
-            if( result[0].count > 0 ) return res.status(400).json({message: nonUniqueError});
+            if (result[0].count > 0) return res.status(400).json({message: nonUniqueError});
         }
 
         let query = `INSERT INTO \`${tableName}\` (${tableFields.map(field=>"`"+field+"`").join(", ")}) VALUES (${"?".repeat(tableFields.length).split("").join(", ")})`;
@@ -259,56 +311,65 @@ async function addPrototype(req, res, validRoles, fieldNames, tableName, tableFi
 
         connection.end();
         return res.json(result);
-    } catch(e) {
+    } catch (e) {
         return res.status(500).json(e);
     }
 }
 
-async function getPrototype(req, res, validRoles, tableName, tableFields) {
-    if( !validRoles.includes(req.user.role) )
+async function getPrototype(req, res, validRoles, tableName, tableFields, whereFields = []) {
+    if (!validRoles.includes(req.user.role))
         return res.status(403).json({message: "User have no permission"});
+
+    let valuesConditions = whereFields.map(field => req.body[field]);
+    if (valuesConditions.some(field => !field))
+        return res.status(400).json({message: `Something is missing: ${whereFields.join(", ")}`});
 
     try {
         const connection = await mysql.createConnection(databaseConfig);
         await connection.connect(err => {
-            if( err ) res.status(500).json({message: "Connection problem", ...err});
+            if (err) res.status(500).json({message: "Connection problem", ...err});
         });
 
-        let query = `SELECT ${tableFields.map(field=>"\`"+field+"\`").join(", ")} FROM \`${tableName}\``;
-        let [result] = await connection.execute(query);
+        let query = `SELECT ${tableFields.map(field=>"\`"+field+"\`").join(", ")} FROM (${tableName})
+        ${whereFields.length > 0 ? "WHERE"+whereFields.map(field=>'`'+field+'`=? ').join("") : "" }`;
+        let [result] = await connection.execute(query, valuesConditions);
         connection.end();
         return res.json({result});
-    } catch(e) {
+    } catch (e) {
         return res.status(500).json(e);
     }
 }
 
 async function deletePrototype(req, res, validRoles, paramsNames, tableName, tableFields) {
-    if( !validRoles.includes(req.user.role) )
+    if (!validRoles.includes(req.user.role))
         return res.status(403).json({message: "User have no permission"});
 
     const values = paramsNames.map(fieldName => req.params[fieldName]);
 
-    if( values.some(field => !field) )
+    if (values.some(field => !field))
         return res.status(400).json({message: `Something is missing: ${paramsNames.join(", ")}`});
 
     try {
         const connection = await mysql.createConnection(databaseConfig);
         await connection.connect(err => {
-            if( err ) res.status(500).json({message: "Connection problem", ...err});
+            if (err) res.status(500).json({message: "Connection problem", ...err});
         });
 
         let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
         let [result] = await connection.query(query, values);
-        if( result[0].count == 0 ) return res.status(400).json({message: "This entry does not exist"});
+        if (result[0].count == 0) return res.status(400).json({message: "This entry does not exist"});
 
         query = `DELETE FROM ${tableName} WHERE ${tableFields.map(field=>"\`"+field+"\`=?").join(" AND ")}`;
         [result] = await connection.execute(query, values);
         connection.end();
         return res.json({result});
-    } catch(e) {
+    } catch (e) {
         return res.status(500).json(e);
     }
+}
+
+async function updatePrototype(req, res, validRoles, fieldNames, tableName, updatableFields, conditionFields) {
+
 }
 
 export default new controller();

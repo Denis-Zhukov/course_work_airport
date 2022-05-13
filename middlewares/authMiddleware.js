@@ -10,13 +10,13 @@ export default function(req, res, next) {
     try {
         const token = req.header("authorization");
         if( !token )
-            return res.status(403).json({message: "User not authorized"});
+            return res.status(401).json({message: "User not authorized"});
 
         const account = jwt.verify(token, privateKey, null, null);
         req.user = account;
         next();
     } catch(e) {
         console.log(e);
-        return res.status(403).json({message: "User not authorized"});
+        return res.status(401).json({message: "User not authorized. Token is deprecated"});
     }
 };
