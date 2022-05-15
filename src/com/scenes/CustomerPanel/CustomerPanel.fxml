@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:controller="com.scenes.CustomerPanel.CustomerController" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.CustomerPanel.CustomerController">
     <children>
-        <Button fx:id="backBtn" onAction="#backToEnter" layoutX="545.0" layoutY="363.0" mnemonicParsing="false" text="Back">
+        <Button fx:id="backBtn" layoutX="545.0" layoutY="363.0" mnemonicParsing="false" onAction="#backToEnter" text="Back">
             <font>
-                <Font name="Tahoma" size="12.0"/>
+                <Font name="Tahoma" size="12.0" />
             </font>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
+      <ComboBox layoutX="14.0" layoutY="31.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="14.0" text="Label" />
+      <ComboBox layoutX="265.0" layoutY="31.0" prefWidth="150.0" />
+      <Label layoutX="265.0" layoutY="14.0" text="Label" />
+      <TableView layoutX="14.0" layoutY="62.0" prefHeight="290.0" prefWidth="580.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
     </children>
 </AnchorPane>
