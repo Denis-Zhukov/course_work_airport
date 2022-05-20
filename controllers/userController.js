@@ -30,7 +30,6 @@ class userController {
                                     LIMIT 1`;
 
             const [payload] = await connection.execute(query, [username, hashPassword]);
-            console.log([username, hashPassword, query])
             connection.end();
             if (!payload?.[0]) return res.status(400).json({message: "Wrong login or passowrd"});
             const token = generateAccessToken(payload[0]);

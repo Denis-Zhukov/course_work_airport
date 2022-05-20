@@ -29,6 +29,11 @@ router.delete("/delete_role/:id_role", authMiddleware, controller.deleteRole)
 
 router.post("/update_account", authMiddleware, controller.updateAccount)
 
+router.get("/get_seating_layouts", authMiddleware, controller.getSeatingLayouts)
+router.post("/get_seating_layout", authMiddleware, controller.getSeatingLayout)
+
+router.get("/get_new_seating_layout", authMiddleware, controller.getNewSeatingLayout)
+
 
 
 export default router;

@@ -56,7 +56,7 @@ class controller {
 
     async addPlane(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "maintenance dispatcher"],
             ["id_seating_layout", "plane", "number"],
             "planes",
             ["id_seating_layout", "name", "number"],
@@ -65,7 +65,7 @@ class controller {
     }
 
     async addSeatingLayout(req, res) {
-        const validRoles = ["admin"];
+        const validRoles = ["admin", "maintenance dispatcher"];
         const {id, id_class, count_rows, count_cols} = req.body;
         const tableName = "seating_layouts";
 
@@ -182,12 +182,11 @@ class controller {
             let [result] = await connection.query(query, [id_account]);
             if (result[0].count > 0) query = "UPDATE `accounts_roles` SET `id_role` = ? WHERE `id_account` = ?";
             else query = "INSERT INTO `accounts_roles` (`id_role`, `id_account`) VALUES (?, ?)";
-
             [result] = await connection.query(query, [id_role, id_account]);
             connection.end();
-            return res.json(result);
+            return res.status(200).json(result);
         } catch (e) {
-            return res.status(500).json(e);
+            return res.status(500).json({message: "fatal server error", ...e});
         }
     }
 
@@ -202,7 +201,7 @@ class controller {
     async getRole(req, res) {
         await getPrototype(req, res,
             ["admin"],
-            "`accounts_roles` JOIN roles",
+            "(`accounts_roles` JOIN roles ON `accounts_roles`.`id_role` = roles.id)",
             ["role"],
             ["id_account"]
         );
@@ -254,9 +253,8 @@ class controller {
 
         const values = fieldNames.map(fieldName => req.body[fieldName]);
 
-        if (values.some((field, i) => !field && i !== 3))
+        if (values.some((val, i) => !val && i !== 3))
             return res.status(400).json({message: `Something is missing: ${fieldNames.join(", ")} or newValues`});
-
         try {
             const connection = await mysql.createConnection(databaseConfig);
             await connection.connect(err => {
@@ -265,6 +263,7 @@ class controller {
 
             let query = `SELECT COUNT(*) as count FROM ${accountsTable} WHERE \`id\`=?`;
             let [result] = await connection.execute(query, [values[0]]);
+
             if (result?.[0]?.count === 0)
                 return res.status(410).json({message: "No account to update"});
 
@@ -278,10 +277,56 @@ class controller {
             [result] = await connection.execute(query, [values[1], values[0]]);
 
             connection.end();
-            return res.json({accounts: firstResult, roles: result});
+            return await new controller().setRole(req, res);
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({message: "fatal server error", ...e});
+        }
+    }
+
+    //SELECT DISTINCT `id` FROM `seating_layouts`
+    async getSeatingLayouts(req, res) {
+        await getPrototype(req, res,
+            ["admin", "maintenance dispatcher"],
+            "seating_layouts",
+            ["id"],
+            [],
+            true
+        )
+    }
+
+//SELECT name as class,`count_rows`,`count_cols` FROM (seating_layouts JOIN classes ON seating_layouts.`id_class`=classes.id )
+    async getSeatingLayout(req, res) {
+        let validRoles = ["admin", "maintenance dispatcher"];
+        let valuesFields = ["id"];
+
+        if (!validRoles.includes(req.user.role))
+            return res.status(403).json({message: "User have no permission"});
+
+        let valuesConditions = valuesFields.map(field => req.body[field]);
+
+        try {
+            const connection = await mysql.createConnection(databaseConfig);
+            await connection.connect(err => {
+                if (err) res.status(500).json({message: "Connection problem", ...err});
+            });
+
+            let query = `SELECT name as class,\`count_rows\`,\`count_cols\` FROM (seating_layouts JOIN classes ON seating_layouts.\`id_class\`=classes.id) WHERE seating_layouts.id=?`;
+            let [result] = await connection.execute(query, valuesConditions);
+            connection.end();
+            return res.json({result});
         } catch (e) {
             return res.status(500).json(e);
         }
+    }
+
+    async getNewSeatingLayout(req, res) {
+        getPrototype(req, res,
+            ["admin", "maintenance dispatcher"],
+            "seating_layouts",
+            ["(MAX(`id`)+1) as id"],
+            [],
+        );
     }
 }
 
@@ -316,7 +361,7 @@ async function addPrototype(req, res, validRoles, fieldNames, tableName, tableFi
     }
 }
 
-async function getPrototype(req, res, validRoles, tableName, tableFields, whereFields = []) {
+async function getPrototype(req, res, validRoles, tableName, tableFields, whereFields = [], distinct = false) {
     if (!validRoles.includes(req.user.role))
         return res.status(403).json({message: "User have no permission"});
 
@@ -330,7 +375,7 @@ async function getPrototype(req, res, validRoles, tableName, tableFields, whereF
             if (err) res.status(500).json({message: "Connection problem", ...err});
         });
 
-        let query = `SELECT ${tableFields.map(field=>"\`"+field+"\`").join(", ")} FROM (${tableName})
+        let query = `SELECT ${distinct ? "DISTINCT":""} ${tableFields.join(", ")} FROM (${tableName})
         ${whereFields.length > 0 ? "WHERE"+whereFields.map(field=>'`'+field+'`=? ').join("") : "" }`;
         let [result] = await connection.execute(query, valuesConditions);
         connection.end();
@@ -357,7 +402,7 @@ async function deletePrototype(req, res, validRoles, paramsNames, tableName, tab
 
         let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
         let [result] = await connection.query(query, values);
-        if (result[0].count == 0) return res.status(400).json({message: "This entry does not exist"});
+        if (result[0].count === 0) return res.status(400).json({message: "This entry does not exist"});
 
         query = `DELETE FROM ${tableName} WHERE ${tableFields.map(field=>"\`"+field+"\`=?").join(" AND ")}`;
         [result] = await connection.execute(query, values);
@@ -369,7 +414,6 @@ async function deletePrototype(req, res, validRoles, paramsNames, tableName, tab
 }
 
 async function updatePrototype(req, res, validRoles, fieldNames, tableName, updatableFields, conditionFields) {
-
 }
 
 export default new controller();
