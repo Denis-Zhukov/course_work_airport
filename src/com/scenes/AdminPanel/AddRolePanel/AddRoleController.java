@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 
 public class AddRoleController {
     @FXML
-    TextField roleField;
+    private TextField roleField;
 
     public void submit() {
         String newRole = roleField.getText();
@@ -23,6 +23,7 @@ public class AddRoleController {
         try {
             Requests.addRole(newRole, App.getAccessToken());
             ModalWindow.show("Success", "Role added", ModalWindow.Icon.success);
+            roleField.setText("");
         } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

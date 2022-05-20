@@ -25,6 +25,7 @@ public class DepriveRoleController {
             accountsComboBox.getItems().remove(username);
             DepriveRolePanel.accounts.remove(username);
             ModalWindow.show("Success", "Account deprived role", ModalWindow.Icon.success);
+            accountsComboBox.setValue(null);
         } catch (Exception e){
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

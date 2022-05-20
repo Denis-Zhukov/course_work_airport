@@ -64,7 +64,7 @@ public class LoginController {
                 if (Constants.scenesByRoles.containsKey(App.getRole()))
                     Constants.scenesByRoles.get(App.getRole()).accept(stage);
                 else
-                    ModalWindow.show("Error", "Authorization completed successfully.\nBut the " + App.getRole() + " role has no window to display\n", ModalWindow.Icon.error);
+                    ModalWindow.show("Error", "Authorization completed successfully.\nBut the " + App.getRole() + " role has no window to display.\nYou may have an outdated version of the program.\n", ModalWindow.Icon.error);
             }
         }
     }

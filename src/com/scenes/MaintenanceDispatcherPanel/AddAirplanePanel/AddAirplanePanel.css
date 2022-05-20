@@ -1,20 +1,19 @@
 * {
-    -fx-font: 14 Tahoma, sans-serif;
+    -fx-font-family: Tahoma, sans-serif;
 }
 
 .button {
+    -fx-background-color: #2871FF;
+    -fx-border-color: #003EB7;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #2871FF;
-    -fx-border-color: #2871FF;
     -fx-border-width: 2;
+    -fx-text-fill: white;
     -fx-cursor: HAND;
-    -fx-font: 14 Tahoma, sans-serif;
 }
 
 .button:hover {
-    -fx-background-color: #2060D0;
+    -fx-background-color: #003EB7;
 }
 
 .text-field, .password-field {
@@ -23,9 +22,8 @@
     -fx-border-color: #003EB7;
     -fx-border-width: 2;
     -fx-font: 14 Tahoma;
-    -fx-padding: 2 0;
     -fx-text-fill: black;
-    -fx-hgap: 0;
+    -fx-padding: 5 0;
 }
 
 .combo-box {
@@ -39,13 +37,17 @@
     -fx-hgap: 0;
 }
 
-.arrow-button {
-    -fx-background-color: transparent;
-    -fx-border-style: hidden;
-}
-
 .combo-box > .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: black;
+    -fx-border-style: hidden;
+}
+
+.button > .text-field {
+    -fx-text-fill: black;
+}
+
+.arrow-button {
+    -fx-background-color: transparent;
     -fx-border-style: hidden;
 }

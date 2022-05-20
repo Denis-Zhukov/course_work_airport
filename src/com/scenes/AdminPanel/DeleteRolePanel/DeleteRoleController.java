@@ -8,13 +8,13 @@ import javafx.scene.control.ComboBox;
 
 public class DeleteRoleController {
     @FXML
-    ComboBox<String> rolesComboBox;
+    private ComboBox<String> rolesComboBox;
 
     public void submit() {
         String role = rolesComboBox.getValue();
 
         //Checking if the given role is in the loaded list from the database
-        if(!DeleteRolePanel.roles.containsKey(role)){
+        if (!DeleteRolePanel.roles.containsKey(role)) {
             ModalWindow.show("Error", "Incorrect account", ModalWindow.Icon.error);
             return;
         }
@@ -25,7 +25,8 @@ public class DeleteRoleController {
             rolesComboBox.getItems().remove(role);
             DeleteRolePanel.roles.remove(role);
             ModalWindow.show("Success", "Role deleted", ModalWindow.Icon.success);
-        } catch (Exception e){
+            rolesComboBox.setValue(null);
+        } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }
     }

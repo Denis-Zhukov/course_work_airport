@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 
 public class ChangeAccountController {
     @FXML
-    ComboBox<String> usernameComboBox;
+    private ComboBox<String> usernameComboBox;
     @FXML
-    LengthLimitedTextField loginField;
+    private LengthLimitedTextField loginField;
     @FXML
-    LengthLimitedPasswordField passwordField;
+    private LengthLimitedPasswordField passwordField;
     @FXML
-    ComboBox<String> newRoleComboBox;
+    private ComboBox<String> newRoleComboBox;
 
     public void submit() {
         String account = usernameComboBox.getValue();
@@ -28,7 +28,7 @@ public class ChangeAccountController {
 
         //Validation data
         String error = "";
-        if (account == null || !Constants.regexLogin.matcher(account).find())
+        if (account == null || !ChangeAccountPanel.accounts.containsKey(account))
             error += "Invalid current account\n";
         if (!Constants.regexLogin.matcher(newUsername).find())
             error += "Invalid new username\n";
@@ -52,7 +52,10 @@ public class ChangeAccountController {
                     App.getAccessToken());
 
             ModalWindow.show("Success", "Account updated", ModalWindow.Icon.success);
-            ((Stage) usernameComboBox.getScene().getWindow()).close();
+            usernameComboBox.setValue("");
+            loginField.setText("");
+            passwordField.setText("");
+            newRoleComboBox.setValue("");
         } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }
@@ -61,12 +64,9 @@ public class ChangeAccountController {
     public void preloadAccount() {
         loginField.setText(usernameComboBox.getValue());
         String username = usernameComboBox.getValue();
-        if (username != null && !username.equals("")) {
-            if(!ChangeAccountPanel.accounts.containsKey(usernameComboBox.getValue()))
-                return;
-
-            String role = Requests.getRole(ChangeAccountPanel.accounts.get(usernameComboBox.getValue()), App.getAccessToken());
-            newRoleComboBox.setValue(role);
-        }
+        if (!ChangeAccountPanel.accounts.containsKey(username))
+            return;
+        String role = Requests.getRole(ChangeAccountPanel.accounts.get(username), App.getAccessToken());
+        newRoleComboBox.setValue(role);
     }
 }

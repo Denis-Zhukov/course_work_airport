@@ -16,7 +16,7 @@ public class ChangeAccountPanel {
     public static Map<String, Integer> roles;
     public static Map<String, Integer> accounts;
 
-    public static void showModal() throws ResourceLoadingException {
+    public static void showModal() {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(ChangeAccountPanel.class.getResource("ChangeAccountPanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);

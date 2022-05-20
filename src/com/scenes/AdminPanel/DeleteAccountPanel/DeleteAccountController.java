@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 
 public class DeleteAccountController {
     @FXML
-    ComboBox<String> accountsComboBox;
+    private ComboBox<String> accountsComboBox;
 
     public void submit() {
         String username = accountsComboBox.getValue();
@@ -25,6 +25,7 @@ public class DeleteAccountController {
             accountsComboBox.getItems().remove(username);
             DeleteAccountPanel.accounts.remove(username);
             ModalWindow.show("Success", "Account deleted", ModalWindow.Icon.success);
+            accountsComboBox.setValue(null);
         } catch (Exception e){
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

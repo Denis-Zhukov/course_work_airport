@@ -32,6 +32,8 @@ public class SetAccountRoleController {
         try {
             Requests.setRole(SetAccountRolePanel.accounts.get(login), SetAccountRolePanel.roles.get(role), App.getAccessToken());
             ModalWindow.show("Success", "Role set", ModalWindow.Icon.success);
+            accountsComboBox.setValue(null);
+            rolesComboBox.setValue(null);
         } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="224.0" prefWidth="420.0" stylesheets="@MaintenanceDispatcherPanel.css"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.scenes.MaintenanceDispatcherPanel.MaintenanceDispatcherController">
+    <Button layoutX="336.0" layoutY="178.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0"
+            prefWidth="70.0" text="Log out"/>
+    <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Login"/>
+    <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Role"/>
+    <Text fx:id="loginText" layoutX="64.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+          text="..."/>
+    <Text fx:id="roleText" layoutX="63.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+          text="..."/>
+    <Text layoutX="51.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
+    <Text layoutX="51.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
+    <Button onAction="#openAddAirplaneWindow" layoutX="24.0" layoutY="70.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0"
+            text="Add airplane"/>
+    <Button onAction="#openDeleteAirplaneWindow" layoutX="24.0" layoutY="112.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0"
+            text="Delete airplane"/>
+    <Button layoutX="24.0" layoutY="154.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0"
+            text="Edit airplane"/>
+    <Button layoutX="191.0" layoutY="70.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="193.0"
+            text="Add seat layout template"/>
+    <Button layoutX="191.0" layoutY="112.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="193.0"
+            text="Delete seat layout template"/>
+</AnchorPane>

@@ -11,11 +11,11 @@ import javafx.scene.control.ComboBox;
 
 public class CreateAccountController {
     @FXML
-    ComboBox<String> rolesComboBox;
+    private ComboBox<String> rolesComboBox;
     @FXML
-    LengthLimitedTextField loginField;
+    private LengthLimitedTextField loginField;
     @FXML
-    LengthLimitedPasswordField passwordField;
+    private LengthLimitedPasswordField passwordField;
 
 
     public void submit() {
@@ -41,6 +41,9 @@ public class CreateAccountController {
         try {
             Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getAccessToken());
             ModalWindow.show("Success", "Account added", ModalWindow.Icon.success);
+            rolesComboBox.setValue(null);
+            loginField.setText("");
+            passwordField.setText("");
         } catch (Exception e){
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

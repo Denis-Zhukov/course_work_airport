@@ -20,9 +20,9 @@ import java.io.IOException;
 
 public class AdminController {
     @FXML
-    Text loginText;
+    private Text loginText;
     @FXML
-    Text roleText;
+    private Text roleText;
 
     //Accounts
     public void openCreateAccountWindow() {
@@ -34,13 +34,7 @@ public class AdminController {
     }
 
     public void openChangeAccountWindow() {
-        try {
-            ChangeAccountPanel.showModal();
-        } catch (ResourceLoadingException e) {
-            e.printStackTrace();
-            System.err.println("Failed to load initial application resources");
-            //LOGER!!!
-        }
+        ChangeAccountPanel.showModal();
     }
 
     //Roles
@@ -70,7 +64,6 @@ public class AdminController {
         stage.centerOnScreen();
     }
 
-    @FXML //Display username and role
     public void initialize() {
         loginText.setText(App.getUsername());
         roleText.setText(App.getRole());

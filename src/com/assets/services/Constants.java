@@ -1,6 +1,7 @@
 package com.assets.services;
 
 import com.scenes.AdminPanel.AdminPanel;
+import com.scenes.MaintenanceDispatcherPanel.MaintenanceDispatcherPanel;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -16,5 +17,6 @@ public class Constants {
     public static final Pattern regexPassword = Pattern.compile("^[A-Za-z0-9_$@%#&*^!]{5,32}$");
     public static final HashMap<String, Consumer<Stage>> scenesByRoles = new HashMap<>() {{
         put("admin", AdminPanel::openChangingScene);
+        put("maintenance dispatcher", MaintenanceDispatcherPanel::openChangingScene);
     }};
 }

@@ -16,12 +16,6 @@ module client {
     opens com.scenes.AdminPanel to javafx.fxml;
     exports com.scenes.AdminPanel;
 
-    opens com.scenes.CustomerPanel to javafx.fxml;
-    exports com.scenes.CustomerPanel;
-
-    opens com.scenes.ModalWindow to javafx.fxml;
-    exports com.scenes.ModalWindow;
-
     opens com.scenes.AdminPanel.CreateAccountPanel to javafx.fxml;
     exports com.scenes.AdminPanel.CreateAccountPanel;
 
@@ -42,6 +36,21 @@ module client {
 
     opens com.scenes.AdminPanel.ChangeAccountPanel to javafx.fxml;
     exports com.scenes.AdminPanel.ChangeAccountPanel;
+
+    opens com.scenes.MaintenanceDispatcherPanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel;
+
+    opens com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel;
+
+    opens com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel;
+
+    opens com.scenes.CustomerPanel to javafx.fxml;
+    exports com.scenes.CustomerPanel;
+
+    opens com.scenes.ModalWindow to javafx.fxml;
+    exports com.scenes.ModalWindow;
 
     opens com.assets.services to javafx.fxml;
     exports com.assets.services;

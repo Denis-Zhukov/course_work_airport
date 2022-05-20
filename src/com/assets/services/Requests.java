@@ -9,7 +9,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Requests {
@@ -322,12 +324,166 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
             var queryResponse = new JSONObject(response.body());
-            if (queryResponse.isNull("accounts") || queryResponse.getJSONObject("accounts").getInt("affectedRows") == 0)
-                throw new Exception("No updates rows");
+            if (response.statusCode() != 200)
+                throw new Exception(queryResponse.getString("message"));
         } catch (ConnectException e) {
             e.printStackTrace();
             System.out.println("Connection problem.");
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Integer> getIdSeatingLayouts(String token) {
+        //http://127.0.0.1:3000/api/get_seating_layouts
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_seating_layouts"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var res = new JSONObject(response.body());
+
+            List<Integer> ids = new ArrayList<>();
+            for (var r : res.getJSONArray("result")) {
+                JSONObject id = ((JSONObject) r);
+                ids.add(id.getInt("id"));
+            }
+            return ids;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shipping problem.");
+        }
+        return null;
+    }
+
+    public static Map<String, SeatingLayout> getSeatingLayout(Integer id, String token) {
+        JSONObject json = new JSONObject() {{
+            put("id", id);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_seating_layout"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var res = new JSONObject(response.body());
+            Map<String, SeatingLayout> layouts = new HashMap<>();
+            for (var l : res.getJSONArray("result")) {
+                JSONObject layout = ((JSONObject) l);
+                layouts.put(layout.getString("class"), new SeatingLayout(layout.getInt("count_rows"), layout.getInt("count_cols")));
+            }
+            return layouts;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shipping problem.");
+        }
+        return null;
+    }
+
+    public static int getNewSeatingLayoutId(String token) throws Exception {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_new_seating_layout"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var res = new JSONObject(response.body());
+            if (res.isNull("result"))
+                throw new Exception(res.getString("message"));
+            return res.getJSONObject("result").getInt("id");
+        } catch (ConnectException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
+    public static void addSeatingLayout(Integer id, Integer id_class, Integer countRows, Integer countCols, String token) throws Exception {
+        JSONObject json = new JSONObject() {{
+            put("id", id);
+            put("id_class", id_class);
+            put("count_rows", countRows);
+            put("count_cols", countCols);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_seating_layout"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var AddAccountResponse = new JSONObject(response.body());
+            if (AddAccountResponse.isNull("insertId"))
+                throw new Exception(AddAccountResponse.getString("message"));
+        } catch (ConnectException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void addAirplane(Integer id_seating_layout, String name, String number, String token) throws Exception {
+        JSONObject json = new JSONObject() {{
+            put("id_seating_layout", id_seating_layout);
+            put("plane", name);
+            put("number", number);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_plane"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var res = new JSONObject(response.body());
+            if (res.isNull("insertId"))
+                throw new Exception(res.getString("message"));
+        } catch (ConnectException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem.");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

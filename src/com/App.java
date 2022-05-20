@@ -20,14 +20,6 @@ public class App extends Application {
         App.accessToken = accessToken;
     }
 
-    private static String refreshToken;
-    public static String getRefreshToken() {
-        return refreshToken;
-    }
-    public static void setRefreshToken(String refreshToken) {
-        App.refreshToken = refreshToken;
-    }
-
     //Username of account
     private static String username;
     public static String getUsername() {
