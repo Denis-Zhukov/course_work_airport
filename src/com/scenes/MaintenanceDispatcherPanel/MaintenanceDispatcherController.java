@@ -4,6 +4,7 @@ import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel.AddAirplanePanel;
 import com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel.DeleteAirplanePanel;
+import com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel.EditAirplanePanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +13,7 @@ import javafx.stage.Stage;
 
 public class MaintenanceDispatcherController {
     @FXML
-    private Text loginText;
-    @FXML
-    private Text roleText;
+    private Text loginText, roleText;
 
     public void logOut() {
         App.resetAccount();
@@ -24,11 +23,6 @@ public class MaintenanceDispatcherController {
         stage.centerOnScreen();
     }
 
-    public void initialize() {
-        loginText.setText(App.getUsername());
-        roleText.setText(App.getRole());
-    }
-
     public void openAddAirplaneWindow() {
         AddAirplanePanel.showModal();
     }
@@ -36,4 +30,15 @@ public class MaintenanceDispatcherController {
     public void openDeleteAirplaneWindow() {
         DeleteAirplanePanel.showModal();
     }
+
+    public void openEditAirplaneWindow() {
+        EditAirplanePanel.showModal();
+    }
+
+    public void initialize() {
+        loginText.setText(App.getUsername());
+        roleText.setText(App.getRole());
+    }
+
+
 }

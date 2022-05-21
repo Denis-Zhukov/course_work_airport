@@ -23,12 +23,14 @@ public class DeleteAirplaneController {
 
         try {
             Requests.deleteAirplane(DeleteAirplanePanel.airplaneNumbersId.get(number), App.getAccessToken());
+
             airplaneNumberComboBox.getItems().remove(number);
             airplaneNumberComboBox.setValue(null);
-            ModalWindow.show("Error", "Airplane has removed.\n", ModalWindow.Icon.success);
+            DeleteAirplanePanel.airplaneNumbersId.remove(number);
+
+            ModalWindow.show("Success", "Airplane has removed.\n", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nAirplane has not removed.\nTry again.", ModalWindow.Icon.error);
-            ((Stage) airplaneNumberComboBox.getScene().getWindow()).close();
         }
     }
 }

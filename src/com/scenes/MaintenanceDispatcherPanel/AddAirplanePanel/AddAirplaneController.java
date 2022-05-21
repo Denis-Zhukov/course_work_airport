@@ -106,7 +106,6 @@ public class AddAirplaneController {
             ModalWindow.show("Success", "Airplane has added", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nAirplane has not added.\nTry again.", ModalWindow.Icon.error);
-            ((Stage) seatingLayoutComboBox.getScene().getWindow()).close();
         }
     }
 }
