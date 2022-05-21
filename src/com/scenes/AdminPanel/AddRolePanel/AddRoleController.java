@@ -11,7 +11,7 @@ public class AddRoleController {
     private TextField roleField;
 
     public void submit() {
-        String newRole = roleField.getText();
+        String newRole = roleField.getText().trim();
 
         //Validation
         if (newRole.equals("") || newRole.length() > 255) {

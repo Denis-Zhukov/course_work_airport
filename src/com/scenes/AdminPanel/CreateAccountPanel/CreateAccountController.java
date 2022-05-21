@@ -21,7 +21,9 @@ public class CreateAccountController {
     public void submit() {
         String login = loginField.getText();
         String password = passwordField.getText();
+
         String role = rolesComboBox.getValue();
+        role = role == null ? "" : role.trim();
 
         //Validation data
         String error = "";
@@ -41,10 +43,10 @@ public class CreateAccountController {
         try {
             Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getAccessToken());
             ModalWindow.show("Success", "Account added", ModalWindow.Icon.success);
-            rolesComboBox.setValue(null);
+            rolesComboBox.setValue("");
             loginField.setText("");
             passwordField.setText("");
-        } catch (Exception e){
+        } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }
     }

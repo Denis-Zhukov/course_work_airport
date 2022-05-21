@@ -49,6 +49,12 @@ module client {
     opens com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel to javafx.fxml;
     exports com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel;
 
+    opens com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel;
+
+    opens com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 

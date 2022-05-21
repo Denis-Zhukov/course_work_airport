@@ -8,7 +8,6 @@ import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
 
 public class ChangeAccountController {
     @FXML
@@ -22,19 +21,23 @@ public class ChangeAccountController {
 
     public void submit() {
         String account = usernameComboBox.getValue();
+        account = account == null ? "" : account.trim();
+
         String newUsername = loginField.getText();
         String newPassword = passwordField.getText();
+
         String role = newRoleComboBox.getValue();
+        role = role == null ? "" : role.trim();
 
         //Validation data
         String error = "";
-        if (account == null || !ChangeAccountPanel.accounts.containsKey(account))
+        if (!ChangeAccountPanel.accounts.containsKey(account))
             error += "Invalid current account\n";
         if (!Constants.regexLogin.matcher(newUsername).find())
             error += "Invalid new username\n";
         if (!(newPassword.equals("") || Constants.regexPassword.matcher(newPassword).find()))
             error += "Invalid new password\n";
-        if (role == null || !ChangeAccountPanel.roles.containsKey(role))
+        if (!ChangeAccountPanel.roles.containsKey(role))
             error += "Incorrect new role\n";
 
         if (!error.equals("")) {

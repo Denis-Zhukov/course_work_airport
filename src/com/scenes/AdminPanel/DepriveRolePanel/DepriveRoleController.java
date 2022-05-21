@@ -12,6 +12,7 @@ public class DepriveRoleController {
 
     public void submit() {
         String username = accountsComboBox.getValue();
+        username = username == null ? "" : username.trim();
 
         //Checking if the given username is in the loaded list from the database
         if(!DepriveRolePanel.accounts.containsKey(username)){
@@ -25,7 +26,7 @@ public class DepriveRoleController {
             accountsComboBox.getItems().remove(username);
             DepriveRolePanel.accounts.remove(username);
             ModalWindow.show("Success", "Account deprived role", ModalWindow.Icon.success);
-            accountsComboBox.setValue(null);
+            accountsComboBox.setValue("");
         } catch (Exception e){
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

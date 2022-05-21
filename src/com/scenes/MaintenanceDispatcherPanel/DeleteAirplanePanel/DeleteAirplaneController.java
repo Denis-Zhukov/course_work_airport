@@ -1,14 +1,12 @@
 package com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel;
 
 import com.App;
-import com.assets.services.Exceptions.CustomException;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
 
 public class DeleteAirplaneController {
     @FXML
@@ -16,7 +14,9 @@ public class DeleteAirplaneController {
 
     public void submit() {
         String number = airplaneNumberComboBox.getValue();
-        if (number == null || !DeleteAirplanePanel.airplaneNumbersId.containsKey(number)) {
+        number = number == null ? "" : number.trim();
+
+        if (!DeleteAirplanePanel.airplaneNumbersId.containsKey(number)) {
             ModalWindow.show("Error", "Invalid airplane number selected.\n", ModalWindow.Icon.error);
             return;
         }
@@ -25,7 +25,7 @@ public class DeleteAirplaneController {
             Requests.deleteAirplane(DeleteAirplanePanel.airplaneNumbersId.get(number), App.getAccessToken());
 
             airplaneNumberComboBox.getItems().remove(number);
-            airplaneNumberComboBox.setValue(null);
+            airplaneNumberComboBox.setValue("");
             DeleteAirplanePanel.airplaneNumbersId.remove(number);
 
             ModalWindow.show("Success", "Airplane has removed.\n", ModalWindow.Icon.success);

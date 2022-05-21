@@ -1,22 +1,21 @@
-package com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel;
+package com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel;
 
 import com.App;
-import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.assets.services.SeatingLayout;
+import com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel.DeleteAirplanePanel;
 import com.scenes.ModalWindow.ModalWindow;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddAirplaneController {
-
+public class DeleteSeatLayoutTemplateController {
     @FXML
     ComboBox<Integer> seatingLayoutComboBox;
     @FXML
@@ -25,10 +24,6 @@ public class AddAirplaneController {
     Label businessClassCountRows, businessClassCountCols;
     @FXML
     Label economyClassCountRows, economyClassCountCols;
-    @FXML
-    TextField nameAirplaneTextBox;
-    @FXML
-    TextField numberAirplaneTextBox;
 
     Map<String, SeatingLayout> seatingLayout = new HashMap<>();
 
@@ -67,32 +62,18 @@ public class AddAirplaneController {
     }
 
     public void submit() {
-        Integer seatingLayoutId = seatingLayoutComboBox.getValue();
-        seatingLayoutId = seatingLayoutId == null ? -1 : seatingLayoutId;
+        Integer id = seatingLayoutComboBox.getValue();
+        id = id == null ? -1 : id;
 
-        String nameAirplane = nameAirplaneTextBox.getText();
-        String numberAirplane = numberAirplaneTextBox.getText();
-
-        String error = "";
-        if (!seatingLayoutComboBox.getItems().contains(seatingLayoutId))
-            error += "Incorrect seating layout id.\n";
-        if (!Constants.regexAirplaneName.matcher(nameAirplane).find())
-            error += "Incorrect name of airplane.\n";
-        if (!Constants.regexAirplaneNumber.matcher(numberAirplane).find())
-            error += "Incorrect number of airplane.\n";
-
-        if (!error.equals("")) {
-            ModalWindow.show("Error", error, ModalWindow.Icon.error);
+        if (!seatingLayoutComboBox.getItems().contains(id)) {
+            ModalWindow.show("Error", "Invalid seating layout template", ModalWindow.Icon.error);
             return;
         }
 
         try {
-            Requests.addAirplane(seatingLayoutId, nameAirplane, numberAirplane, App.getAccessToken());
-
+            Requests.deleteSeatLayoutTemplate(id, App.getAccessToken());
+            seatingLayoutComboBox.getItems().remove(id);
             seatingLayoutComboBox.setValue(null);
-
-            nameAirplaneTextBox.setText("");
-            numberAirplaneTextBox.setText("");
 
             firstClassCountRows.setText("0");
             firstClassCountCols.setText("0");
@@ -103,9 +84,9 @@ public class AddAirplaneController {
             economyClassCountRows.setText("0");
             economyClassCountCols.setText("0");
 
-            ModalWindow.show("Success", "Airplane has added", ModalWindow.Icon.success);
+            ModalWindow.show("Success", "Template has removed.\n", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nAirplane has not added.\nTry again.", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nTemplate has not removed.\nTry again.", ModalWindow.Icon.error);
         }
     }
 }

@@ -91,7 +91,11 @@ public class EditAirplaneController {
 
     public void submit() {
         String airplaneNumber = airplaneNumberComboBox.getValue();
+        airplaneNumber = airplaneNumber == null ? "" : airplaneNumber.trim();
+
         Integer seatingLayout = seatingLayoutComboBox.getValue();
+        seatingLayout = seatingLayout == null ? -1 : seatingLayout;
+
         String nameAirplane = nameAirplaneTextBox.getText();
         String newAirplaneNumber = numberAirplaneTextBox.getText();
 
@@ -122,7 +126,7 @@ public class EditAirplaneController {
                     App.getAccessToken()
             );
 
-            airplaneNumberComboBox.setValue(null);
+            airplaneNumberComboBox.setValue("");
             seatingLayoutComboBox.setValue(null);
 
             nameAirplaneTextBox.setText("");

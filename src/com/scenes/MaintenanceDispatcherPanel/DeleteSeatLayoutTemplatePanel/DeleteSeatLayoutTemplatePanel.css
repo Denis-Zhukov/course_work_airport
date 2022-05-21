@@ -16,16 +16,6 @@
     -fx-background-color: #003EB7;
 }
 
-.text-field {
-    -fx-background-color: transparent;
-    -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #003EB7;
-    -fx-border-width: 2;
-    -fx-font: 14 Tahoma;
-    -fx-text-fill: black;
-    -fx-padding: 0;
-}
-
 .combo-box {
     -fx-background-color: transparent;
     -fx-border-style: hidden hidden solid hidden;
@@ -37,6 +27,17 @@
     -fx-hgap: 0;
 }
 
+.combo-box > .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-style: hidden;
+}
+
 .button > .text-field {
     -fx-text-fill: black;
+}
+
+.arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden;
 }

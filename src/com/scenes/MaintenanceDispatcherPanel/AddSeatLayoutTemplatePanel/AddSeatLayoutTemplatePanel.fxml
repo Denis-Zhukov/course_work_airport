@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import com.assets.components.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel.AddSeatLayoutTemplatePanel"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="253.0" prefWidth="650.0" stylesheets="@AddSeatLayoutTemplatePanel.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel.AddSeatLayoutTemplateController">
+    <HBox layoutX="13.0" layoutY="63.0" prefHeight="115.0" prefWidth="623.0">
+        <AnchorPane prefHeight="98.0" prefWidth="200.0">
+            <HBox.margin>
+                <Insets right="5.0" />
+            </HBox.margin>
+            <Label layoutX="55.0" layoutY="5.0" prefHeight="17.0" prefWidth="91.0" text="FIRST CLASS" textFill="#002e7e">
+                <font>
+                    <Font name="Tahoma" size="13.0" />
+                </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="47.0" text="Count rows:" />
+            <Label layoutX="26.0" layoutY="78.0" text="Count cols:" />
+            <Line endX="200.0" layoutX="1.0" layoutY="31.0" stroke="#002e7e" strokeLineCap="BUTT" strokeWidth="2.0" />
+         <NumberField fx:id="firstClassRowsTextField" layoutX="99.0" layoutY="37.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5"/>
+         <NumberField fx:id="firstClassColsTextField" layoutX="99.0" layoutY="68.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5"/>
+        </AnchorPane>
+        <AnchorPane prefHeight="98.0" prefWidth="200.0">
+            <HBox.margin>
+                <Insets left="5.0" right="5.0" />
+            </HBox.margin>
+            <Label layoutX="46.0" layoutY="5.0" prefHeight="17.0" prefWidth="118.0" text="BUSINESS CLASS" textFill="#002e7e">
+                <font>
+                    <Font name="Tahoma Bold" size="13.0" />
+                </font>
+            </Label>
+            <Label layoutX="31.0" layoutY="47.0" text="Count rows:" />
+            <Label layoutX="36.0" layoutY="78.0" text="Count cols:" />
+            <Line endX="200.0" layoutX="1.0" layoutY="31.0" stroke="#00266b" strokeLineCap="BUTT" strokeWidth="2.0" />
+         <NumberField fx:id="businessClassRowsTextField" layoutX="105.0" layoutY="37.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5" />
+         <NumberField fx:id="businessClassColsTextField" layoutX="105.0" layoutY="68.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5"/>
+        </AnchorPane>
+        <AnchorPane prefHeight="98.0" prefWidth="200.0">
+            <Label layoutX="41.0" layoutY="5.0" prefHeight="17.0" prefWidth="118.0" text="ECONOMY CLASS" textFill="#002e7e">
+                <font>
+                    <Font name="Tahoma Bold" size="13.0" />
+                </font>
+            </Label>
+            <Label layoutX="12.0" layoutY="47.0" text="Count rows:" />
+            <Label layoutX="16.0" layoutY="78.0" text="Count cols:" />
+            <Line endX="200.0" layoutX="1.0" layoutY="31.0" stroke="#00266b" strokeLineCap="BUTT" strokeWidth="2.0" />
+         <NumberField fx:id="economyClassRowsTextField" layoutX="90.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5"/>
+         <NumberField fx:id="economyClassColsTextField" layoutX="90.0" layoutY="66.0" prefHeight="25.0" prefWidth="65.0" maxCharacters="5"/>
+            <HBox.margin>
+                <Insets left="5.0" />
+            </HBox.margin>
+        </AnchorPane>
+    </HBox>
+   <Label layoutX="206.0" layoutY="13.0" text="Seat layout template" textFill="#0011a8">
+      <font>
+         <Font name="Tahoma" size="26.0" />
+      </font>
+   </Label>
+   <Button layoutX="260.0" layoutY="192.0" mnemonicParsing="false" onAction="#submit" prefHeight="34.0" prefWidth="130.0" text="Add template">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
 </AnchorPane>

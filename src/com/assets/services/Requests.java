@@ -401,7 +401,7 @@ public class Requests {
         return null;
     }
 
-    public static int getNewSeatingLayoutId(String token) throws Exception {
+    public static int getNewSeatingLayoutId(String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -413,21 +413,17 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
 
-            var res = new JSONObject(response.body());
-            if (res.isNull("result"))
-                throw new Exception(res.getString("message"));
-            return res.getJSONObject("result").getInt("id");
-        } catch (ConnectException | InterruptedException e) {
+            return result.getJSONArray("result").getJSONObject(0).getInt("id");
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NoServerResponseException(e, "Connection problem");
         }
-        return -1;
     }
 
-    public static void addSeatingLayout(Integer id, Integer id_class, Integer countRows, Integer countCols, String token) throws Exception {
+    public static void addSeatingLayout(Integer id, Integer id_class, Integer countRows, Integer countCols, String token) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("id", id);
             put("id_class", id_class);
@@ -448,14 +444,11 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var AddAccountResponse = new JSONObject(response.body());
-            if (AddAccountResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-        } catch (ConnectException | InterruptedException e) {
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
@@ -568,7 +561,7 @@ public class Requests {
             serverStatusHandler(response.statusCode(), result);
             JSONArray array = result.getJSONArray("result");
 
-            if(array.isEmpty())
+            if (array.isEmpty())
                 throw new ResponseException(null, "This airplane was not found\n");
 
             JSONObject jsonAirplane = array.getJSONObject(0);
@@ -604,6 +597,27 @@ public class Requests {
             var result = new JSONObject(response.body());
             serverStatusHandler(response.statusCode(), result);
 
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static void deleteSeatLayoutTemplate(Integer id, String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "delete_seating_layout/" + id))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");

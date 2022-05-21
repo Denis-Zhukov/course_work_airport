@@ -4,8 +4,6 @@ import com.assets.services.InteractingWithWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class AddRolePanel {
     public static void showModal(){
         //Open needed window

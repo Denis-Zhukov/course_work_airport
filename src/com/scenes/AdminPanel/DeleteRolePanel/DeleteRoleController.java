@@ -12,6 +12,7 @@ public class DeleteRoleController {
 
     public void submit() {
         String role = rolesComboBox.getValue();
+        role = role == null ? "" : role.trim();
 
         //Checking if the given role is in the loaded list from the database
         if (!DeleteRolePanel.roles.containsKey(role)) {
@@ -25,7 +26,7 @@ public class DeleteRoleController {
             rolesComboBox.getItems().remove(role);
             DeleteRolePanel.roles.remove(role);
             ModalWindow.show("Success", "Role deleted", ModalWindow.Icon.success);
-            rolesComboBox.setValue(null);
+            rolesComboBox.setValue("");
         } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }

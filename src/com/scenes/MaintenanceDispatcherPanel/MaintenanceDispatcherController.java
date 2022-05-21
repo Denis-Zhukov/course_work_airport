@@ -3,7 +3,10 @@ package com.scenes.MaintenanceDispatcherPanel;
 import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel.AddAirplanePanel;
+import com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel.AddSeatLayoutTemplatePanel;
 import com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel.DeleteAirplanePanel;
+import com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplateController;
+import com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplatePanel;
 import com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel.EditAirplanePanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,10 +38,16 @@ public class MaintenanceDispatcherController {
         EditAirplanePanel.showModal();
     }
 
+    public void openAddSeatLayoutTemplateWindow() {
+        AddSeatLayoutTemplatePanel.showModal();
+    }
+
+    public void openDeleteSeatLayoutTemplatePanel() {
+        DeleteSeatLayoutTemplatePanel.showModal();
+    }
+
     public void initialize() {
         loginText.setText(App.getUsername());
         roleText.setText(App.getRole());
     }
-
-
 }

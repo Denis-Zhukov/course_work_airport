@@ -12,9 +12,10 @@ public class DeleteAccountController {
 
     public void submit() {
         String username = accountsComboBox.getValue();
+        username = username == null ? "" : username.trim();
 
         //Checking if the given account is in the loaded list from the database
-        if(!DeleteAccountPanel.accounts.containsKey(username)){
+        if (!DeleteAccountPanel.accounts.containsKey(username)) {
             ModalWindow.show("Error", "Incorrect account", ModalWindow.Icon.error);
             return;
         }
@@ -25,8 +26,8 @@ public class DeleteAccountController {
             accountsComboBox.getItems().remove(username);
             DeleteAccountPanel.accounts.remove(username);
             ModalWindow.show("Success", "Account deleted", ModalWindow.Icon.success);
-            accountsComboBox.setValue(null);
-        } catch (Exception e){
+            accountsComboBox.setValue("");
+        } catch (Exception e) {
             ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
         }
     }
