@@ -3,7 +3,7 @@ package com.scenes.LoginPanel;
 import com.App;
 import com.assets.services.Constants;
 import com.assets.services.InteractingWithWindow;
-import com.assets.services.NoServerResponseException;
+import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;

@@ -1,5 +1,8 @@
 package com.assets.services;
 
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -425,6 +428,7 @@ public class Requests {
         }
         return -1;
     }
+
     public static void addSeatingLayout(Integer id, Integer id_class, Integer countRows, Integer countCols, String token) throws Exception {
         JSONObject json = new JSONObject() {{
             put("id", id);
@@ -457,7 +461,8 @@ public class Requests {
         }
     }
 
-    public static void addAirplane(Integer id_seating_layout, String name, String number, String token) throws Exception {
+    //completed
+    public static void addAirplane(Integer id_seating_layout, String name, String number, String token) throws NoServerResponseException, ResponseException {
         JSONObject json = new JSONObject() {{
             put("id_seating_layout", id_seating_layout);
             put("plane", name);
@@ -477,14 +482,76 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var res = new JSONObject(response.body());
-            if (res.isNull("insertId"))
-                throw new Exception(res.getString("message"));
-        } catch (ConnectException | InterruptedException e) {
+            serverStatusHandler(response.statusCode(), new JSONObject(response.body()));
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NoServerResponseException(e, "Connection problem.\n");
+        }
+    }
+
+    //////////////////////////////////////////////DeleteAirplanePanel
+    //Completed
+    public static Map<String, Integer> getAirplaneNumbers(String token) throws NoServerResponseException, ResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_airplane_numbers"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            Map<String, Integer> airplaneNumbersId = new HashMap<>();
+            JSONObject body = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), body);
+
+            JSONArray airplanesNumbersIdJson = body.getJSONArray("result");
+            for (var airplaneNumber : airplanesNumbersIdJson) {
+                JSONObject number = (JSONObject) airplaneNumber;
+                airplaneNumbersId.put(number.getString("number"), number.getInt("id"));
+            }
+
+            return airplaneNumbersId;
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem\n");
+        }
+    }
+
+    //Completed
+    public static void deleteAirplane(Integer id, String token) throws NoServerResponseException, ResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "delete_airplane/" + id))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+    //////////////////////////////////////////////End DeleteAirplanePanel
+
+
+    //Status code handler
+    //Completed
+    private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
+        switch (status) {
+            case 500 -> throw new ResponseException(null, "Suspended error: database connection problem.\nServer: " + response.getString("message"));
+            case 404 -> throw new NoServerResponseException(null, "Error: Invalid API request");
+            case 403, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
         }
     }
 }

@@ -15,6 +15,10 @@ public class Constants {
 
     public static final Pattern regexLogin = Pattern.compile("^[A-Za-z_][A-Za-z0-9_]{1,31}$");
     public static final Pattern regexPassword = Pattern.compile("^[A-Za-z0-9_$@%#&*^!]{5,32}$");
+
+    public static final Pattern regexAirplaneNumber = Pattern.compile("^[A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
+    public static final Pattern regexAirplaneName = Pattern.compile("^[№#.:_A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
+
     public static final HashMap<String, Consumer<Stage>> scenesByRoles = new HashMap<>() {{
         put("admin", AdminPanel::openChangingScene);
         put("maintenance dispatcher", MaintenanceDispatcherPanel::openChangingScene);

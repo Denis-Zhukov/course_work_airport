@@ -54,4 +54,6 @@ module client {
 
     opens com.assets.services to javafx.fxml;
     exports com.assets.services;
+    exports com.assets.services.Exceptions;
+    opens com.assets.services.Exceptions to javafx.fxml;
 }

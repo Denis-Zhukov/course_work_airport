@@ -1,7 +1,5 @@
 package com.scenes.ModalWindow;
 
-import com.assets.services.InteractingWithWindow;
-import com.assets.services.ResourceLoadingException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
