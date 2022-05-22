@@ -1024,6 +1024,32 @@ public class Requests {
         }
     }
 
+    public static void addAirport(int idCity, String airport, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_city", idCity);
+            put("airport", airport);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_airport"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            serverStatusHandler(response.statusCode(), new JSONObject(response.body()));
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem.\n");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {

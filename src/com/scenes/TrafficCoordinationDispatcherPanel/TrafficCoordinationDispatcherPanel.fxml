@@ -4,56 +4,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="436.0" prefWidth="825.0" stylesheets="@TrafficCoordinationDispatcherPanel.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.TrafficCoordinationDispatcherController">
-    <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Login"/>
-    <Text layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Role"/>
-    <Text fx:id="loginText" layoutX="60.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
-          text="..."/>
-    <Text fx:id="roleText" layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
-          text="..."/>
-    <Text layoutX="47.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
-    <Text layoutX="47.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":"/>
-    <Button layoutX="95.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllAirportsWindow"
-            prefHeight="40.0" prefWidth="185.0" text="Show all airports"/>
-    <Button layoutX="113.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddAirportWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Add airport"/>
-    <Button layoutX="113.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditAirportWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Edit airport"/>
-    <Button layoutX="113.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteAirportWindow"
-            prefHeight="32.0" prefWidth="150.0" text="Delete airport"/>
-    <Button layoutX="320.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllFlightsWindow"
-            prefHeight="40.0" prefWidth="185.0" text="Show all flights"/>
-    <Button layoutX="338.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddFlightWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Add flight"/>
-    <Button layoutX="338.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditFlightWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Edit flight"/>
-    <Button layoutX="338.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteFlightWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Delete flight"/>
-    <Button layoutX="545.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllRoutesWindow" prefHeight="40.0"
-            prefWidth="185.0" text="Show all routes"/>
-    <Button layoutX="563.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddRouteWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Add route"/>
-    <Button layoutX="563.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditRouteWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Edit route"/>
-    <Button layoutX="563.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteRouteWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Delete route"/>
+<AnchorPane prefHeight="415.0" prefWidth="825.0" stylesheets="@TrafficCoordinationDispatcherPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.TrafficCoordinationDispatcherController">
+    <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Login" />
+    <Text layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Role" />
+    <Text fx:id="loginText" layoutX="60.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="..." />
+    <Text fx:id="roleText" layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="..." />
+    <Text layoutX="47.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":" />
+    <Text layoutX="47.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":" />
+    <Button layoutX="95.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllAirportsWindow" prefHeight="40.0" prefWidth="185.0" text="Show all airports" />
+    <Button layoutX="113.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddAirportWindow" prefHeight="32.0" prefWidth="150.0" text="Add airport" />
+    <Button layoutX="113.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditAirportWindow" prefHeight="32.0" prefWidth="150.0" text="Edit airport" />
+    <Button layoutX="113.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteAirportWindow" prefHeight="32.0" prefWidth="150.0" text="Delete airport" />
+    <Button layoutX="320.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllFlightsWindow" prefHeight="40.0" prefWidth="185.0" text="Show all flights" />
+    <Button layoutX="338.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddFlightWindow" prefHeight="32.0" prefWidth="150.0" text="Add flight" />
+    <Button layoutX="338.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditFlightWindow" prefHeight="32.0" prefWidth="150.0" text="Edit flight" />
+    <Button layoutX="338.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteFlightWindow" prefHeight="32.0" prefWidth="150.0" text="Delete flight" />
+    <Button layoutX="545.0" layoutY="70.0" mnemonicParsing="false" onAction="#openShowAllRoutesWindow" prefHeight="40.0" prefWidth="185.0" text="Show all routes" />
+    <Button layoutX="563.0" layoutY="143.0" mnemonicParsing="false" onAction="#openAddRouteWindow" prefHeight="32.0" prefWidth="150.0" text="Add route" />
+    <Button layoutX="563.0" layoutY="178.0" mnemonicParsing="false" onAction="#openEditRouteWindow" prefHeight="32.0" prefWidth="150.0" text="Edit route" />
+    <Button layoutX="563.0" layoutY="214.0" mnemonicParsing="false" onAction="#openDeleteRouteWindow" prefHeight="32.0" prefWidth="150.0" text="Delete route" />
 
-    <Button layoutX="185.0" layoutY="295.0" mnemonicParsing="false" onAction="#openAddCityWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Add city"/>
-    <Button layoutX="338.0" layoutY="295.0" mnemonicParsing="false" onAction="#openEditCityWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Edit city"/>
-    <Button layoutX="491.0" layoutY="295.0" mnemonicParsing="false" onAction="#openDeleteCityWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Delete city"/>
+    <Button layoutX="185.0" layoutY="295.0" mnemonicParsing="false" onAction="#openAddCityWindow" prefHeight="32.0" prefWidth="150.0" text="Add city" />
+    <Button layoutX="338.0" layoutY="295.0" mnemonicParsing="false" onAction="#openEditCityWindow" prefHeight="32.0" prefWidth="150.0" text="Edit city" />
+    <Button layoutX="491.0" layoutY="295.0" mnemonicParsing="false" onAction="#openDeleteCityWindow" prefHeight="32.0" prefWidth="150.0" text="Delete city" />
 
-    <Button layoutX="185.0" layoutY="343.0" mnemonicParsing="false" onAction="#openAddCountryWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Add country"/>
-    <Button layoutX="338.0" layoutY="343.0" mnemonicParsing="false" onAction="#openEditCountryWindow" prefHeight="32.0"
-            prefWidth="150.0" text="Edit country"/>
-    <Button layoutX="491.0" layoutY="343.0" mnemonicParsing="false" onAction="#openDeleteCountryWindow"
-            prefHeight="32.0" prefWidth="150.0" text="Delete country"/>
+    <Button layoutX="185.0" layoutY="335.0" mnemonicParsing="false" onAction="#openAddCountryWindow" prefHeight="32.0" prefWidth="150.0" text="Add country" />
+    <Button layoutX="338.0" layoutY="335.0" mnemonicParsing="false" onAction="#openEditCountryWindow" prefHeight="32.0" prefWidth="150.0" text="Edit country" />
+    <Button layoutX="491.0" layoutY="335.0" mnemonicParsing="false" onAction="#openDeleteCountryWindow" prefHeight="32.0" prefWidth="150.0" text="Delete country" />
 
-    <Button layoutX="741.0" layoutY="390.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0"
-            prefWidth="70.0" text="Log out"/>
+    <Button layoutX="741.0" layoutY="367.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="70.0" text="Log out" />
 </AnchorPane>
