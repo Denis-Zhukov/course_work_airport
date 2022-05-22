@@ -946,6 +946,63 @@ public class Requests {
         }
     }
 
+    //Completed
+    public static Map<String, Integer> getAllCities(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_cities"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            Map<String, Integer> citiesId = new HashMap<>();
+            for (var o : array) {
+                JSONObject obj = (JSONObject) o;
+                citiesId.put(obj.getString("city") + " (" + obj.getString("country") + ")", obj.getInt("id"));
+            }
+
+            return citiesId;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static void updateCity(int id, String newCityName, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id", id);
+            put("city", newCityName);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "update_city"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
