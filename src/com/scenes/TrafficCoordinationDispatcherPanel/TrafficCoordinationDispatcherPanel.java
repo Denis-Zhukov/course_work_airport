@@ -1,7 +1,6 @@
 package com.scenes.TrafficCoordinationDispatcherPanel;
 
 import com.assets.services.InteractingWithWindow;
-import com.scenes.MaintenanceDispatcherPanel.MaintenanceDispatcherPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 

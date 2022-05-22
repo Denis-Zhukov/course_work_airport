@@ -1,7 +1,6 @@
 package com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel;
 
 import com.assets.services.TableRows.AllFlightsRow;
-import com.assets.services.TableRows.AllRoutesRow;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;

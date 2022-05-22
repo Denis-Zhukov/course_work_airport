@@ -2,10 +2,7 @@ package com.assets.services.TableRows;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Date;
-import java.util.Locale;
 
 public class AllFlightsRow {
     private final String fromCountry;

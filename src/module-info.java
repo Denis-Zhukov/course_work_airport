@@ -94,6 +94,9 @@ module client {
     opens com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel;
 
+    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 

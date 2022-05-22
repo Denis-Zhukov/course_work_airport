@@ -5,6 +5,7 @@ import com.assets.services.InteractingWithWindow;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel.AddAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel.AddCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel.DeleteAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel.DeleteCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel.DeleteCountryPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel.EditAirportPanel;
@@ -12,7 +13,6 @@ import com.scenes.TrafficCoordinationDispatcherPanel.EditCityPanel.EditCityPanel
 import com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel.EditCountryPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsPanel;
-import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesController;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +58,7 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openDeleteAirportWindow() {
-
+        DeleteAirportPanel.showModal();
     }
 
     @FXML

@@ -1,12 +1,12 @@
 package com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel;
 
 import com.App;
-import com.assets.services.Helpers.Airplane;
 import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
-import com.assets.services.Requests;
+import com.assets.services.Helpers.Airplane;
 import com.assets.services.Helpers.SeatingLayout;
+import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;

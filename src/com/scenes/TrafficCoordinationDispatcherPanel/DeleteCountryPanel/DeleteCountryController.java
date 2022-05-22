@@ -2,13 +2,10 @@ package com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
-import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel.EditCountryPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
