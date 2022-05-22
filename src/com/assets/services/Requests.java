@@ -5,6 +5,7 @@ import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.Airplane;
 import com.assets.services.Helpers.SeatingLayout;
 import com.assets.services.TableRows.AllAirportsRow;
+import com.assets.services.TableRows.AllFlightsRow;
 import com.assets.services.TableRows.AllRoutesRow;
 import com.assets.services.TableRows.SeatingLayoutRow;
 import javafx.collections.FXCollections;
@@ -18,6 +19,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 
@@ -761,6 +764,52 @@ public class Requests {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static ObservableList getAllFlights(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_flights"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            ObservableList<AllFlightsRow> data = FXCollections.observableArrayList();
+            if (array.isEmpty()) return data;
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.add(new AllFlightsRow(
+                        object.getString("number"),
+                        object.getString("fromCountry"),
+                        object.getString("fromCity"),
+                        object.getString("fromAirport"),
+                        object.getString("toCountry"),
+                        object.getString("toCity"),
+                        object.getString("toAirport"),
+                        inputFormat.parse(object.getString("boarding_datetime"))
+                ));
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (ParseException e){
+            e.printStackTrace();
+            throw new ResponseException(e, "Received data does not match the expected format\n");
         }
     }
 

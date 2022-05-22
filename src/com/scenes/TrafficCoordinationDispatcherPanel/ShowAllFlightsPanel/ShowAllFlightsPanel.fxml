@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="table" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1125.0" stylesheets="@ShowAllFlightsPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsController">
+    <columns>
+        <TableColumn fx:id="planeNumber" prefWidth="75.0" resizable="false" text="№ plane" />
+        <TableColumn prefWidth="75.0" resizable="false" text="From">
+            <columns>
+                <TableColumn fx:id="fromCountry" prefWidth="150.0" text="Country" />
+                <TableColumn fx:id="fromCity" prefWidth="150.0" text="City" />
+                <TableColumn fx:id="fromAirport" prefWidth="150.0" text="Airport" />
+            </columns>
+        </TableColumn>
+        <TableColumn prefWidth="75.0" resizable="false" text="To">
+            <columns>
+                <TableColumn fx:id="toCountry" prefWidth="150.0" text="Country" />
+                <TableColumn fx:id="toCity" prefWidth="150.0" text="City" />
+                <TableColumn fx:id="toAirport" prefWidth="150.0" text="Airport" />
+            </columns>
+        </TableColumn>
+        <TableColumn fx:id="dateTime" prefWidth="150.0" text="Date/time" />
+    </columns>
+</TableView>
