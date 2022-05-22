@@ -896,6 +896,26 @@ public class Requests {
         }
     }
 
+    public static void deleteCountry(int id, String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "delete_country/" + id))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
 
     //Status code handler
     //Completed
@@ -907,6 +927,4 @@ public class Requests {
             case 403, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
         }
     }
-
-
 }

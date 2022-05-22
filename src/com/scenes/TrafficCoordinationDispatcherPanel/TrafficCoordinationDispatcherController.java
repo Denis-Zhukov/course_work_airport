@@ -3,6 +3,7 @@ package com.scenes.TrafficCoordinationDispatcherPanel;
 import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel.DeleteCountryPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel.EditCountryPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsPanel;
@@ -62,7 +63,7 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openDeleteCountryWindow() {
-
+        DeleteCountryPanel.showModal();
     }
 
     @FXML

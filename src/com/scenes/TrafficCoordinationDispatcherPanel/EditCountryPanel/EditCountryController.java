@@ -34,10 +34,15 @@ public class EditCountryController {
         }
 
         try {
-            Requests.updateCountry(EditCountryPanel.countryId.get(country), newCountryName, App.getAccessToken());
+            int id = EditCountryPanel.countryId.get(country);
+            Requests.updateCountry(id, newCountryName, App.getAccessToken());
+            EditCountryPanel.countryId.remove(country);
+            EditCountryPanel.countryId.put(newCountryName, id);
+            countriesComboBox.getItems().remove(country);
+            countriesComboBox.getItems().add(newCountryName);
             ModalWindow.show("Success", "Country has edited", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nCountry has not added", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nCountry has not edited", ModalWindow.Icon.error);
         }
     }
 
