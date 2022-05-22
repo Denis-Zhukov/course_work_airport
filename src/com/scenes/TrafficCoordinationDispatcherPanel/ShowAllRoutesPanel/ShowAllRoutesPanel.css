@@ -4,5 +4,4 @@
 
 #table:focused {
     -fx-faint-focus-color: none;
-    -fx-background-insets: -1, 10, 1, 1;
 }

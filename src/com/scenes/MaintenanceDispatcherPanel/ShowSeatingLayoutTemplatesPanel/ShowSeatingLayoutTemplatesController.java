@@ -10,8 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ShowSeatingLayoutTemplatesController {
     @FXML
-    private TableView table;
-    @FXML
     private TableColumn templateNumberColumn;
     @FXML
     private TableColumn ecoRowsColumn, ecoColsColumn;

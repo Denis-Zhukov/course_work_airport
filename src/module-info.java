@@ -58,6 +58,15 @@ module client {
     opens com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel to javafx.fxml;
     exports com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel;
 
+    opens com.scenes.TrafficCoordinationDispatcherPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel;
+
+    opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel;
+
+    opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 

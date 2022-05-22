@@ -2,6 +2,7 @@ package com.assets.services;
 
 import com.scenes.AdminPanel.AdminPanel;
 import com.scenes.MaintenanceDispatcherPanel.MaintenanceDispatcherPanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.TrafficCoordinationDispatcherPanel;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -22,5 +23,6 @@ public class Constants {
     public static final HashMap<String, Consumer<Stage>> scenesByRoles = new HashMap<>() {{
         put("admin", AdminPanel::openChangingScene);
         put("maintenance dispatcher", MaintenanceDispatcherPanel::openChangingScene);
+        put("traffic coordination dispatcher", TrafficCoordinationDispatcherPanel::openChangingScene);
     }};
 }

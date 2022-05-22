@@ -682,6 +682,46 @@ public class Requests {
         }
     }
 
+    public static ObservableList<AllRoutesRow>  getAllRoutes(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_routes"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            ObservableList<AllRoutesRow> data = FXCollections.observableArrayList();
+            if (array.isEmpty()) return data;
+
+            for(var o : array){
+                JSONObject object = (JSONObject) o;
+                data.add(new AllRoutesRow(
+                        object.getString("fromCountry"),
+                        object.getString("fromCity"),
+                        object.getString("fromAirport"),
+                        object.getString("toCountry"),
+                        object.getString("toCity"),
+                        object.getString("toAirport")
+                ));
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
