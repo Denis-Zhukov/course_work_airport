@@ -870,6 +870,7 @@ public class Requests {
         }
     }
 
+    //Completed
     public static void updateCountry(Integer id, String newCountryName, String token) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("id", id);
@@ -896,6 +897,7 @@ public class Requests {
         }
     }
 
+    //Completed
     public static void deleteCountry(int id, String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -914,6 +916,33 @@ public class Requests {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    //Completed
+    public static void addCity(String city, int idCountry, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_country", idCountry);
+            put("city", city);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_city"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            serverStatusHandler(response.statusCode(), new JSONObject(response.body()));
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem.\n");
         }
     }
 

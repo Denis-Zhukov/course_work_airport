@@ -1,4 +1,4 @@
-package com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel;
+package com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
@@ -11,21 +11,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class EditCountryController {
-
+public class AddCityController {
     public ComboBox<String> countriesComboBox;
-    public TextField newCountryNameTextField;
+    public TextField cityTextBox;
 
     public void submit() {
         String country = countriesComboBox.getValue();
         country = country == null ? "" : country.trim();
-        String newCountryName = newCountryNameTextField.getText();
+        String city = cityTextBox.getText();
 
         String error = "";
-        if (!EditCountryPanel.countryId.containsKey(country))
+        if (!AddCityPanel.countryId.containsKey(country))
             error += "A country has been selected that is not in the dropdown list\n";
-        if (!Constants.regexCountryCityAirportName.matcher(newCountryName).find())
-            error += "Incorrect country name entered\n";
+        if (!Constants.regexCountryCityAirportName.matcher(city).find())
+            error += "Incorrect city name entered\n";
 
         if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
@@ -33,15 +32,12 @@ public class EditCountryController {
         }
 
         try {
-            int id = EditCountryPanel.countryId.get(country);
-            Requests.updateCountry(id, newCountryName, App.getAccessToken());
-            EditCountryPanel.countryId.remove(country);
-            EditCountryPanel.countryId.put(newCountryName, id);
-            countriesComboBox.getItems().remove(country);
-            countriesComboBox.getItems().add(newCountryName);
-            ModalWindow.show("Success", "Country has edited", ModalWindow.Icon.success);
+            Requests.addCity(city, AddCityPanel.countryId.get(country), App.getAccessToken());
+            countriesComboBox.setValue("");
+            cityTextBox.setText("");
+            ModalWindow.show("Success", "City has added", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nCountry has not edited", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nCity has not added", ModalWindow.Icon.error);
         }
     }
 

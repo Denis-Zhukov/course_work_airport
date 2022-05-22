@@ -6,10 +6,8 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class AddCountryController {
     @FXML
@@ -17,7 +15,7 @@ public class AddCountryController {
 
     public void submit() {
         String country = countryTextField.getText();
-        if (!Constants.regexCountryName.matcher(country).find()) {
+        if (!Constants.regexCountryCityAirportName.matcher(country).find()) {
             ModalWindow.show("Error", "Invalid country name entered\n", ModalWindow.Icon.error);
             return;
         }
