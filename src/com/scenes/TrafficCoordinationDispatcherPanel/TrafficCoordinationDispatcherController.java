@@ -5,6 +5,7 @@ import com.assets.services.InteractingWithWindow;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel.AddAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel.AddCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel.DeleteAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel.DeleteCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel.DeleteCountryPanel;
@@ -53,7 +54,7 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openAddRouteWindow() {
-
+        AddRoutePanel.showModal();
     }
 
     @FXML

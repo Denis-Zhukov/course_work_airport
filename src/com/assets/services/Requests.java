@@ -1157,6 +1157,71 @@ public class Requests {
         }
     }
 
+    public static Map<String, Integer> getAirportsCitiesCountries(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_airports"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            Map<String, Integer> data = new HashMap<>();
+
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.put(
+                        String.format("%s, %s, %s",
+                                object.getString("airport"),
+                                object.getString("city"),
+                                object.getString("country")),
+                        object.getInt("id")
+                );
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static void addRoute(Integer id_from, Integer id_to, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_airport_departure", id_from);
+            put("id_airport_distanation", id_to);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_route"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
