@@ -73,6 +73,9 @@ module client {
     opens com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel;
 
+    opens com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 
