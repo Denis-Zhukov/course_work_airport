@@ -1312,6 +1312,34 @@ public class Requests {
         }
     }
 
+    public static void addFlight(int idPlane, int idRoute, String dateTime, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_plane", idPlane);
+            put("id_route", idRoute);
+            put("boarding_date", dateTime);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_flight"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {

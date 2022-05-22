@@ -106,6 +106,9 @@ module client {
     opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel;
 
+    opens com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 
