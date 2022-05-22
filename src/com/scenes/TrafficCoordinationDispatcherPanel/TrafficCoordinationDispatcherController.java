@@ -2,6 +2,7 @@ package com.scenes.TrafficCoordinationDispatcherPanel;
 
 import com.App;
 import com.assets.services.InteractingWithWindow;
+import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesController;
@@ -35,7 +36,7 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openAddCountryWindow() {
-
+        AddCountryPanel.showModal();
     }
 
     @FXML
