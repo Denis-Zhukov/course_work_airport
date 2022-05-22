@@ -20,7 +20,7 @@ public class Constants {
     public static final Pattern regexAirplaneNumber = Pattern.compile("^[A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
     public static final Pattern regexAirplaneName = Pattern.compile("^[№#.:_A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
 
-    public static final Pattern regexCountryCityAirportName = Pattern.compile("^[a-zA-Z -]{2,}$");
+    public static final Pattern regexCountryCityAirportName = Pattern.compile("^[a-zA-Z0-9 -]{2,}$");
 
     public static final HashMap<String, Consumer<Stage>> scenesByRoles = new HashMap<>() {{
         put("admin", AdminPanel::openChangingScene);
