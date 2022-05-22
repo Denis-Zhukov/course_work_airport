@@ -28,7 +28,7 @@ public class AddAirplanePanel {
             }
             ((ComboBox) stage.getScene().lookup("#seatingLayoutComboBox")).getItems().addAll(ids);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nAirplane has not removed.\nTry again.", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }

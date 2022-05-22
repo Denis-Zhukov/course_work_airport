@@ -1,7 +1,7 @@
 package com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel;
 
 import com.App;
-import com.assets.services.AutoCompleteComboBoxListener;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -26,7 +26,7 @@ public class DeleteAirplanePanel {
         try {
             airplaneNumbersId = Requests.getAirplaneNumbers(App.getAccessToken());
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nAirplane has not removed.\nTry again.", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }

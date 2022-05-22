@@ -8,6 +8,7 @@ import com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel.DeleteAirplaneP
 import com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplateController;
 import com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplatePanel;
 import com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel.EditAirplanePanel;
+import com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel.ShowSeatingLayoutTemplatesPanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +45,10 @@ public class MaintenanceDispatcherController {
 
     public void openDeleteSeatLayoutTemplatePanel() {
         DeleteSeatLayoutTemplatePanel.showModal();
+    }
+
+    public void openShowSeatingLayoutTemplatesPanel() {
+        ShowSeatingLayoutTemplatesPanel.showModal();
     }
 
     public void initialize() {

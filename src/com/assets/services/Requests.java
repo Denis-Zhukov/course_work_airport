@@ -2,6 +2,8 @@ package com.assets.services;
 
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,10 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Requests {
     public static JSONObject getJWTToken(String login, String password) throws NoServerResponseException {
@@ -621,6 +621,64 @@ public class Requests {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static  ObservableList<SeatingLayoutRow> getAllSeatingLayoutTemplates(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_all_seating_layouts"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+            if (array.isEmpty())
+                throw new ResponseException(null, "This airplane was not found\n");
+
+            Map<Integer, List<JSONObject>> group = new HashMap<>();
+            for (Object obj : array) {
+                int id = ((JSONObject) obj).getInt("id");
+                if (!group.containsKey(id)) {
+                    List<JSONObject> list = new ArrayList<>() {{
+                        add((JSONObject) obj);
+                    }};
+                    group.put(id, list);
+                } else {
+                    group.get(id).add((JSONObject) obj);
+                }
+            }
+
+
+            ObservableList<SeatingLayoutRow> data = FXCollections.observableArrayList();
+            Set<Integer> keys = group.keySet();
+            for (int key : keys) {
+                List<JSONObject> layout = group.get(key);
+                layout.sort(Comparator.comparingInt(o -> o.getInt("id_class")));
+                data.add(new SeatingLayoutRow(
+                        key,
+                        layout.get(2).getInt("count_rows"),
+                        layout.get(2).getInt("count_cols"),
+                        layout.get(1).getInt("count_rows"),
+                        layout.get(1).getInt("count_cols"),
+                        layout.get(0).getInt("count_rows"),
+                        layout.get(0).getInt("count_cols")
+                ));
+            }
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (IndexOutOfBoundsException e){
+            throw  new ResponseException(e, "Data received from the server does not match what was expected\nContact your technical administrator to fix the problem\n");
         }
     }
 

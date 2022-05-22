@@ -16,5 +16,5 @@
     <Button layoutX="24.0" layoutY="154.0" mnemonicParsing="false" onAction="#openEditAirplaneWindow" prefHeight="32.0" prefWidth="150.0" text="Edit airplane" />
     <Button layoutX="191.0" layoutY="70.0" mnemonicParsing="false" onAction="#openAddSeatLayoutTemplateWindow" prefHeight="32.0" prefWidth="215.0" text="Add seat layout template" />
     <Button layoutX="191.0" layoutY="112.0" mnemonicParsing="false" onAction="#openDeleteSeatLayoutTemplatePanel" prefHeight="32.0" prefWidth="215.0" text="Delete seat layout template" />
-   <Button layoutX="191.0" layoutY="154.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="215.0" text="Show seating layout templates" />
+   <Button layoutX="191.0" layoutY="154.0" mnemonicParsing="false" onAction="#openShowSeatingLayoutTemplatesPanel" prefHeight="32.0" prefWidth="215.0" text="Show seating layout templates" />
 </AnchorPane>

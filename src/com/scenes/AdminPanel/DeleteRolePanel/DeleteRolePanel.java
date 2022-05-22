@@ -1,7 +1,7 @@
 package com.scenes.AdminPanel.DeleteRolePanel;
 
 import com.App;
-import com.assets.services.AutoCompleteComboBoxListener;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;

@@ -31,6 +31,7 @@ public class AddSeatLayoutTemplateController {
             error += "Invalid number of rows and cols for the first class\n";
         } else if (firstClassRows != 0 && firstClassCols != 0)
             classSeatingLayout.put(Classes.first, new SeatingLayout(firstClassRows, firstClassCols));
+        else classSeatingLayout.put(Classes.first, new SeatingLayout(0, 0));
 
         int businessClassRows = businessClassRowsTextField.getValue();
         int businessClassCols = businessClassColsTextField.getValue();
@@ -38,6 +39,7 @@ public class AddSeatLayoutTemplateController {
             error += "Invalid number of rows and cols for the business class\n";
         } else if (businessClassRows != 0 && businessClassCols != 0)
             classSeatingLayout.put(Classes.business, new SeatingLayout(businessClassRows, businessClassCols));
+        else classSeatingLayout.put(Classes.business, new SeatingLayout(0, 0));
 
         int economyClassRows = economyClassRowsTextField.getValue();
         int economyClassCols = economyClassColsTextField.getValue();
@@ -45,6 +47,7 @@ public class AddSeatLayoutTemplateController {
             error += "Invalid number of rows and cols for the first class\n";
         } else if (economyClassRows != 0 && economyClassCols != 0)
             classSeatingLayout.put(Classes.economy, new SeatingLayout(economyClassRows, economyClassCols));
+        else classSeatingLayout.put(Classes.economy, new SeatingLayout(0, 0));
 
         if (firstClassRows == 0 && firstClassCols == 0 &&
                 businessClassRows == 0 && businessClassCols == 0 &

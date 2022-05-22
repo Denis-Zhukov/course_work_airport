@@ -42,22 +42,22 @@ public class DeleteSeatLayoutTemplateController {
             firstClassCountRows.setText(Integer.toString(layout.get("First").getCountRows()));
             firstClassCountCols.setText(Integer.toString(layout.get("First").getCountCols()));
         } else {
-            firstClassCountRows.setText("0");
-            firstClassCountCols.setText("0");
+            firstClassCountRows.setText("error");
+            firstClassCountCols.setText("error");
         }
         if (layout.containsKey("Business")) {
             businessClassCountRows.setText(Integer.toString(layout.get("Business").getCountRows()));
             businessClassCountCols.setText(Integer.toString(layout.get("Business").getCountCols()));
         } else {
-            businessClassCountRows.setText("0");
-            businessClassCountCols.setText("0");
+            businessClassCountRows.setText("error");
+            businessClassCountCols.setText("error");
         }
         if (layout.containsKey("Economy")) {
             economyClassCountRows.setText(Integer.toString(layout.get("Economy").getCountRows()));
             economyClassCountCols.setText(Integer.toString(layout.get("Economy").getCountCols()));
         } else {
-            economyClassCountRows.setText("0");
-            economyClassCountCols.setText("0");
+            economyClassCountRows.setText("error");
+            economyClassCountCols.setText("error");
         }
     }
 

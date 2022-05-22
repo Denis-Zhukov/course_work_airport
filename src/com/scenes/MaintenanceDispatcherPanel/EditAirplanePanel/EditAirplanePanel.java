@@ -1,7 +1,7 @@
 package com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel;
 
 import com.App;
-import com.assets.services.AutoCompleteComboBoxListener;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;

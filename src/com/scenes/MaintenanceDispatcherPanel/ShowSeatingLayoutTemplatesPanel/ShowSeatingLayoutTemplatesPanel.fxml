@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="590.0" style="-fx-background-color: white;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel.ShowSeatingLayoutTemplatesController">
+    <TableView fx:id="table" layoutY="46.0" prefHeight="366.0" prefWidth="590.0">
+      <columns>
+          <TableColumn fx:id="templateNumberColumn" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false"
+                       sortable="false" text="Template number"/>
+          <TableColumn editable="false" minWidth="155.0" prefWidth="259.0" resizable="false" sortable="false"
+                       text="Economy class">
+              <columns>
+                  <TableColumn fx:id="ecoRowsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count rows"/>
+                  <TableColumn fx:id="ecoColsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count cols"/>
+              </columns>
+          </TableColumn>
+          <TableColumn editable="false" minWidth="300.0" prefWidth="300.0" resizable="false" sortable="false"
+                       text="Business class">
+              <columns>
+                  <TableColumn fx:id="busRowsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count rows"/>
+                  <TableColumn fx:id="busColsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count cols"/>
+              </columns>
+          </TableColumn>
+          <TableColumn editable="false" minWidth="300.0" prefWidth="300.0" resizable="false" sortable="false"
+                       text="First class">
+              <columns>
+                  <TableColumn fx:id="firstRowsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count rows"/>
+                  <TableColumn fx:id="firstColsColumn" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false"
+                               sortable="false" text="Count cols"/>
+              </columns>
+          </TableColumn>
+      </columns>
+    </TableView>
+    <Label layoutX="153.0" layoutY="6.0" text="Seating layout templates" textFill="#003eb7">
+        <font>
+          <Font name="Tahoma" size="26.0"/>
+        </font>
+    </Label>
+</AnchorPane>

@@ -1,4 +1,4 @@
-package com.assets.services;
+package com.assets.components;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
