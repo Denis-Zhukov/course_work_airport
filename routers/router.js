@@ -23,17 +23,35 @@ router.get("/get_roles", authMiddleware, controller.getRoles);
 router.post("/get_role", authMiddleware, controller.getRole);
 router.get("/get_accounts", authMiddleware, controller.getAccounts);
 
-router.delete("/delete_account/:id", authMiddleware, controller.deleteAccount)
-router.delete("/deprive_role/:id_account", authMiddleware, controller.depriveRole)
-router.delete("/delete_role/:id_role", authMiddleware, controller.deleteRole)
+router.delete("/delete_account/:id", authMiddleware, controller.deleteAccount);
+router.delete("/deprive_role/:id_account", authMiddleware, controller.depriveRole);
+router.delete("/delete_role/:id_role", authMiddleware, controller.deleteRole);
 
-router.post("/update_account", authMiddleware, controller.updateAccount)
+router.post("/update_account", authMiddleware, controller.updateAccount);
 
-router.get("/get_seating_layouts", authMiddleware, controller.getSeatingLayouts)
-router.post("/get_seating_layout", authMiddleware, controller.getSeatingLayout)
+router.get("/get_seating_layouts", authMiddleware, controller.getSeatingLayouts);
 
-router.get("/get_new_seating_layout", authMiddleware, controller.getNewSeatingLayout)
+router.post("/get_seating_layout", authMiddleware, controller.getSeatingLayout);
 
+router.get("/get_new_seating_layout", authMiddleware, controller.getNewSeatingLayout);
+
+router.get("/get_airplane_numbers", authMiddleware, controller.getAirplaneNumbers);
+
+router.delete("/delete_airplane/:id_airplane", authMiddleware, controller.deleteAirplane);
+
+router.post("/update_airplane", authMiddleware, controller.updateAirplane);
+
+router.post("/get_airplane_by_id", authMiddleware, controller.getAirplaneById);
+
+router.delete("/delete_seating_layout/:id", authMiddleware, controller.deleteSeatingLayout);
+
+router.get("/get_all_seating_layouts", authMiddleware, controller.getAllSeatingLayouts)
+
+router.get("/get_routes", authMiddleware, controller.getRoutes)
+
+router.get("/get_airports", authMiddleware, controller.getAirports)
+
+router.get("/get_flights", authMiddleware, controller.getFlights)
 
 
 export default router;
