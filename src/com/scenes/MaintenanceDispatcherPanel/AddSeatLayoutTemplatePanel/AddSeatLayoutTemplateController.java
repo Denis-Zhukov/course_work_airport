@@ -5,7 +5,7 @@ import com.assets.components.NumberField;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
-import com.assets.services.SeatingLayout;
+import com.assets.services.Helpers.SeatingLayout;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 

@@ -5,17 +5,10 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
-import com.assets.services.SeatingLayoutRow;
-import com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplatePanel;
 import com.scenes.ModalWindow.ModalWindow;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class ShowSeatingLayoutTemplatesPanel {
     public static void showModal() {

@@ -2,6 +2,7 @@ package com.scenes.TrafficCoordinationDispatcherPanel;
 
 import com.App;
 import com.assets.services.InteractingWithWindow;
+import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesController;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesPanel;
 import javafx.fxml.FXML;
@@ -98,12 +99,11 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openShowAllAirportsWindow() {
-
+        ShowAllAirportsPanel.showModal();
     }
 
     @FXML
     void openShowAllFlightsWindow() {
-
     }
 
     @FXML

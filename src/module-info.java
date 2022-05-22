@@ -77,4 +77,8 @@ module client {
     exports com.assets.services;
     exports com.assets.services.Exceptions;
     opens com.assets.services.Exceptions to javafx.fxml;
+    exports com.assets.services.TableRows;
+    opens com.assets.services.TableRows to javafx.fxml;
+    exports com.assets.services.Helpers;
+    opens com.assets.services.Helpers to javafx.fxml;
 }

@@ -2,6 +2,11 @@ package com.assets.services;
 
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
+import com.assets.services.Helpers.Airplane;
+import com.assets.services.Helpers.SeatingLayout;
+import com.assets.services.TableRows.AllAirportsRow;
+import com.assets.services.TableRows.AllRoutesRow;
+import com.assets.services.TableRows.SeatingLayoutRow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.JSONArray;
@@ -15,7 +20,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Requests {
     public static JSONObject getJWTToken(String login, String password) throws NoServerResponseException {
@@ -624,7 +628,7 @@ public class Requests {
         }
     }
 
-    public static  ObservableList<SeatingLayoutRow> getAllSeatingLayoutTemplates(String token) throws ResponseException, NoServerResponseException {
+    public static ObservableList<SeatingLayoutRow> getAllSeatingLayoutTemplates(String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -677,12 +681,13 @@ public class Requests {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");
-        } catch (IndexOutOfBoundsException e){
-            throw  new ResponseException(e, "Data received from the server does not match what was expected\nContact your technical administrator to fix the problem\n");
+        } catch (IndexOutOfBoundsException e) {
+            throw new ResponseException(e, "Data received from the server does not match what was expected\nContact your technical administrator to fix the problem\n");
         }
     }
 
-    public static ObservableList<AllRoutesRow>  getAllRoutes(String token) throws ResponseException, NoServerResponseException {
+    //Completed
+    public static ObservableList<AllRoutesRow> getAllRoutes(String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -703,7 +708,7 @@ public class Requests {
             ObservableList<AllRoutesRow> data = FXCollections.observableArrayList();
             if (array.isEmpty()) return data;
 
-            for(var o : array){
+            for (var o : array) {
                 JSONObject object = (JSONObject) o;
                 data.add(new AllRoutesRow(
                         object.getString("fromCountry"),
@@ -712,6 +717,43 @@ public class Requests {
                         object.getString("toCountry"),
                         object.getString("toCity"),
                         object.getString("toAirport")
+                ));
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static ObservableList getAllAirports(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_airports"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            ObservableList<AllAirportsRow> data = FXCollections.observableArrayList();
+            if (array.isEmpty()) return data;
+
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.add(new AllAirportsRow(
+                        object.getString("country"),
+                        object.getString("city"),
+                        object.getString("airport")
                 ));
             }
 

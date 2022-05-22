@@ -1,4 +1,4 @@
-package com.assets.services;
+package com.assets.services.Helpers;
 
 public class Airplane {
     private String name;

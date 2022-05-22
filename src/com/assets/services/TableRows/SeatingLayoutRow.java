@@ -1,4 +1,4 @@
-package com.assets.services;
+package com.assets.services.TableRows;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

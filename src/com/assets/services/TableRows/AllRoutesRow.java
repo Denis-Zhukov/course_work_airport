@@ -1,4 +1,4 @@
-package com.assets.services;
+package com.assets.services.TableRows;
 
 public class AllRoutesRow {
     private final String fromCountry;
