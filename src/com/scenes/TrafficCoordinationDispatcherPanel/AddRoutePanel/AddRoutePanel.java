@@ -23,7 +23,7 @@ public class AddRoutePanel {
         stage.centerOnScreen();
 
         try {
-            airportsId = Requests.getAirportsCitiesCountries(App.getAccessToken());
+            airportsId = Requests.getAirportsCitiesCountries();
             ((ComboBox)stage.getScene().lookup("#fromComboBox")).getItems().addAll(airportsId.keySet());
             ((ComboBox)stage.getScene().lookup("#toComboBox")).getItems().addAll(airportsId.keySet());
         } catch (NoServerResponseException | ResponseException e) {

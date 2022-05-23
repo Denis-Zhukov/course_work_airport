@@ -62,4 +62,17 @@ public class AllFlightsRow {
         this.number = number;
         this.boardingTime = boardingTime;
     }
+
+    public AllFlightsRow(String fromCountry, String fromCity, String fromAirport, String toCountry, String toCity, String toAirport, Date boardingTime) {
+        this.fromCountry = fromCountry;
+        this.fromCity = fromCity;
+        this.fromAirport = fromAirport;
+
+        this.toCountry = toCountry;
+        this.toCity = toCity;
+        this.toAirport = toAirport;
+
+        this.boardingTime = boardingTime;
+        this.number = null;
+    }
 }

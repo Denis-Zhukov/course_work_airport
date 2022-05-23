@@ -122,8 +122,14 @@ module client {
     opens com.scenes.EconomistPanel.SetFlightPricePanel to javafx.fxml;
     exports com.scenes.EconomistPanel.SetFlightPricePanel;
 
+    opens com.scenes.StatisticsPanel to javafx.fxml;
+    exports com.scenes.StatisticsPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
+
+    opens com.scenes.CustomerPanel.BookingPanel to javafx.fxml;
+    exports com.scenes.CustomerPanel.BookingPanel;
 
     opens com.scenes.ModalWindow to javafx.fxml;
     exports com.scenes.ModalWindow;

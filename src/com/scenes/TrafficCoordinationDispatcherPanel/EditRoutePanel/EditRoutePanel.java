@@ -24,13 +24,12 @@ public class EditRoutePanel {
         stage.centerOnScreen();
 
         try {
-            airportsId = Requests.getAirportsCitiesCountries(App.getAccessToken());
+            airportsId = Requests.getAirportsCitiesCountries();
             ((ComboBox)stage.getScene().lookup("#fromComboBox")).getItems().addAll(airportsId.keySet());
             ((ComboBox)stage.getScene().lookup("#toComboBox")).getItems().addAll(airportsId.keySet());
 
             routesId = Requests.getAllRoutesWithId(App.getAccessToken());
             ((ComboBox)stage.getScene().lookup("#numberRouteComboBox")).getItems().addAll(routesId.keySet());
-            Requests.getAllRoutesWithId(App.getAccessToken());
 
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);

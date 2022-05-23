@@ -27,7 +27,6 @@ public class AddFlightPanel {
         try {
             routesId = Requests.getAllRoutesWithId(App.getAccessToken());
             ((ComboBox)stage.getScene().lookup("#routesComboBox")).getItems().addAll(routesId.keySet());
-            Requests.getAllRoutesWithId(App.getAccessToken());
 
             airplaneNumbersId = Requests.getAirplaneNumbers(App.getAccessToken());
             ((ComboBox)stage.getScene().lookup("#numbersPlaneComboBox")).getItems().addAll(airplaneNumbersId.keySet());

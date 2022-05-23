@@ -25,6 +25,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -1162,12 +1163,11 @@ public class Requests {
         }
     }
 
-    public static Map<String, Integer> getAirportsCitiesCountries(String token) throws ResponseException, NoServerResponseException {
+    public static Map<String, Integer> getAirportsCitiesCountries() throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(Constants.api + "get_airports"))
-                    .setHeader("Authorization", token)
                     .setHeader("Content-type", "application/json")
                     .GET()
                     .timeout(Duration.ofSeconds(5))
@@ -1247,6 +1247,8 @@ public class Requests {
 
             Map<String, Integer> data = new HashMap<>();
 
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             for (var o : array) {
                 JSONObject object = (JSONObject) o;
                 data.put(String.format("%s, %s, %s —— %s, %s, %s",
@@ -1438,7 +1440,7 @@ public class Requests {
         }
     }
 
-    public static PriceByFlight getPrices(int idFlight, String token) throws ResponseException, NoServerResponseException {
+    public static PriceByFlight getPrices(int idFlight) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("id_flight", idFlight);
         }};
@@ -1447,7 +1449,6 @@ public class Requests {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(Constants.api + "get_prices"))
-                    .setHeader("Authorization", token)
                     .setHeader("Content-type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .timeout(Duration.ofSeconds(5))
@@ -1502,6 +1503,80 @@ public class Requests {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static Integer getRouteByFromTo(int idFrom, int idTo) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_airport_departure", idFrom);
+            put("id_airport_distanation", idTo);
+        }};
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_route_by_from_to"))
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            if (result.getJSONArray("result").isEmpty())
+                return null;
+            return result.getJSONArray("result").getJSONObject(0).getInt("id");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static Map<Integer, Date> getDateAndIdsByRouteAndDate(Integer idRoute, LocalDate date) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_route", idRoute);
+            put("boarding_datetime", DateTimeFormatter.ofPattern("yyyy-MM-dd").format(date));
+        }};
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_flights_by_date_and_route"))
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            Map<Integer, Date> data = new HashMap<>();
+            if (array.isEmpty()) return data;
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.put(
+                        object.getInt("id"),
+                        inputFormat.parse(object.getString("boarding_datetime"))
+                );
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new ResponseException(e, "Received data does not match the expected format\n");
         }
     }
 

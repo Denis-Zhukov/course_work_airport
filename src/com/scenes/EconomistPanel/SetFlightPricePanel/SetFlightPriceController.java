@@ -8,8 +8,6 @@ import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.PriceByFlight;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
@@ -30,7 +28,7 @@ public class SetFlightPriceController {
 
         int id = SetFlightPricePanel.flightsId.get(flight);
         try {
-            PriceByFlight prices = Requests.getPrices(id, App.getAccessToken());
+            PriceByFlight prices = Requests.getPrices(id);
             if (prices == null) return;
             var l = prices.getFirstPrice();
             firstClassPriceTextField.setText(prices.getFirstPrice());
