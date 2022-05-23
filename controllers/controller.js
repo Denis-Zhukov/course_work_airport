@@ -6,7 +6,7 @@ const databaseConfig = config.get("database");
 class controller {
     async addCountry(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "traffic coordination dispatcher"],
             ["country"],
             "countries",
             ["name"],
@@ -16,7 +16,7 @@ class controller {
 
     async addCity(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "traffic coordination dispatcher"],
             ["city", "id_country"],
             "cities",
             ["name", "id_country"],
@@ -26,7 +26,7 @@ class controller {
 
     async addAirport(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "traffic coordination dispatcher"],
             ["airport", "id_city"],
             "airports",
             ["name", "id_city"],
@@ -36,7 +36,7 @@ class controller {
 
     async addRoute(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "traffic coordination dispatcher"],
             ["id_airport_departure", "id_airport_distanation"],
             "routes",
             ["id_airport_departure", "id_airport_distanation"],
@@ -46,9 +46,9 @@ class controller {
 
     async addFlight(req, res) {
         await addPrototype(req, res,
-            ["admin"],
+            ["admin", "traffic coordination dispatcher"],
             ["id_plane", "id_route", "boarding_date"],
-            "routes",
+            "flights",
             ["id_plane", "id_route", "boarding_date"],
             true,
             "This flight already exists.");
@@ -340,7 +340,7 @@ class controller {
 
     async getAirplaneNumbers(req, res) {
         await getPrototype(req, res,
-            ["admin", "maintenance dispatcher"],
+            ["admin", "maintenance dispatcher", "traffic coordination dispatcher"],
             "planes",
             ["id", "number"],
         );
@@ -412,7 +412,7 @@ class controller {
         await getPrototype(req, res,
             ["admin", "traffic coordination dispatcher"],
             "from_to_view",
-            ["fromAirport", "fromCity", "fromCountry", "toAirport", "toCity", "toCountry"],
+            ["*"],
         );
     }
 
@@ -420,7 +420,7 @@ class controller {
         await getPrototype(req, res,
             ["admin", "traffic coordination dispatcher"],
             "airports_view",
-            ["country", "city", "airport"],
+            ["*"],
         );
     }
 
@@ -428,11 +428,149 @@ class controller {
         await getPrototype(req, res,
             ["admin", "traffic coordination dispatcher"],
             "flights_view",
-            ["number",
-             "fromAirport", "fromCity", "fromCountry",
-             "toAirport", "toCity", "toCountry",
-             "boarding_datetime",
-            ],
+            ["*"],
+        );
+    }
+
+    async getCountries(req, res) {
+        await getPrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            "countries",
+            ["*"],
+        );
+    }
+
+    async updateCountry(req, res) {
+        await updatePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["country"],
+            ["id"],
+            "countries",
+            ["name"],
+            ["id"],
+        );
+    }
+
+    async deleteCountry(req, res) {
+        await deletePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id"],
+            "countries",
+            ["id"],
+        );
+    }
+
+    //SELECT cities.id, cities.name as city, countries.name as country FROM cities JOIN countries ON cities.id_country=countries.id
+    async getCities(req, res) {
+        await getPrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            "cities_view",
+            ["*"],
+        );
+    }
+
+    async updateCity(req, res) {
+        await updatePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["city"],
+            ["id"],
+            "cities",
+            ["name"],
+            ["id"],
+        );
+    }
+
+    async deleteCity(req, res) {
+        await deletePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id"],
+            "cities",
+            ["id"],
+        );
+    }
+
+    async getAllAirports(req, res) {
+        await getPrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            "airports",
+            ["id", "name"],
+        );
+    }
+
+    async getCity(req, res) {
+        await getPrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            "id_airport_country_and_city",
+            ["country", "city"],
+            ["id_airport"],
+        );
+    }
+
+    async updateAirport(req, res) {
+        await updatePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id_city", "airport_name"],
+            ["id"],
+            "airports",
+            ["id_city", "name"],
+            ["id"],
+        );
+    }
+
+    async deleteAirport(req, res) {
+        await deletePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id"],
+            "airports",
+            ["id"],
+        );
+    }
+
+    async getAirportsCitiesCountries(req, res) {
+        await getPrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            "airports_view",
+            ["*"],
+        );
+    }
+
+    async updateRoute(req, res) {
+        await updatePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id_airport_departure", "id_airport_distanation"],
+            ["id"],
+            "routes",
+            ["id_airport_departure", "id_airport_distanation"],
+            ["id"],
+        );
+    }
+
+    async deleteRoute(req, res) {
+        await deletePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id"],
+            "routes",
+            ["id"],
+        );
+    }
+
+    async updateFlight(req, res) {
+        await updatePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id_plane", "id_route", "boarding_date"],
+            ["id"],
+            "flights",
+            ["id_plane", "id_route", "boarding_date"],
+            ["id"],
+        );
+    }
+
+    async deleteFlight(req, res){
+        await deletePrototype(req, res,
+            ["admin", "traffic coordination dispatcher"],
+            ["id"],
+            "flights",
+            ["id"],
         );
     }
 }
@@ -483,7 +621,8 @@ async function getPrototype(req, res, validRoles, tableName, tableFields, whereF
         });
 
         let query = `SELECT ${distinct ? "DISTINCT":""} ${tableFields.join(", ")} FROM (${tableName})
-        ${whereFields.length > 0 ? "WHERE"+whereFields.map(field=>"`"+field+"`=? ").join("") : "" }`;
+        ${whereFields.length > 0 ? "WHERE "+whereFields.map(field=>"`"+field+"`=? ").join("") : "" }`;
+        console.log(query);
         let [result] = await connection.execute(query, valuesConditions);
         connection.end();
         return res.json({result});
@@ -492,7 +631,7 @@ async function getPrototype(req, res, validRoles, tableName, tableFields, whereF
     }
 }
 
-async function deletePrototype(req, res, validRoles, paramsNames, tableName, tableFields) {
+async function deletePrototype(req, res, validRoles, paramsNames, tableName, wheresFields) {
     if( !validRoles.includes(req.user.role) )
         return res.status(403).json({message: "User have no permission"});
 
@@ -507,11 +646,11 @@ async function deletePrototype(req, res, validRoles, paramsNames, tableName, tab
             if( err ) res.status(500).json({message: "Connection problem", ...err});
         });
 
-        let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${tableFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
+        let query = `SELECT COUNT(*) as count FROM \`${tableName}\` WHERE ${wheresFields.map(field=>`\`${field}\``).join("=? AND ")+"=?"}`;
         let [result] = await connection.query(query, values);
         if( result[0].count === 0 ) return res.status(400).json({message: "This entry no longer exist or changed"});
 
-        query = `DELETE FROM ${tableName} WHERE ${tableFields.map(field=>"\`"+field+"\`=?").join(" AND ")}`;
+        query = `DELETE FROM ${tableName} WHERE ${wheresFields.map(field=>"\`"+field+"\`=?").join(" AND ")}`;
         [result] = await connection.execute(query, values);
         connection.end();
         return res.json({result});
@@ -522,7 +661,38 @@ async function deletePrototype(req, res, validRoles, paramsNames, tableName, tab
     }
 }
 
-async function updatePrototype(req, res, validRoles, fieldNames, tableName, updatableFields, conditionFields) {
+async function updatePrototype(req, res, validRoles, valuesFieldNames, whereFieldNames, tableName, updateFields, conditionFields) {
+    if( !validRoles.includes(req.user.role) )
+        return res.status(403).json({message: "User have no permission"});
+
+    const values = valuesFieldNames.map(fieldName => req.body[fieldName]);
+    const wheres = whereFieldNames.map(fieldName => req.body[fieldName]);
+
+    if( values.some(field => !field) )
+        return res.status(400).json({message: `Something is missing: ${valuesFieldNames.join(", ")}`});
+
+    try {
+        const connection = await mysql.createConnection(databaseConfig);
+        await connection.connect(err => {
+            if( err ) res.status(500).json({message: "Connection problem", ...err});
+        });
+
+
+        let sets = updateFields.map(field => field + "=?").join(", ");
+        let conds = conditionFields.length > 0 ? (" WHERE " + conditionFields.map(field => field)) + "=?" : "";
+
+        let query = `SELECT COUNT(*) as count FROM \`${tableName}\`` + conds;
+        let [result] = await connection.query(query, wheres);
+        if( result[0].count === 0 ) return res.status(400).json({message: "No entry to update"});
+
+        query = `UPDATE ${tableName} SET ${sets} ${conds}`;
+        [result] = await connection.query(query, [...values, ...wheres]);
+
+        connection?.end();
+        return res.json(result);
+    } catch(e) {
+        return res.status(500).json({message: "server problem", ...e});
+    }
 }
 
 export default new controller();
