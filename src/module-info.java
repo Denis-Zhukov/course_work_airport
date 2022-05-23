@@ -3,6 +3,7 @@ module client {
     requires javafx.fxml;
     requires org.json;
     requires java.net.http;
+    requires java.sql;
 
     opens com to javafx.fxml;
     exports com;
@@ -108,6 +109,9 @@ module client {
 
     opens com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel;
+
+    opens com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel;
 
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;

@@ -1,4 +1,4 @@
-package com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel;
+package com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
@@ -7,43 +7,43 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel.AddAirportPanel;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel.AddFlightPanel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
-public class AddFlightController {
+public class EditFlightController {
     @FXML
     private DateTimePicker dateTimePicker; // FIXME: 23.05.2022
     @FXML
-    private ComboBox<String> numbersPlaneComboBox, routesComboBox;
+    private ComboBox<String> flightsComboBox, routesComboBox, planesComboBox;
 
     public void submit() {
         try {
             LocalDateTime dateTime = dateTimePicker.getDateTimeValue();
 
-            String numberPlane = numbersPlaneComboBox.getValue();
+            String flight = flightsComboBox.getValue();
+            flight = flight == null ? "" : flight;
+
+            String numberPlane = planesComboBox.getValue();
             numberPlane = numberPlane == null ? "" : numberPlane;
 
             String route = routesComboBox.getValue();
             route = route == null ? "" : route;
 
             String error = "";
-            if (!AddFlightPanel.airplaneNumbersId.containsKey(numberPlane))
+            if (!EditFlightPanel.flightsId.containsKey(flight))
+                error += "Invalid flight selected\n";
+            if (!EditFlightPanel.airplaneNumbersId.containsKey(numberPlane))
                 error += "Invalid airplane number selected\n";
-            if (!AddFlightPanel.routesId.containsKey(route))
+            if (!EditFlightPanel.routesId.containsKey(route))
                 error += "Invalid route selected\n";
 
             if (!error.equals("")) {
@@ -51,17 +51,16 @@ public class AddFlightController {
                 return;
             }
 
-            int idPlane = AddFlightPanel.airplaneNumbersId.get(numberPlane);
-            int idRoute = AddFlightPanel.routesId.get(route);
+            int idFlight = EditFlightPanel.flightsId.get(flight);
+            int idPlane = EditFlightPanel.airplaneNumbersId.get(numberPlane);
+            int idRoute = EditFlightPanel.routesId.get(route);
             String dateTimeStr = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            Requests.addFlight(idPlane, idRoute, dateTimeStr, App.getAccessToken());
+            Requests.updateFlight(idFlight, idRoute,idPlane, dateTimeStr, App.getAccessToken());
 
-            dateTimePicker.setValue(null);
-            numbersPlaneComboBox.setValue("");
-            routesComboBox.setValue("");
-            ModalWindow.show("Success", "Flight has added", ModalWindow.Icon.success);
+            ((Stage) dateTimePicker.getScene().getWindow()).close();
+            ModalWindow.show("Success", "Flight has edited", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nFlight has not added", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nFlight has not edited", ModalWindow.Icon.error);
         }
     }
 
@@ -77,7 +76,8 @@ public class AddFlightController {
                 }
             }
         });
-        new AutoCompleteComboBoxListener<>(numbersPlaneComboBox);
+        new AutoCompleteComboBoxListener<>(flightsComboBox);
         new AutoCompleteComboBoxListener<>(routesComboBox);
+        new AutoCompleteComboBoxListener<>(planesComboBox);
     }
 }

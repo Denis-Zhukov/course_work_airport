@@ -19,9 +19,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Requests {
@@ -789,6 +791,7 @@ public class Requests {
             if (array.isEmpty()) return data;
 
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             for (var o : array) {
                 JSONObject object = (JSONObject) o;
                 data.add(new AllFlightsRow(
@@ -1332,6 +1335,78 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static Map<String, Integer> getFlights(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_flights"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            Map<String, Integer> data = new HashMap<>();
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            DateFormat outputFormat =  new SimpleDateFormat("yyyy.MM.dd HH:mm");
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.put(String.format("%s | %s | %s —— %s",
+                                object.getString("number"),
+                                outputFormat.format(inputFormat.parse(object.getString("boarding_datetime"))),
+                                object.getString("fromAirport"),
+                                object.getString("toAirport")
+                        ),
+                        object.getInt("id")
+                );
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new ResponseException(e, "Received data does not match the expected format\n");
+        }
+    }
+
+    public static void updateFlight(int idFlight, int idRoute, int idPlane, String dateTime, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id", idFlight);
+            put("id_plane", idPlane);
+            put("id_route", idRoute);
+            put("boarding_date", dateTime);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "update_flight"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
             var result = new JSONObject(response.body());
             serverStatusHandler(response.statusCode(), result);
         } catch (IOException | InterruptedException e) {
