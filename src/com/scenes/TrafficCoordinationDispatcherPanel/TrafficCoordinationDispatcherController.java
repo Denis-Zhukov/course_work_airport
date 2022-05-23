@@ -10,6 +10,8 @@ import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel.DeleteAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel.DeleteCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel.DeleteCountryPanel;
+import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightController;
+import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel.DeleteRoutePanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel.EditAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditCityPanel.EditCityPanel;
@@ -78,7 +80,7 @@ public class TrafficCoordinationDispatcherController {
 
     @FXML
     void openDeleteFlightWindow() {
-
+        DeleteFlightPanel.showModal();
     }
 
     @FXML
