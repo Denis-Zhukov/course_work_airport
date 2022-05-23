@@ -1,6 +1,7 @@
 package com.assets.services;
 
 import com.scenes.AdminPanel.AdminPanel;
+import com.scenes.EconomistPanel.EconomistPanel;
 import com.scenes.MaintenanceDispatcherPanel.MaintenanceDispatcherPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.TrafficCoordinationDispatcherPanel;
 import javafx.stage.Stage;
@@ -26,5 +27,6 @@ public class Constants {
         put("admin", AdminPanel::openChangingScene);
         put("maintenance dispatcher", MaintenanceDispatcherPanel::openChangingScene);
         put("traffic coordination dispatcher", TrafficCoordinationDispatcherPanel::openChangingScene);
+        put("economist", EconomistPanel::openChangingScene);
     }};
 }

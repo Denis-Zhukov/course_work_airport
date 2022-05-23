@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<TableView fx:id="table" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1125.0" stylesheets="@ShowAllFlightsPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsController">
+<TableView fx:id="table" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1125.0" stylesheets="@ShowAllFlightsPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsController">
     <columns>
         <TableColumn fx:id="planeNumber" prefWidth="75.0" resizable="false" text="№ plane" />
         <TableColumn prefWidth="75.0" resizable="false" text="From">

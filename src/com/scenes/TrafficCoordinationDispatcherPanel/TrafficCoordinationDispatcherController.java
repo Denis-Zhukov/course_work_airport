@@ -10,7 +10,6 @@ import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel.DeleteAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel.DeleteCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel.DeleteCountryPanel;
-import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightController;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel.DeleteRoutePanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel.EditAirportPanel;
@@ -19,7 +18,7 @@ import com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel.EditCountr
 import com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel.EditFlightPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditRoutePanel.EditRoutePanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
-import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel.ShowAllFlightsPanel;
+import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

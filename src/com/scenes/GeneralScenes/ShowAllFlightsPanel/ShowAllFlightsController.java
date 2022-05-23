@@ -1,4 +1,4 @@
-package com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel;
+package com.scenes.GeneralScenes.ShowAllFlightsPanel;
 
 import com.assets.services.TableRows.AllFlightsRow;
 import javafx.fxml.FXML;

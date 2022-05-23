@@ -3,6 +3,7 @@ package com.assets.services;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.Airplane;
+import com.assets.services.Helpers.PriceByFlight;
 import com.assets.services.Helpers.SeatingLayout;
 import com.assets.services.TableRows.AllAirportsRow;
 import com.assets.services.TableRows.AllFlightsRow;
@@ -14,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -1364,7 +1366,7 @@ public class Requests {
 
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            DateFormat outputFormat =  new SimpleDateFormat("yyyy.MM.dd HH:mm");
+            DateFormat outputFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
             for (var o : array) {
                 JSONObject object = (JSONObject) o;
                 data.put(String.format("%s | %s | %s —— %s",
@@ -1436,12 +1438,81 @@ public class Requests {
         }
     }
 
+    public static PriceByFlight getPrices(int idFlight, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_flight", idFlight);
+        }};
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_prices"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+            if (array.isEmpty())
+                return null;
+
+            PriceByFlight data = new PriceByFlight(
+                    array.getJSONObject(0).getBigDecimal("price"),
+                    array.getJSONObject(1).getBigDecimal("price"),
+                    array.getJSONObject(2).getBigDecimal("price")
+            );
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        } catch (IndexOutOfBoundsException e) {
+            throw new ResponseException(e, "Data received from the server does not match what was expected\nContact your technical administrator to fix the problem\n");
+        }
+    }
+
+    public static void setPrice(int idFlight, BigDecimal firstClassPrice, BigDecimal businessClassPrice, BigDecimal economyClassPrice, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_flight", idFlight);
+            put("first_class_price", firstClassPrice);
+            put("business_class_price", businessClassPrice);
+            put("economy_class_price", economyClassPrice);
+        }};
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "set_prices"))
+                    .setHeader("Authorization", token)
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
         switch (status) {
-            case 500 -> throw new ResponseException(null, "Suspended error: database problem.\nServer: " + response.getString("message"));
-            case 410 -> throw new NoServerResponseException(null, "Suspended error: no entry to update.\nServer: " + response.getString("message"));
+            case 500 ->
+                    throw new ResponseException(null, "Suspended error: database problem.\nServer: " + response.getString("message"));
+            case 410 ->
+                    throw new NoServerResponseException(null, "Suspended error: no entry to update.\nServer: " + response.getString("message"));
             case 404 -> throw new NoServerResponseException(null, "Error: Invalid API request");
             case 403, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
         }

@@ -7,7 +7,7 @@ public class NumberField extends LengthLimitedTextField {
         this.addEventFilter(KeyEvent.KEY_TYPED, t -> {
             char arr[] = t.getCharacter().toCharArray();
             char ch = arr[t.getCharacter().toCharArray().length - 1];
-            if (!(ch >= '0' && ch <= '9')) {
+            if (!((ch >= '0' && ch <= '9') || ch == '.')) {
                 t.consume();
             }
         });
@@ -17,5 +17,11 @@ public class NumberField extends LengthLimitedTextField {
         String value = getText();
         value = value.equals("") ? "0" : value;
         return Integer.parseInt(value);
+    }
+
+    public Double getDoubleValue() {
+        String value = getText();
+        value = value.equals("") ? "0" : value;
+        return Double.parseDouble(value);
     }
 }

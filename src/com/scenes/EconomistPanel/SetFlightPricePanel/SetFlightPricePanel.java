@@ -1,25 +1,32 @@
-package com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel;
+package com.scenes.EconomistPanel.SetFlightPricePanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
+import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.ModalWindow.ModalWindow;
+import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightPanel;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class ShowAllFlightsPanel {
+import java.util.Map;
+
+public class SetFlightPricePanel {
+    static Map<String, Integer> flightsId;
+
     public static void showModal() {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(ShowAllFlightsPanel.class.getResource("ShowAllFlightsPanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(SetFlightPricePanel.class.getResource("SetFlightPricePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
-            var data =Requests.getAllFlights(App.getAccessToken());
-            ((TableView)stage.getScene().lookup("#table")).setItems(data);
+            flightsId = Requests.getFlights(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#flightsComboBox")).getItems().addAll(flightsId.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();

@@ -68,8 +68,8 @@ module client {
     opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllFlightsPanel;
+    opens com.scenes.GeneralScenes.ShowAllFlightsPanel to javafx.fxml;
+    exports com.scenes.GeneralScenes.ShowAllFlightsPanel;
 
     opens com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel;
@@ -115,6 +115,12 @@ module client {
 
     opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel;
+
+    opens com.scenes.EconomistPanel to javafx.fxml;
+    exports com.scenes.EconomistPanel;
+
+    opens com.scenes.EconomistPanel.SetFlightPricePanel to javafx.fxml;
+    exports com.scenes.EconomistPanel.SetFlightPricePanel;
 
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;

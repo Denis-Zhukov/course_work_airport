@@ -32,9 +32,9 @@ public class DeleteFlightController {
             DeleteFlightPanel.flightsId.remove(flight);
             flightsComboBox.getItems().remove(flight);
             flightsComboBox.setValue("");
-            ModalWindow.show("Success", "Flight has deleted", ModalWindow.Icon.success);
+            ModalWindow.show("Success", "Price has set", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nFlight has not deleted", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nFlight has not set", ModalWindow.Icon.error);
         }
     }
 
