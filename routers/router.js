@@ -1,4 +1,4 @@
-import { Router } from "express";
+import {Router} from "express";
 import controller from "../controllers/controller.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -9,6 +9,9 @@ router.get("/get_cities", authMiddleware, controller.getCities);
 router.get("/get_all_airports", authMiddleware, controller.getAllAirports);
 router.post("/get_city", authMiddleware, controller.getCity);
 router.post("/get_airports_cities_countries", authMiddleware, controller.getAirportsCitiesCountries);
+router.post("/get_prices", controller.getPrices);
+router.post("/get_route_by_from_to", controller.getRouteByFromTo);
+router.post("/get_flights_by_date_and_route", controller.getFlightsByDateAndRoute);
 
 //ADD
 router.post("/add_country", authMiddleware, controller.addCountry);
@@ -18,8 +21,11 @@ router.post("/add_route", authMiddleware, controller.addRoute);
 router.post("/add_flight", authMiddleware, controller.addFlight);
 router.post("/add_plane", authMiddleware, controller.addPlane);
 router.post("/add_seating_layout", authMiddleware, controller.addSeatingLayout);
-router.post("/add_ticket", authMiddleware, controller.addTicket);
+router.post("/add_ticket", controller.addTicket);
 router.post("/add_price", authMiddleware, controller.addPrice);
+
+//SET (ADD, UPDATE)
+router.post("/set_prices", authMiddleware, controller.setPrices);
 
 //UPDATE
 router.post("/update_country", authMiddleware, controller.updateCountry);
@@ -60,7 +66,7 @@ router.post("/get_airplane_by_id", authMiddleware, controller.getAirplaneById);
 router.delete("/delete_seating_layout/:id", authMiddleware, controller.deleteSeatingLayout);
 router.get("/get_all_seating_layouts", authMiddleware, controller.getAllSeatingLayouts);
 router.get("/get_routes", authMiddleware, controller.getRoutes);
-router.get("/get_airports", authMiddleware, controller.getAirports);
+router.get("/get_airports", controller.getAirports);
 router.get("/get_flights", authMiddleware, controller.getFlights);
 
 
