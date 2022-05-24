@@ -1,6 +1,5 @@
 package com.assets.components;
 
-import com.assets.services.Exceptions.CustomException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.DatePicker;
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class DateTimePicker extends DatePicker {
     public static final String DefaultFormat = "yyyy-MM-dd HH:mm";

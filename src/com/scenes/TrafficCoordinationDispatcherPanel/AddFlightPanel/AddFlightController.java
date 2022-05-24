@@ -7,22 +7,13 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel.AddAirportPanel;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 public class AddFlightController {
     @FXML

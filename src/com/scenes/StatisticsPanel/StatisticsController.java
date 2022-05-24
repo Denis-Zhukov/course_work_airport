@@ -2,9 +2,8 @@ package com.scenes.StatisticsPanel;
 
 import com.App;
 import com.assets.services.InteractingWithWindow;
-import com.scenes.StatisticsPanel.RoutesPopularityPanel.RoutesPopularityController;
 import com.scenes.StatisticsPanel.RoutesPopularityPanel.RoutesPopularityPanel;
-import javafx.event.ActionEvent;
+import com.scenes.StatisticsPanel.ServicesPerDatesPanel.ServicesPerDatesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
@@ -29,5 +28,9 @@ public class StatisticsController {
 
     public void openRoutesPopularityWindow() {
         RoutesPopularityPanel.showModal();
+    }
+
+    public void openServicesProvedPerDatesWindow() {
+        ServicesPerDatesPanel.showModal();
     }
 }

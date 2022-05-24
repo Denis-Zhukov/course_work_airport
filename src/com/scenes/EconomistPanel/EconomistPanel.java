@@ -1,7 +1,6 @@
 package com.scenes.EconomistPanel;
 
 import com.assets.services.InteractingWithWindow;
-import com.scenes.LoginPanel.LoginPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 

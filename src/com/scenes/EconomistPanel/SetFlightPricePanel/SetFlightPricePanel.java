@@ -5,12 +5,9 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
-import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel.DeleteFlightPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.util.Map;

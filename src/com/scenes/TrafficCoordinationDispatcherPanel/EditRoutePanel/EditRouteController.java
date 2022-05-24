@@ -6,8 +6,6 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel.AddRoutePanel;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 

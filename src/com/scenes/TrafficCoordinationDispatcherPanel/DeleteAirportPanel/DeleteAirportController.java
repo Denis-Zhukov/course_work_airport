@@ -1,13 +1,10 @@
 package com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel;
 
 import com.App;
-import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel.EditAirportPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;

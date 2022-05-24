@@ -1,13 +1,11 @@
 package com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;

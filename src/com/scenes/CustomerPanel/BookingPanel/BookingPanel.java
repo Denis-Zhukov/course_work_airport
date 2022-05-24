@@ -1,16 +1,9 @@
 package com.scenes.CustomerPanel.BookingPanel;
 
-import com.App;
-import com.assets.services.Exceptions.NoServerResponseException;
-import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.PriceByFlight;
 import com.assets.services.InteractingWithWindow;
-import com.assets.services.Requests;
-import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
-import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 

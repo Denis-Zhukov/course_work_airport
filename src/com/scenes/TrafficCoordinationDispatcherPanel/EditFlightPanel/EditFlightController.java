@@ -7,12 +7,9 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel.AddFlightPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;

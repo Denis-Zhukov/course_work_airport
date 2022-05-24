@@ -6,8 +6,6 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
-import com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel.EditFlightPanel;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 
 public class DeleteFlightController {

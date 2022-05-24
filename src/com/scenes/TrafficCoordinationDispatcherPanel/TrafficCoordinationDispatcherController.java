@@ -2,6 +2,7 @@ package com.scenes.TrafficCoordinationDispatcherPanel;
 
 import com.App;
 import com.assets.services.InteractingWithWindow;
+import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel.AddAirportPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel.AddCityPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel.AddCountryPanel;
@@ -18,7 +19,6 @@ import com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel.EditCountr
 import com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel.EditFlightPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.EditRoutePanel.EditRoutePanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel.ShowAllAirportsPanel;
-import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
 import com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel.ShowAllRoutesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

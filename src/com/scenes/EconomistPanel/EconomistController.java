@@ -4,7 +4,6 @@ import com.App;
 import com.assets.services.InteractingWithWindow;
 import com.scenes.EconomistPanel.SetFlightPricePanel.SetFlightPricePanel;
 import com.scenes.GeneralScenes.ShowAllFlightsPanel.ShowAllFlightsPanel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;

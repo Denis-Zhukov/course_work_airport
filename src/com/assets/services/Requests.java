@@ -5,6 +5,7 @@ import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.Airplane;
 import com.assets.services.Helpers.PriceByFlight;
 import com.assets.services.Helpers.SeatingLayout;
+import com.assets.services.Helpers.ServicesPerDatesRow;
 import com.assets.services.TableRows.AllAirportsRow;
 import com.assets.services.TableRows.AllFlightsRow;
 import com.assets.services.TableRows.AllRoutesRow;
@@ -1642,6 +1643,51 @@ public class Requests {
                                 object.getString("toAirport")),
                         object.getInt("count")
                 );
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
+    public static ObservableList<ServicesPerDatesRow> getFlightsFullNameClass(LocalDate from, LocalDate to, String token) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("from", DateTimeFormatter.ofPattern("yyyy-MM-dd").format(from));
+            put("to", DateTimeFormatter.ofPattern("yyyy-MM-dd").format(to));
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_flights_fullname_class"))
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .setHeader("Authorization", token)
+                    .timeout(Duration.ofSeconds(15))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            ObservableList<ServicesPerDatesRow> data = FXCollections.observableArrayList();
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.add(new ServicesPerDatesRow(object.getString("fullname"),
+                        String.format("%s, %s, %s —— %s, %s, %s",
+                                object.getString("fromCountry"),
+                                object.getString("fromCity"),
+                                object.getString("fromAirport"),
+                                object.getString("toCountry"),
+                                object.getString("toCity"),
+                                object.getString("toAirport")
+                        ), object.getString("class")));
             }
 
             return data;

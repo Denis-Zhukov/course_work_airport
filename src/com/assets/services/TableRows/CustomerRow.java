@@ -1,12 +1,9 @@
 package com.assets.services.TableRows;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.function.Consumer;
 
 public class CustomerRow {
     private final String from;
