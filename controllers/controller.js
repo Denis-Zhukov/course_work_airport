@@ -128,7 +128,7 @@ class controller {
             query = `SELECT COUNT(*) as count FROM \`tickets\` WHERE \`id_flight\`=? AND \`id_class\`=?`;
             [result] = await connection.query(query, [values[0], values[1]]);
 
-            if(result[0].count >= maxCount)
+            if (result[0].count >= maxCount)
                 return res.status(410).json({message: "There are no seats"})
 
             query = `INSERT INTO \`${tableName}\` (${tableFields.map(field=>"`"+field+"`").join(", ")}) VALUES (${"?".repeat(tableFields.length).split("").join(", ")})`;
@@ -687,6 +687,43 @@ class controller {
             });
 
             let query = `SELECT ${tableFields.join(", ")} FROM (${tableName}) WHERE id_route=? AND DATE(boarding_datetime)=?`;
+            let [result] = await connection.execute(query, valuesConditions);
+            connection.end();
+            return res.json({result});
+        } catch (e) {
+            return res.status(500).json(e);
+        }
+    }
+
+    async getRoutesPopularity(req, res) {
+        await getPrototype(req, res,
+            ["admin", "director"],
+            "routes_popularity_view",
+            ["*"]
+        );
+    }
+
+    async getFlightsFullNameClass(req, res) {
+        let validRoles = ["admin", "director"];
+        let tableName = "flights_view JOIN flight_fullname_class_view ON flights_view.id=flight_fullname_class_view.id_flight";
+        let tableFields = ["fullname", 'fromAirport', 'fromCity', 'fromCountry', 'toAirport', 'toCity', 'toCountry', "class"];
+        let whereFields = ["from", "to"];
+
+        if (validRoles.length !== 0 && !validRoles.includes(req.user.role))
+            return res.status(403).json({message: "User have no permission"});
+
+        let valuesConditions = whereFields.map(field => req.body[field]);
+
+        if (valuesConditions.some(field => !field))
+            return res.status(400).json({message: `Something is missing: ${whereFields.join(", ")}`});
+
+        try {
+            const connection = await mysql.createConnection(databaseConfig);
+            await connection.connect(err => {
+                if (err) res.status(500).json({message: "Connection problem", ...err});
+            });
+
+            let query = `SELECT ${tableFields.join(", ")} FROM (${tableName}) WHERE boarding_datetime>=DATE(?) AND boarding_datetime<=DATE(?)`;
             let [result] = await connection.execute(query, valuesConditions);
             connection.end();
             return res.json({result});

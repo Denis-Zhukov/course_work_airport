@@ -12,6 +12,8 @@ router.post("/get_airports_cities_countries", authMiddleware, controller.getAirp
 router.post("/get_prices", controller.getPrices);
 router.post("/get_route_by_from_to", controller.getRouteByFromTo);
 router.post("/get_flights_by_date_and_route", controller.getFlightsByDateAndRoute);
+router.get("/get_routes_popularity", authMiddleware, controller.getRoutesPopularity);
+router.post("/get_flights_fullname_class", authMiddleware, controller.getFlightsFullNameClass);
 
 //ADD
 router.post("/add_country", authMiddleware, controller.addCountry);
