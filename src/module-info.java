@@ -125,6 +125,9 @@ module client {
     opens com.scenes.StatisticsPanel to javafx.fxml;
     exports com.scenes.StatisticsPanel;
 
+    opens com.scenes.StatisticsPanel.RoutesPopularityPanel to javafx.fxml;
+    exports com.scenes.StatisticsPanel.RoutesPopularityPanel;
+
     opens com.scenes.CustomerPanel to javafx.fxml;
     exports com.scenes.CustomerPanel;
 

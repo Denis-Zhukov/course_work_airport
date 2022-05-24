@@ -12,5 +12,6 @@
     <Text layoutX="51.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":" />
     <Text layoutX="51.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text=":" />
  <Button layoutX="266.0" layoutY="154.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="70.0" text="Log out" />
+   <Button layoutX="109.0" layoutY="81.0" mnemonicParsing="false" onAction="#openRoutesPopularityWindow" text="Routes popularity" />
 
 </AnchorPane>

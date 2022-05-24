@@ -1611,6 +1611,46 @@ public class Requests {
         }
     }
 
+    public static Map<String, Integer> getRoutesPopularity(String token) throws ResponseException, NoServerResponseException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "get_routes_popularity"))
+                    .setHeader("Content-type", "application/json")
+                    .setHeader("Authorization", token)
+                    .GET()
+                    .timeout(Duration.ofSeconds(15))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+            JSONArray array = result.getJSONArray("result");
+
+            Map<String, Integer> data = new HashMap<>();
+
+            for (var o : array) {
+                JSONObject object = (JSONObject) o;
+                data.put(String.format("%s, %s, %s —— %s, %s, %s",
+                                object.getString("fromCountry"),
+                                object.getString("fromCity"),
+                                object.getString("fromAirport"),
+                                object.getString("toCountry"),
+                                object.getString("toCity"),
+                                object.getString("toAirport")),
+                        object.getInt("count")
+                );
+            }
+
+            return data;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
@@ -1623,6 +1663,4 @@ public class Requests {
             case 403, 401, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
         }
     }
-
-
 }

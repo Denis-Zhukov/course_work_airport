@@ -2,6 +2,9 @@ package com.scenes.StatisticsPanel;
 
 import com.App;
 import com.assets.services.InteractingWithWindow;
+import com.scenes.StatisticsPanel.RoutesPopularityPanel.RoutesPopularityController;
+import com.scenes.StatisticsPanel.RoutesPopularityPanel.RoutesPopularityPanel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
@@ -22,5 +25,9 @@ public class StatisticsController {
     public void initialize() {
         loginText.setText(App.getUsername());
         roleText.setText(App.getRole());
+    }
+
+    public void openRoutesPopularityWindow() {
+        RoutesPopularityPanel.showModal();
     }
 }
