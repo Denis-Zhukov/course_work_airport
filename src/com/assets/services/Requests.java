@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -1580,6 +1581,36 @@ public class Requests {
         }
     }
 
+    public static void addTicket(int idFlight, int idClass, String fullName, String passport) throws ResponseException, NoServerResponseException {
+        JSONObject json = new JSONObject() {{
+            put("id_flight", idFlight);
+            put("id_class", idClass);
+            put("buy_datetime", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+            put("fullname", fullName);
+            put("passport", passport);
+        }};
+
+        try {
+            String requestBody = json.toString();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constants.api + "add_ticket"))
+                    .setHeader("Content-type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .timeout(Duration.ofSeconds(5))
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new NoServerResponseException(e, "Connection problem");
+        }
+    }
+
     //Status code handler
     //Completed
     private static void serverStatusHandler(int status, JSONObject response) throws NoServerResponseException, ResponseException {
@@ -1589,7 +1620,9 @@ public class Requests {
             case 410 ->
                     throw new NoServerResponseException(null, "Suspended error: no entry to update.\nServer: " + response.getString("message"));
             case 404 -> throw new NoServerResponseException(null, "Error: Invalid API request");
-            case 403, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
+            case 403, 401, 400 -> throw new ResponseException(null, "Server: " + response.getString("message"));
         }
     }
+
+
 }

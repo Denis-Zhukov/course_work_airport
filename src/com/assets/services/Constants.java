@@ -24,6 +24,12 @@ public class Constants {
 
     public static final Pattern regexCountryCityAirportName = Pattern.compile("^[a-zA-Z0-9 -]{2,}$");
 
+    public static final Pattern regexFullName = Pattern.compile("(?=^.{0,40}$)^[a-zA-Z-]+\\s[a-zA-Z-]+$");
+    public static final Pattern regexPassport = Pattern.compile("^(?!^0+$)[a-zA-Z0-9]{3,20}$");
+
+
+
+
     public static final HashMap<String, Consumer<Stage>> scenesByRoles = new HashMap<>() {{
         put("admin", AdminPanel::openChangingScene);
         put("maintenance dispatcher", MaintenanceDispatcherPanel::openChangingScene);

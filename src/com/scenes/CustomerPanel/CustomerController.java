@@ -10,6 +10,7 @@ import com.assets.services.Requests;
 import com.assets.services.TableRows.AllFlightsRow;
 import com.assets.services.TableRows.AllRoutesRow;
 import com.assets.services.TableRows.CustomerRow;
+import com.scenes.CustomerPanel.BookingPanel.BookingPanel;
 import com.scenes.ModalWindow.ModalWindow;
 import com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel.AddFlightPanel;
 import javafx.collections.FXCollections;
@@ -88,13 +89,15 @@ public class CustomerController {
             ObservableList<CustomerRow> rows = FXCollections.observableArrayList();
             for (Integer idFlight : ids) {
                 if (idCost.get(idFlight) == null) continue;
+                String finalFrom = from;
+                String finalTo = to;
                 rows.add(new CustomerRow(
                         from, to,
                         idFlightDate.get(idFlight),
                         idCost.get(idFlight).getFirstPrice(),
                         idCost.get(idFlight).getBusinessPrice(),
                         idCost.get(idFlight).getEconomyPrice(),
-                        (e) -> System.out.println(idFlight)
+                        (e) -> BookingPanel.showModal(finalFrom, finalTo,  idCost.get(idFlight), idFlightDate.get(idFlight), idFlight)
                 ));
             }
             table.setItems(rows);
