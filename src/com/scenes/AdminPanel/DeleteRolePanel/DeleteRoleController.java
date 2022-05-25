@@ -1,6 +1,9 @@
 package com.scenes.AdminPanel.DeleteRolePanel;
 
 import com.App;
+import com.assets.components.AutoCompleteComboBoxListener;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
@@ -12,7 +15,7 @@ public class DeleteRoleController {
 
     public void submit() {
         String role = rolesComboBox.getValue();
-        role = role == null ? "" : role.trim();
+        role = role == null ? "" : role;
 
         //Checking if the given role is in the loaded list from the database
         if (!DeleteRolePanel.roles.containsKey(role)) {
@@ -25,10 +28,14 @@ public class DeleteRoleController {
             Requests.deleteRole(DeleteRolePanel.roles.get(role), App.getAccessToken());
             rolesComboBox.getItems().remove(role);
             DeleteRolePanel.roles.remove(role);
-            ModalWindow.show("Success", "Role deleted", ModalWindow.Icon.success);
+            ModalWindow.show("Success", "Role has deleted", ModalWindow.Icon.success);
             rolesComboBox.setValue("");
-        } catch (Exception e) {
-            ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage()+"\nRole has not deleted", ModalWindow.Icon.error);
         }
+    }
+
+    public void initialize() {
+        new AutoCompleteComboBoxListener<>(rolesComboBox);
     }
 }

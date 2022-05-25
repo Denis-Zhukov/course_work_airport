@@ -1,13 +1,17 @@
 package com.scenes.AdminPanel.CreateAccountPanel;
 
 import com.App;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.components.LengthLimitedPasswordField;
 import com.assets.components.LengthLimitedTextField;
 import com.assets.services.Constants;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 
 public class CreateAccountController {
     @FXML
@@ -23,7 +27,7 @@ public class CreateAccountController {
         String password = passwordField.getText();
 
         String role = rolesComboBox.getValue();
-        role = role == null ? "" : role.trim();
+        role = role == null ? "" : role;
 
         //Validation data
         String error = "";
@@ -42,12 +46,16 @@ public class CreateAccountController {
         //API Request
         try {
             Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getAccessToken());
-            ModalWindow.show("Success", "Account added", ModalWindow.Icon.success);
             rolesComboBox.setValue("");
             loginField.setText("");
             passwordField.setText("");
-        } catch (Exception e) {
-            ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
+            ModalWindow.show("Success", "Account has created", ModalWindow.Icon.success);
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nAccount has not created", ModalWindow.Icon.error);
         }
+    }
+
+    public void initialize(){
+        new AutoCompleteComboBoxListener<>(rolesComboBox);
     }
 }

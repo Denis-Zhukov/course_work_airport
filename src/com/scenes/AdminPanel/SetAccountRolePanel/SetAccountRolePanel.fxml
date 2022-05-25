@@ -8,6 +8,6 @@
     <Label layoutX="86.0" layoutY="26.0" text="Account"/>
     <ComboBox fx:id="accountsComboBox" editable="true" layoutX="86.0" layoutY="43.0" prefWidth="150.0"/>
     <Label layoutX="88.0" layoutY="80.0" text="Role"/>
-    <ComboBox fx:id="rolesComboBox" layoutX="88.0" layoutY="98.0" prefWidth="150.0"/>
+    <ComboBox fx:id="rolesComboBox" editable="true" layoutX="88.0" layoutY="98.0" prefWidth="150.0"/>
     <Button layoutX="133.0" layoutY="143.0" mnemonicParsing="false" onAction="#submit" prefWidth="60.0" text="Set"/>
 </AnchorPane>

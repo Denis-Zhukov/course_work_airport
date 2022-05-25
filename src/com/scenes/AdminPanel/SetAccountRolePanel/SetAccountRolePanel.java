@@ -2,6 +2,8 @@ package com.scenes.AdminPanel.SetAccountRolePanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
@@ -23,29 +25,16 @@ public class SetAccountRolePanel {
         stage.centerOnScreen();
 
 
-        //Requested accounts and if failed to get, then exit, because often an error with the database
-        accounts = Requests.getAccounts(App.getAccessToken());
-        if (accounts != null) {
-            ComboBox<String> loginsComboBox = (ComboBox<String>) stage.getScene().lookup("#accountsComboBox");
-            loginsComboBox.getItems().addAll(accounts.keySet());
-            new AutoCompleteComboBoxListener<>(loginsComboBox);
-        } else {
+        try {
+            accounts = Requests.getAccounts(App.getAccessToken());
+            ((ComboBox<String>) stage.getScene().lookup("#accountsComboBox")).getItems().addAll(accounts.keySet());
+            roles = Requests.getRoles(App.getAccessToken());
+            ((ComboBox<String>) stage.getScene().lookup("#rolesComboBox")).getItems().addAll(roles.keySet());
+        } catch (ResponseException | NoServerResponseException e) {
             ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
             stage.close();
             return;
         }
-
-        //Requested roles and if failed to get, then exit, because often an error with the database
-        roles = Requests.getRoles(App.getAccessToken());
-        if (roles != null) {
-            ComboBox<String> rolesCB = (ComboBox) stage.getScene().lookup("#rolesComboBox");
-            rolesCB.getItems().addAll(roles.keySet());
-        } else {
-            ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
-            stage.close();
-            return;
-        }
-
         stage.show();
     }
 }

@@ -32,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Requests {
+    //Completed
     public static JSONObject getJWTToken(String login, String password) throws NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("username", login);
@@ -60,7 +61,8 @@ public class Requests {
         }
     }
 
-    public static Map<String, Integer> getRoles(String token) {
+    //Completed
+    public static Map<String, Integer> getRoles(String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -71,22 +73,19 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            var res = new JSONObject(response.body());
+            var result = new JSONObject(response.body());
+
+            serverStatusHandler(response.statusCode(), result);
+
             Map<String, Integer> roles = new HashMap<>();
-            for (var r : res.getJSONArray("result")) {
-                JSONObject role = ((JSONObject) r);
-                roles.put(role.getString("role"), role.getInt("id"));
-            }
+            for (var obj : result.getJSONArray("result"))
+                roles.put(((JSONObject) obj).getString("role"), ((JSONObject) obj).getInt("id"));
 
             return roles;
-        } catch (ConnectException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Shipping problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
-        return null;
     }
 
     public static String getRole(Integer id_account, String token) {
@@ -123,7 +122,7 @@ public class Requests {
         return null;
     }
 
-    public static void addRole(String role, String token) throws Exception {
+    public static void addRole(String role, String token) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("role", role);
         }};
@@ -140,16 +139,15 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            var AddAccountResponse = new JSONObject(response.body());
-            if (AddAccountResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-        } catch (ConnectException e) {
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static Map<String, Integer> getAccounts(String token) {
+    public static Map<String, Integer> getAccounts(String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -160,24 +158,22 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            var res = new JSONObject(response.body());
+            var result = new JSONObject(response.body());
+
+            serverStatusHandler(response.statusCode(), result);
+
             Map<String, Integer> accounts = new HashMap<>();
-            for (var acc : res.getJSONArray("result")) {
-                JSONObject account = ((JSONObject) acc);
-                accounts.put(account.getString("username"), account.getInt("id"));
+            for (var acc : result.getJSONArray("result")) {
+                accounts.put(((JSONObject) acc).getString("username"), ((JSONObject) acc).getInt("id"));
             }
             return accounts;
-        } catch (ConnectException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Shipping problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
-        return null;
     }
 
-    public static void addAccount(String login, String password, Integer id_role, String token) throws Exception {
+    public static void addAccount(String login, String password, Integer id_role, String token) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("username", login);
             put("hashPassword", Security.hash(password));
@@ -195,15 +191,15 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            var AddAccountResponse = new JSONObject(response.body());
-            if (AddAccountResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
+            var AddAccountResult = new JSONObject(response.body());
 
+            serverStatusHandler(response.statusCode(), AddAccountResult);
 
             json = new JSONObject() {{
-                put("id_account", AddAccountResponse.getInt("insertId"));
+                put("id_account", AddAccountResult.getInt("insertId"));
                 put("id_role", id_role);
             }};
+
             requestBody = json.toString();
             request = HttpRequest.newBuilder()
                     .uri(URI.create(Constants.api + "set_role"))
@@ -213,17 +209,15 @@ public class Requests {
                     .build();
 
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            var SetRoleResponse = new JSONObject(response.body());
-            if (SetRoleResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-
-        } catch (ConnectException e) {
+            var SetRoleResult = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), SetRoleResult);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static void deleteAccount(Integer id_account, String token) throws Exception {
+    public static void deleteAccount(Integer id_account, String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -236,17 +230,15 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var deleteAccountResponse = new JSONObject(response.body());
-            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
-                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
-                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
-        } catch (ConnectException e) {
+            var deleteAccountResult = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), deleteAccountResult);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static void depriveRole(Integer id_account, String token) throws Exception {
+    public static void depriveRole(Integer id_account, String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -259,17 +251,16 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var deleteAccountResponse = new JSONObject(response.body());
-            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
-                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
-                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
-        } catch (ConnectException e) {
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static void setRole(Integer idAccount, Integer idRole, String token) throws Exception {
+    //completed
+    public static void setRole(Integer idAccount, Integer idRole, String token) throws ResponseException, NoServerResponseException {
         JSONObject json = new JSONObject() {{
             put("id_account", idAccount);
             put("id_role", idRole);
@@ -288,16 +279,15 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var AddAccountResponse = new JSONObject(response.body());
-            if (AddAccountResponse.isNull("insertId"))
-                throw new Exception(AddAccountResponse.getString("message"));
-        } catch (ConnectException e) {
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static void deleteRole(Integer id_role, String token) throws Exception {
+    public static void deleteRole(Integer id_role, String token) throws ResponseException, NoServerResponseException {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -310,17 +300,15 @@ public class Requests {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            var deleteAccountResponse = new JSONObject(response.body());
-            if (deleteAccountResponse.isNull("result") || deleteAccountResponse.getJSONObject("result").isNull("affectedRows")
-                    || deleteAccountResponse.getJSONObject("result").getInt("affectedRows") == 0)
-                throw new Exception(deleteAccountResponse.isNull("message") ? "Account could not be deleted" : deleteAccountResponse.getString("message"));
-        } catch (ConnectException e) {
+            var deleteAccountResult = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), deleteAccountResult);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 
-    public static void updateAccount(Integer id_account, String newUsername, String newPassword, Integer newId_Role, String token) {
+    public static void updateAccount(Integer id_account, String newUsername, String newPassword, Integer newId_Role, String token) throws NoServerResponseException, ResponseException {
         JSONObject json = new JSONObject() {{
             put("id_account", id_account);
             put("id_role", newId_Role);
@@ -340,14 +328,11 @@ public class Requests {
 
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            var queryResponse = new JSONObject(response.body());
-            if (response.statusCode() != 200)
-                throw new Exception(queryResponse.getString("message"));
-        } catch (ConnectException e) {
+            var result = new JSONObject(response.body());
+            serverStatusHandler(response.statusCode(), result);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Connection problem.");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new NoServerResponseException(e, "Connection problem");
         }
     }
 

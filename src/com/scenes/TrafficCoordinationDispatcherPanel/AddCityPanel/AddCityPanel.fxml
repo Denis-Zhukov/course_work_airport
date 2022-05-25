@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0"
-            prefWidth="326.0" stylesheets="@AddCityPanel.css"
-            fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel.AddCityController"
-            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-    <Label layoutX="63.0" layoutY="31.0" text="Country:"/>
-    <ComboBox fx:id="countriesComboBox" focusTraversable="false" layoutX="127.0" layoutY="22.0" prefWidth="150.0"/>
-    <Label layoutX="86.0" layoutY="67.0" text="City:"/>
-    <TextField fx:id="cityTextBox" focusTraversable="false" layoutX="127.0" layoutY="63.0" prefWidth="150.0"/>
-    <Button focusTraversable="false" layoutX="128.0" layoutY="110.0" mnemonicParsing="false" onAction="#submit"
-            prefHeight="31.0" prefWidth="69.0" text="Add"/>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="326.0" stylesheets="@AddCityPanel.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel.AddCityController">
+    <Label layoutX="63.0" layoutY="31.0" text="Country:" />
+    <ComboBox fx:id="countriesComboBox" editable="true" focusTraversable="false" layoutX="127.0" layoutY="27.0" prefWidth="150.0" />
+    <Label layoutX="86.0" layoutY="67.0" text="City:" />
+    <TextField fx:id="cityTextBox" focusTraversable="false" layoutX="127.0" layoutY="64.0" prefWidth="150.0" />
+    <Button focusTraversable="false" layoutX="128.0" layoutY="110.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="69.0" text="Add" />
 </AnchorPane>

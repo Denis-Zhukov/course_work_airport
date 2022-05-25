@@ -1,9 +1,12 @@
 package com.scenes.AdminPanel.ChangeAccountPanel;
 
 import com.App;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.components.LengthLimitedPasswordField;
 import com.assets.components.LengthLimitedTextField;
 import com.assets.services.Constants;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
@@ -21,13 +24,13 @@ public class ChangeAccountController {
 
     public void submit() {
         String account = usernameComboBox.getValue();
-        account = account == null ? "" : account.trim();
+        account = account == null ? "" : account;
 
         String newUsername = loginField.getText();
         String newPassword = passwordField.getText();
 
         String role = newRoleComboBox.getValue();
-        role = role == null ? "" : role.trim();
+        role = role == null ? "" : role;
 
         //Validation data
         String error = "";
@@ -54,13 +57,13 @@ public class ChangeAccountController {
                     ChangeAccountPanel.roles.get(role),
                     App.getAccessToken());
 
-            ModalWindow.show("Success", "Account updated", ModalWindow.Icon.success);
             usernameComboBox.setValue("");
             loginField.setText("");
             passwordField.setText("");
             newRoleComboBox.setValue("");
-        } catch (Exception e) {
-            ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
+            ModalWindow.show("Success", "Account has updated", ModalWindow.Icon.success);
+        } catch (ResponseException | NoServerResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage()+"\nAccount has not updated", ModalWindow.Icon.error);
         }
     }
 
@@ -71,5 +74,10 @@ public class ChangeAccountController {
             return;
         String role = Requests.getRole(ChangeAccountPanel.accounts.get(username), App.getAccessToken());
         newRoleComboBox.setValue(role);
+    }
+
+    public void initialize(){
+        new AutoCompleteComboBoxListener<>(usernameComboBox);
+        new AutoCompleteComboBoxListener<>(newRoleComboBox);
     }
 }

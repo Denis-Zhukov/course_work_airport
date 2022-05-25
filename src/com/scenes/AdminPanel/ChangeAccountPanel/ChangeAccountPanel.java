@@ -2,6 +2,8 @@ package com.scenes.AdminPanel.ChangeAccountPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
@@ -21,29 +23,17 @@ public class ChangeAccountPanel {
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
-        //Requested roles and if failed to get, then exit, because often an error with the database
-        ChangeAccountPanel.accounts = Requests.getAccounts(App.getAccessToken());
-        if (accounts != null) {
-            ComboBox<String> usersCB = (ComboBox) stage.getScene().lookup("#usernameComboBox");
-            usersCB.getItems().addAll(ChangeAccountPanel.accounts.keySet());
-            new AutoCompleteComboBoxListener<>(usersCB);
-        } else {
-            ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
-            stage.close();
+        try {
+            ChangeAccountPanel.accounts = Requests.getAccounts(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#usernameComboBox")).getItems().addAll(ChangeAccountPanel.accounts.keySet());
+
+            ChangeAccountPanel.roles = Requests.getRoles(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#newRoleComboBox")).getItems().addAll(ChangeAccountPanel.roles.keySet());
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
+            ((Stage) stage.getScene().getWindow()).close();
             return;
         }
-
-        ChangeAccountPanel.roles = Requests.getRoles(App.getAccessToken());
-        if (roles != null) {
-            ComboBox<String> rolesCB = (ComboBox) stage.getScene().lookup("#newRoleComboBox");
-            rolesCB.getItems().addAll(ChangeAccountPanel.roles.keySet());
-            new AutoCompleteComboBoxListener<>(rolesCB);
-        } else {
-            ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
-            stage.close();
-            return;
-        }
-
         stage.show();
     }
 }

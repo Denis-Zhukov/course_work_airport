@@ -1,10 +1,13 @@
 package com.scenes.AdminPanel.AddRolePanel;
 
 import com.App;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AddRoleController {
     @FXML
@@ -22,10 +25,10 @@ public class AddRoleController {
         //API Request
         try {
             Requests.addRole(newRole, App.getAccessToken());
-            ModalWindow.show("Success", "Role added", ModalWindow.Icon.success);
+            ModalWindow.show("Success", "Role has added", ModalWindow.Icon.success);
             roleField.setText("");
-        } catch (Exception e) {
-            ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage()+"\nRole has not added", ModalWindow.Icon.error);
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.scenes.AdminPanel.SetAccountRolePanel;
 
 import com.App;
+import com.assets.components.AutoCompleteComboBoxListener;
+import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
@@ -34,11 +37,16 @@ public class SetAccountRoleController {
         //API Request
         try {
             Requests.setRole(SetAccountRolePanel.accounts.get(login), SetAccountRolePanel.roles.get(role), App.getAccessToken());
-            ModalWindow.show("Success", "Role set", ModalWindow.Icon.success);
+            ModalWindow.show("Success", "Role has set", ModalWindow.Icon.success);
             accountsComboBox.setValue("");
             rolesComboBox.setValue("");
-        } catch (Exception e) {
-            ModalWindow.show("Error", e.getMessage(), ModalWindow.Icon.error);
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nRole has not set", ModalWindow.Icon.error);
         }
+    }
+
+    public void initialize() {
+        new AutoCompleteComboBoxListener<>(accountsComboBox);
+        new AutoCompleteComboBoxListener<>(rolesComboBox);
     }
 }

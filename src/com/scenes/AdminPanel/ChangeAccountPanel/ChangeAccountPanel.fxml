@@ -17,7 +17,7 @@
     <LengthLimitedPasswordField styleClass="field" fx:id="passwordField" layoutX="65.0" layoutY="169.0" prefWidth="150.0"
                                 maxCharacters="32"/>
     <Label layoutX="65.0" layoutY="215.0" text="New role"/>
-    <ComboBox fx:id="newRoleComboBox" depthTest="ENABLE" layoutX="65.0" layoutY="234.0" prefWidth="150.0"/>
+    <ComboBox fx:id="newRoleComboBox" editable="true" depthTest="ENABLE" layoutX="65.0" layoutY="234.0" prefWidth="150.0"/>
     <Button layoutX="75.0" layoutY="286.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0"
             prefWidth="130.0" text="Add account"/>
 </AnchorPane>
