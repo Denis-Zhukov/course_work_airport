@@ -14,13 +14,11 @@ import javafx.scene.control.ComboBox;
 
 public class ChangeAccountController {
     @FXML
-    private ComboBox<String> usernameComboBox;
+    private ComboBox<String> usernameComboBox, newRoleComboBox;
     @FXML
     private LengthLimitedTextField loginField;
     @FXML
     private LengthLimitedPasswordField passwordField;
-    @FXML
-    private ComboBox<String> newRoleComboBox;
 
     public void submit() {
         String account = usernameComboBox.getValue();
@@ -41,7 +39,7 @@ public class ChangeAccountController {
         if (!(newPassword.equals("") || Constants.regexPassword.matcher(newPassword).find()))
             error += "Invalid new password\n";
         if (!ChangeAccountPanel.roles.containsKey(role))
-            error += "Incorrect new role\n";
+            error += "Invalid new role\n";
 
         if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
@@ -50,23 +48,31 @@ public class ChangeAccountController {
 
         //API Request
         try {
+            int idAccount = ChangeAccountPanel.accounts.get(account);
+            int idRole = ChangeAccountPanel.roles.get(role);
             Requests.updateAccount(
-                    ChangeAccountPanel.accounts.get(account),
+                    idAccount,
                     newUsername,
                     newPassword,
-                    ChangeAccountPanel.roles.get(role),
-                    App.getAccessToken());
+                    idRole,
+                    App.getAccessToken()
+            );
 
+            //Reset fields and update combobox
             usernameComboBox.setValue("");
             loginField.setText("");
             passwordField.setText("");
             newRoleComboBox.setValue("");
+            ChangeAccountPanel.accounts.remove(account);
+            ChangeAccountPanel.accounts.put(newUsername, idAccount);
+
             ModalWindow.show("Success", "Account has updated", ModalWindow.Icon.success);
         } catch (ResponseException | NoServerResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage()+"\nAccount has not updated", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nAccount has not updated", ModalWindow.Icon.error);
         }
     }
 
+    //Set fields account's info
     public void preloadAccount() {
         loginField.setText(usernameComboBox.getValue());
         String username = usernameComboBox.getValue();
@@ -76,7 +82,7 @@ public class ChangeAccountController {
         newRoleComboBox.setValue(role);
     }
 
-    public void initialize(){
+    public void initialize() {
         new AutoCompleteComboBoxListener<>(usernameComboBox);
         new AutoCompleteComboBoxListener<>(newRoleComboBox);
     }

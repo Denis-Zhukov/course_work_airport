@@ -53,7 +53,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
             Parent root = loader.load();
             stage.setScene(new Scene(root));
-            stage.setTitle("Air orders");
+            stage.setTitle("Жмых Airlines");
 
             stage.setResizable(false);
             stage.show();
@@ -64,7 +64,6 @@ public class App extends Application {
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
             System.err.println("Failed to load initial application resources.");
-            //LOGER!!!
         }
     }
 

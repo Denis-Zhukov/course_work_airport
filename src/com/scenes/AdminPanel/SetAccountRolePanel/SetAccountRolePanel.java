@@ -1,7 +1,6 @@
 package com.scenes.AdminPanel.SetAccountRolePanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -26,10 +25,12 @@ public class SetAccountRolePanel {
 
 
         try {
+            //Load all usernames and their id
             accounts = Requests.getAccounts(App.getAccessToken());
-            ((ComboBox<String>) stage.getScene().lookup("#accountsComboBox")).getItems().addAll(accounts.keySet());
+            ((ComboBox<String>) stage.getScene().lookup("#accountsComboBox")).getItems().setAll(accounts.keySet());
+            //Load all roles and their id
             roles = Requests.getRoles(App.getAccessToken());
-            ((ComboBox<String>) stage.getScene().lookup("#rolesComboBox")).getItems().addAll(roles.keySet());
+            ((ComboBox<String>) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
         } catch (ResponseException | NoServerResponseException e) {
             ModalWindow.show("Error", "Database connection problem", ModalWindow.Icon.error);
             stage.close();

@@ -21,14 +21,21 @@
     -fx-border-color: #2871FF;
     -fx-border-width: 2;
     -fx-cursor: HAND;
-    -fx-font: 14 Tahoma, sans-serif;
 }
 
 .button:hover {
     -fx-background-color: #2060D0;
 }
 
-.combo-box{
+.button:focused {
+    -fx-border-color: #0033FF;
+}
+
+.button > .text {
+    -fx-fill: white !important;
+}
+
+.combo-box {
     -fx-background-color: transparent;
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: #003EB7;
@@ -39,13 +46,13 @@
     -fx-hgap: 0;
 }
 
-.combo-box>.text-field{
+.combo-box > .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: black;
     -fx-hgap: 0;
 }
 
-.arrow-button{
+.arrow-button {
     -fx-background-color: transparent;
     -fx-border-style: hidden;
 }

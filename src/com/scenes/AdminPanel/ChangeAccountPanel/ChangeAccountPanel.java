@@ -1,7 +1,6 @@
 package com.scenes.AdminPanel.ChangeAccountPanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -18,22 +17,25 @@ public class ChangeAccountPanel {
     public static Map<String, Integer> accounts;
 
     public static void showModal() {
+        //Open needed window
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(ChangeAccountPanel.class.getResource("ChangeAccountPanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
+            //Load all usernames and their id
             ChangeAccountPanel.accounts = Requests.getAccounts(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#usernameComboBox")).getItems().addAll(ChangeAccountPanel.accounts.keySet());
-
+            ((ComboBox) stage.getScene().lookup("#usernameComboBox")).getItems().setAll(ChangeAccountPanel.accounts.keySet());
+            //Load all roles and their id
             ChangeAccountPanel.roles = Requests.getRoles(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#newRoleComboBox")).getItems().addAll(ChangeAccountPanel.roles.keySet());
+            ((ComboBox) stage.getScene().lookup("#newRoleComboBox")).getItems().setAll(ChangeAccountPanel.roles.keySet());
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
+
         stage.show();
     }
 }

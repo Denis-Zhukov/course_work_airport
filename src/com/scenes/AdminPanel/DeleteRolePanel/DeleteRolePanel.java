@@ -23,17 +23,16 @@ public class DeleteRolePanel {
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
-
         try {
+            //Load all roles and their id
             roles = Requests.getRoles(App.getAccessToken());
-            ComboBox<String> rolesCB = (ComboBox) stage.getScene().lookup("#rolesComboBox");
-            rolesCB.getItems().addAll(roles.keySet());
-            new AutoCompleteComboBoxListener<>(rolesCB);
+            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
+
         stage.show();
     }
 }

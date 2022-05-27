@@ -1,7 +1,6 @@
 package com.scenes.AdminPanel.CreateAccountPanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -23,15 +22,16 @@ public class CreateAccountPanel {
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
-        //Requested accounts and if failed to get, then exit, because often an error with the database
         try {
+            //Load all usernames and their id
             roles = Requests.getRoles(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().addAll(roles.keySet());
+            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
+
         stage.show();
     }
 }

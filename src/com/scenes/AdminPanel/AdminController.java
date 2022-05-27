@@ -16,19 +16,15 @@ import javafx.stage.Stage;
 
 public class AdminController {
     @FXML
-    private Text loginText;
-    @FXML
-    private Text roleText;
+    private Text loginText, roleText;
 
     //Accounts
     public void openCreateAccountWindow() {
         CreateAccountPanel.showModal();
     }
-
     public void openDeleteAccountWindow() {
         DeleteAccountPanel.showModal();
     }
-
     public void openChangeAccountWindow() {
         ChangeAccountPanel.showModal();
     }
@@ -37,7 +33,6 @@ public class AdminController {
     public void openAddingRoleWindow() {
         AddRolePanel.showModal();
     }
-
     public void openDeleteRoleWindow() {
         DeleteRolePanel.showModal();
     }
@@ -46,7 +41,6 @@ public class AdminController {
     public void openSetRoleWindow() {
         SetAccountRolePanel.showModal();
     }
-
     public void openDepriveRoleWindow() {
         DepriveRolePanel.showModal();
     }

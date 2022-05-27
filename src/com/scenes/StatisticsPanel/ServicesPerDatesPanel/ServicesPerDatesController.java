@@ -5,16 +5,12 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.ServicesPerDatesRow;
 import com.assets.services.Requests;
-import com.assets.services.TableRows.SeatingLayoutRow;
 import com.scenes.ModalWindow.ModalWindow;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 

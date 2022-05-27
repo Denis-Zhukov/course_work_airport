@@ -37,9 +37,12 @@ public class SetAccountRoleController {
         //API Request
         try {
             Requests.setRole(SetAccountRolePanel.accounts.get(login), SetAccountRolePanel.roles.get(role), App.getAccessToken());
-            ModalWindow.show("Success", "Role has set", ModalWindow.Icon.success);
+
+            //Reset and update combobox
             accountsComboBox.setValue("");
             rolesComboBox.setValue("");
+
+            ModalWindow.show("Success", "Role has set", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nRole has not set", ModalWindow.Icon.error);
         }

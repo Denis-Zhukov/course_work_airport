@@ -1,7 +1,6 @@
 package com.scenes.AdminPanel.DeleteAccountPanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -23,10 +22,10 @@ public class DeleteAccountPanel {
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
-        //Requested accounts and if failed to get, then exit, because often an error with the database
         try {
+            //Load all usernames and their id
             accounts = Requests.getAccounts(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#accountsComboBox")).getItems().addAll(accounts.keySet());
+            ((ComboBox) stage.getScene().lookup("#accountsComboBox")).getItems().setAll(accounts.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();

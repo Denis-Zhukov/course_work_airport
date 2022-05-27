@@ -11,7 +11,6 @@ import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
 
 public class CreateAccountController {
     @FXML
@@ -36,7 +35,7 @@ public class CreateAccountController {
         if (!Constants.regexPassword.matcher(password).find())
             error += "Invalid password\n";
         if (!CreateAccountPanel.roles.containsKey(role))
-            error += "Incorrect role\n";
+            error += "Invalid role\n";
 
         if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
@@ -46,16 +45,19 @@ public class CreateAccountController {
         //API Request
         try {
             Requests.addAccount(login, password, CreateAccountPanel.roles.get(role), App.getAccessToken());
+
+            //Reset fields
             rolesComboBox.setValue("");
             loginField.setText("");
             passwordField.setText("");
+
             ModalWindow.show("Success", "Account has created", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nAccount has not created", ModalWindow.Icon.error);
         }
     }
 
-    public void initialize(){
+    public void initialize() {
         new AutoCompleteComboBoxListener<>(rolesComboBox);
     }
 }

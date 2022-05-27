@@ -10,5 +10,6 @@ public class AdminPanel {
         FXMLLoader loader = new FXMLLoader(AdminPanel.class.getResource("AdminPanel.fxml"));
         InteractingWithWindow.changeScene(stage, loader);
         stage.centerOnScreen();
+        stage.setTitle("Admin panel");
     }
 }

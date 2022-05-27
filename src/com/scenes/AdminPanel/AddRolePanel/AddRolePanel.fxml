@@ -2,11 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import com.assets.components.LengthLimitedTextField?>
 <AnchorPane prefHeight="140.0" prefWidth="250.0" stylesheets="@AddRolePanel.css" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.AdminPanel.AddRolePanel.AddRoleController">
-    <Label layoutX="41.0" layoutY="23.0" text="New role"/>
-    <TextField fx:id="roleField" layoutX="41.0" layoutY="41.0"/>
-    <Button layoutX="88.0" layoutY="90.0" mnemonicParsing="false" onAction="#submit" text="Add role"/>
+    <Label layoutX="35.0" layoutY="23.0" text="New role"/>
+    <LengthLimitedTextField fx:id="roleField" layoutX="35.0" layoutY="41.0" prefHeight="32.0" prefWidth="180.0"
+                            maxCharacters="32"/>
+    <Button layoutX="88.0" layoutY="94.0" mnemonicParsing="false" onAction="#submit" text="Add role"/>
 </AnchorPane>

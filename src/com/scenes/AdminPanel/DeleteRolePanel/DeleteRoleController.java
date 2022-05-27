@@ -17,7 +17,7 @@ public class DeleteRoleController {
         String role = rolesComboBox.getValue();
         role = role == null ? "" : role;
 
-        //Checking if the given role is in the loaded list from the database
+        //Validation data
         if (!DeleteRolePanel.roles.containsKey(role)) {
             ModalWindow.show("Error", "Incorrect account", ModalWindow.Icon.error);
             return;
@@ -26,10 +26,13 @@ public class DeleteRoleController {
         //API Request
         try {
             Requests.deleteRole(DeleteRolePanel.roles.get(role), App.getAccessToken());
+
+            //Reset and update combobox
             rolesComboBox.getItems().remove(role);
             DeleteRolePanel.roles.remove(role);
-            ModalWindow.show("Success", "Role has deleted", ModalWindow.Icon.success);
             rolesComboBox.setValue("");
+
+            ModalWindow.show("Success", "Role has deleted", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage()+"\nRole has not deleted", ModalWindow.Icon.error);
         }

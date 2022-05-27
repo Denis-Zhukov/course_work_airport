@@ -2,6 +2,10 @@
     -fx-font: 14 Tahoma, sans-serif;
 }
 
+.text {
+    -fx-fill: #2871FF;
+}
+
 .button {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
@@ -16,10 +20,10 @@
     -fx-background-color: #2060D0;
 }
 
-.button > .text {
-    -fx-fill: white;
+.button:focused {
+    -fx-border-color: #0033FF;
 }
 
-.text {
-    -fx-fill: #2871FF;
+.button > .text {
+    -fx-fill: white !important;
 }

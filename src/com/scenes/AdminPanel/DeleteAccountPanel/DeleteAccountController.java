@@ -17,7 +17,7 @@ public class DeleteAccountController {
         String username = accountsComboBox.getValue();
         username = username == null ? "" : username;
 
-        //Checking if the given account is in the loaded list from the database
+        //Validation data
         if (!DeleteAccountPanel.accounts.containsKey(username)) {
             ModalWindow.show("Error", "Incorrect account", ModalWindow.Icon.error);
             return;
@@ -26,10 +26,13 @@ public class DeleteAccountController {
         //API Request
         try {
             Requests.deleteAccount(DeleteAccountPanel.accounts.get(username), App.getAccessToken());
+
+            //Reset and update combobox
             accountsComboBox.getItems().remove(username);
             DeleteAccountPanel.accounts.remove(username);
-            ModalWindow.show("Success", "Account deleted", ModalWindow.Icon.success);
             accountsComboBox.setValue("");
+
+            ModalWindow.show("Success", "Account deleted", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nAccount has not deleted", ModalWindow.Icon.error);
         }

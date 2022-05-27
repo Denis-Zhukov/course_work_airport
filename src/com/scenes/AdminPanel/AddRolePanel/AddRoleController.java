@@ -7,7 +7,6 @@ import com.assets.services.Requests;
 import com.scenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class AddRoleController {
     @FXML
@@ -25,8 +24,11 @@ public class AddRoleController {
         //API Request
         try {
             Requests.addRole(newRole, App.getAccessToken());
-            ModalWindow.show("Success", "Role has added", ModalWindow.Icon.success);
+
+            //Reset field
             roleField.setText("");
+
+            ModalWindow.show("Success", "Role has added", ModalWindow.Icon.success);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage()+"\nRole has not added", ModalWindow.Icon.error);
         }
