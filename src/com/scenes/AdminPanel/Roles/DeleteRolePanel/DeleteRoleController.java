@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.DeleteRolePanel;
+package com.scenes.AdminPanel.Roles.DeleteRolePanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;

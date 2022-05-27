@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.CreateAccountPanel;
+package com.scenes.AdminPanel.Accounts.CreateAccountPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;

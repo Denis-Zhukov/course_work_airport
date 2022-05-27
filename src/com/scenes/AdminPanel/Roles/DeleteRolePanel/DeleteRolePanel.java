@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.DeleteAccountPanel;
+package com.scenes.AdminPanel.Roles.DeleteRolePanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;
@@ -12,25 +12,26 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-public class DeleteAccountPanel {
-    public static Map<String, Integer> accounts;
+public class DeleteRolePanel {
+    public static Map<String, Integer> roles;
 
     public static void showModal() {
         //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(DeleteAccountPanel.class.getResource("DeleteAccountPanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(DeleteRolePanel.class.getResource("DeleteRolePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
-            //Load all usernames and their id
-            accounts = Requests.getAccounts(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#accountsComboBox")).getItems().setAll(accounts.keySet());
+            //Load all roles and their id
+            roles = Requests.getRoles(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
+
         stage.show();
     }
 }

@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.AddRolePanel;
+package com.scenes.AdminPanel.Roles.AddRolePanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;

@@ -50,8 +50,7 @@ public class ModalWindow {
             stage.getIcons().add(windowIcon);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            System.err.println("Failed to load initial application resources.");
-            //LOGER!!!
+            System.err.println("Failed to load initial application resources");
         }
     }
 

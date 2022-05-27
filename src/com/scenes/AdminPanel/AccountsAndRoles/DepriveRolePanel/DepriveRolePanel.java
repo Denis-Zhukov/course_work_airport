@@ -1,7 +1,6 @@
-package com.scenes.AdminPanel.DeleteRolePanel;
+package com.scenes.AdminPanel.AccountsAndRoles.DepriveRolePanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -13,26 +12,27 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-public class DeleteRolePanel {
-    public static Map<String, Integer> roles;
+public class DepriveRolePanel {
+    static Map<String, Integer> accounts;
 
     public static void showModal() {
         //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(DeleteRolePanel.class.getResource("DeleteRolePanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(DepriveRolePanel.class.getResource("DepriveRolePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
-            //Load all roles and their id
-            roles = Requests.getRoles(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
+            //Load all usernames and their id
+            accounts = Requests.getAccounts(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#accountsComboBox")).getItems().setAll(accounts.keySet());
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
 
         stage.show();
+
     }
 }

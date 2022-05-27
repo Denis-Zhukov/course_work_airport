@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.DepriveRolePanel;
+package com.scenes.AdminPanel.AccountsAndRoles.DepriveRolePanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;

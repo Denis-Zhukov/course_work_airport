@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="200.0" prefWidth="324.0" stylesheets="@SetAccountRole.css" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.AdminPanel.SetAccountRolePanel.SetAccountRoleController">
+            fx:controller="com.scenes.AdminPanel.AccountsAndRoles.SetAccountRolePanel.SetAccountRoleController">
     <Label layoutX="86.0" layoutY="26.0" text="Account"/>
     <ComboBox fx:id="accountsComboBox" editable="true" layoutX="86.0" layoutY="43.0" prefWidth="150.0"/>
     <Label layoutX="88.0" layoutY="80.0" text="Role"/>

@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.DepriveRolePanel;
+package com.scenes.AdminPanel.Accounts.DeleteAccountPanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;
@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-public class DepriveRolePanel {
-    static Map<String, Integer> accounts;
+public class DeleteAccountPanel {
+    public static Map<String, Integer> accounts;
 
     public static void showModal() {
         //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(DepriveRolePanel.class.getResource("DepriveRolePanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(DeleteAccountPanel.class.getResource("DeleteAccountPanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
@@ -27,12 +27,10 @@ public class DepriveRolePanel {
             accounts = Requests.getAccounts(App.getAccessToken());
             ((ComboBox) stage.getScene().lookup("#accountsComboBox")).getItems().setAll(accounts.keySet());
         } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
+            ModalWindow.show("Error", e.getSuspendedMessage() + "Role has not added", ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
-
         stage.show();
-
     }
 }

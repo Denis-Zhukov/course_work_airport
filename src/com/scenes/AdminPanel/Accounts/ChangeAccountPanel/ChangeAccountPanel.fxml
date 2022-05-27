@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="343.0" prefWidth="281.0" stylesheets="@ChangeAccountPanel.css"
             xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.AdminPanel.ChangeAccountPanel.ChangeAccountController">
+            fx:controller="com.scenes.AdminPanel.Accounts.ChangeAccountPanel.ChangeAccountController">
     <Label layoutX="65.0" layoutY="21.0" text="Username"/>
     <ComboBox fx:id="usernameComboBox" onAction="#preloadAccount" depthTest="ENABLE" layoutX="66.0" layoutY="40.0"
               prefHeight="26.0"

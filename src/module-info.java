@@ -17,26 +17,26 @@ module client {
     opens com.scenes.AdminPanel to javafx.fxml;
     exports com.scenes.AdminPanel;
 
-    opens com.scenes.AdminPanel.CreateAccountPanel to javafx.fxml;
-    exports com.scenes.AdminPanel.CreateAccountPanel;
+    opens com.scenes.AdminPanel.Accounts.CreateAccountPanel to javafx.fxml;
+    exports com.scenes.AdminPanel.Accounts.CreateAccountPanel;
 
-    opens com.scenes.AdminPanel.AddRolePanel to javafx.fxml;
-    exports com.scenes.AdminPanel.AddRolePanel;
+    opens com.scenes.AdminPanel.Roles.AddRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.Roles.AddRolePanel;
 
-    opens com.scenes.AdminPanel.SetAccountRolePanel to javafx.fxml;
-    exports com.scenes.AdminPanel.SetAccountRolePanel;
+    opens com.scenes.AdminPanel.AccountsAndRoles.SetAccountRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.AccountsAndRoles.SetAccountRolePanel;
 
-    opens com.scenes.AdminPanel.DeleteAccountPanel to javafx.fxml;
-    exports com.scenes.AdminPanel.DeleteAccountPanel;
+    opens com.scenes.AdminPanel.Accounts.DeleteAccountPanel to javafx.fxml;
+    exports com.scenes.AdminPanel.Accounts.DeleteAccountPanel;
 
-    opens com.scenes.AdminPanel.DepriveRolePanel to javafx.fxml;
-    exports com.scenes.AdminPanel.DepriveRolePanel;
+    opens com.scenes.AdminPanel.AccountsAndRoles.DepriveRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.AccountsAndRoles.DepriveRolePanel;
 
-    opens com.scenes.AdminPanel.DeleteRolePanel to javafx.fxml;
-    exports com.scenes.AdminPanel.DeleteRolePanel;
+    opens com.scenes.AdminPanel.Roles.DeleteRolePanel to javafx.fxml;
+    exports com.scenes.AdminPanel.Roles.DeleteRolePanel;
 
-    opens com.scenes.AdminPanel.ChangeAccountPanel to javafx.fxml;
-    exports com.scenes.AdminPanel.ChangeAccountPanel;
+    opens com.scenes.AdminPanel.Accounts.ChangeAccountPanel to javafx.fxml;
+    exports com.scenes.AdminPanel.Accounts.ChangeAccountPanel;
 
     opens com.scenes.MaintenanceDispatcherPanel to javafx.fxml;
     exports com.scenes.MaintenanceDispatcherPanel;

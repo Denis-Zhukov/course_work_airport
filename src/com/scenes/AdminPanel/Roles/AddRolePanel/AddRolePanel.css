@@ -1,0 +1,35 @@
+* {
+    -fx-font: 14 Tahoma, sans-serif;
+}
+
+.button {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2871FF;
+    -fx-border-color: #2871FF;
+    -fx-border-width: 2;
+    -fx-cursor: HAND;
+}
+
+.button:hover {
+    -fx-background-color: #2060D0;
+}
+
+.button:focused {
+    -fx-border-color: #0033FF;
+}
+
+.button > .text {
+    -fx-fill: white !important;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #003EB7;
+    -fx-border-width: 2;
+    -fx-font: 14 Tahoma;
+    -fx-text-fill: black;
+    -fx-padding: 5 0;
+}

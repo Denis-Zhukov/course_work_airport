@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.ChangeAccountPanel;
+package com.scenes.AdminPanel.Accounts.CreateAccountPanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;
@@ -12,24 +12,20 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-public class ChangeAccountPanel {
+public class CreateAccountPanel {
     public static Map<String, Integer> roles;
-    public static Map<String, Integer> accounts;
 
     public static void showModal() {
         //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(ChangeAccountPanel.class.getResource("ChangeAccountPanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(CreateAccountPanel.class.getResource("CreateAccountPanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
             //Load all usernames and their id
-            ChangeAccountPanel.accounts = Requests.getAccounts(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#usernameComboBox")).getItems().setAll(ChangeAccountPanel.accounts.keySet());
-            //Load all roles and their id
-            ChangeAccountPanel.roles = Requests.getRoles(App.getAccessToken());
-            ((ComboBox) stage.getScene().lookup("#newRoleComboBox")).getItems().setAll(ChangeAccountPanel.roles.keySet());
+            roles = Requests.getRoles(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#rolesComboBox")).getItems().setAll(roles.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();

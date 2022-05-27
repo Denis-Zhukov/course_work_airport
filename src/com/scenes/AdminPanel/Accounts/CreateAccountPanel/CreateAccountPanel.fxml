@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="303.0" prefWidth="260.0" stylesheets="@CreateAccountPanel.css"
             xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.AdminPanel.CreateAccountPanel.CreateAccountController">
+            fx:controller="com.scenes.AdminPanel.Accounts.CreateAccountPanel.CreateAccountController">
     <Label layoutX="55.0" layoutY="30.0" text="Username:"/>
     <LengthLimitedTextField fx:id="loginField" layoutX="55.0" layoutY="49.0" prefHeight="26.0" prefWidth="150.0"
                             maxCharacters="32"/>

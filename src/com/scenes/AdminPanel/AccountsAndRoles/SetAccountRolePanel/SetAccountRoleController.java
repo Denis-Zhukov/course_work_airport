@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.SetAccountRolePanel;
+package com.scenes.AdminPanel.AccountsAndRoles.SetAccountRolePanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;

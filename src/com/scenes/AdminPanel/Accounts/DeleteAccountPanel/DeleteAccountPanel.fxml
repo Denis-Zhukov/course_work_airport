@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="145.0" prefWidth="300.0" stylesheets="@DeleteAccountPanel.css"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.scenes.AdminPanel.DeleteAccountPanel.DeleteAccountController">
+            fx:controller="com.scenes.AdminPanel.Accounts.DeleteAccountPanel.DeleteAccountController">
     <Label layoutX="30.0" layoutY="25.0" text="Account"/>
     <ComboBox fx:id="accountsComboBox" depthTest="ENABLE" editable="true" layoutX="30.0" layoutY="43.0"
               prefHeight="29.0" prefWidth="240.0"/>

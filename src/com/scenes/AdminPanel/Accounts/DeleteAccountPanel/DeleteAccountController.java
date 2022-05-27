@@ -1,4 +1,4 @@
-package com.scenes.AdminPanel.DeleteAccountPanel;
+package com.scenes.AdminPanel.Accounts.DeleteAccountPanel;
 
 import com.App;
 import com.assets.components.AutoCompleteComboBoxListener;
