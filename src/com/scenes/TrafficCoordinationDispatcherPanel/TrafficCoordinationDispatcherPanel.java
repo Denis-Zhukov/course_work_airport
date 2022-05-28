@@ -5,9 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 public class TrafficCoordinationDispatcherPanel {
-    //Open needed scene
     public static void openChangingScene(Stage stage) {
-        //Open needed scene
+        //Open needed window
         FXMLLoader loader = new FXMLLoader(TrafficCoordinationDispatcherPanel.class.getResource("TrafficCoordinationDispatcherPanel.fxml"));
         InteractingWithWindow.changeScene(stage, loader);
         stage.centerOnScreen();

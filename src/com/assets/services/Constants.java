@@ -22,7 +22,7 @@ public class Constants {
     public static final Pattern regexAirplaneNumber = Pattern.compile("^[A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
     public static final Pattern regexAirplaneName = Pattern.compile("^[№#.:_A-Za-zА-Яа-яёЁ0-9-]{1,32}$");
 
-    public static final Pattern regexCountryCityAirportName = Pattern.compile("^[a-zA-Z0-9 -]{2,}$");
+    public static final Pattern regexCountryCityAirportName = Pattern.compile("^[a-zA-Z0-9 .-]{2,}$");
 
     public static final Pattern regexFullName = Pattern.compile("(?=^.{0,40}$)^[a-zA-Z-]+\\s[a-zA-Z-]+$");
     public static final Pattern regexPassport = Pattern.compile("^(?!^0+$)[a-zA-Z0-9]{3,20}$");

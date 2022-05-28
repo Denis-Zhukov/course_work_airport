@@ -1,7 +1,0 @@
-* {
-    -fx-font-family: Tahoma, sans-serif;
-}
-
-#table:focused {
-    -fx-faint-focus-color: none;
-}

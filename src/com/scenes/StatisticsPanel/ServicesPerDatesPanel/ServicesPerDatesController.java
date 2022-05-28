@@ -5,7 +5,7 @@ import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.Helpers.ServicesPerDatesRow;
 import com.assets.services.Requests;
-import com.scenes.ModalWindow.ModalWindow;
+import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;

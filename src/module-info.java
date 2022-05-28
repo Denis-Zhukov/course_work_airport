@@ -62,59 +62,59 @@ module client {
     opens com.scenes.TrafficCoordinationDispatcherPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllAirportsPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Airports.ShowAllAirportsPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Airports.ShowAllAirportsPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.ShowAllRoutesPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Routes.ShowAllRoutesPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Routes.ShowAllRoutesPanel;
 
     opens com.scenes.GeneralScenes.ShowAllFlightsPanel to javafx.fxml;
     exports com.scenes.GeneralScenes.ShowAllFlightsPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.AddCountryPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Countries.AddCountryPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Countries.AddCountryPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.EditCountryPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Countries.EditCountryPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Countries.EditCountryPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteCountryPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Countries.DeleteCountryPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Countries.DeleteCountryPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.AddCityPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Cities.AddCityPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Cities.AddCityPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.EditCityPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.EditCityPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Cities.EditCityPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Cities.EditCityPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteCityPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Cities.DeleteCityPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Cities.DeleteCityPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.AddAirportPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Airports.AddAirportPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Airports.AddAirportPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.EditAirportPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Airports.EditAirportPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Airports.EditAirportPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteAirportPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Airports.DeleteAirportPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Airports.DeleteAirportPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.AddRoutePanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Routes.AddRoutePanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Routes.AddRoutePanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.EditRoutePanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.EditRoutePanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Routes.EditRoutePanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Routes.EditRoutePanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteRoutePanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Routes.DeleteRoutePanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Routes.DeleteRoutePanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.AddFlightPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Flights.AddFlightPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Flights.AddFlightPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.EditFlightPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Flights.EditFlightPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Flights.EditFlightPanel;
 
-    opens com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel to javafx.fxml;
-    exports com.scenes.TrafficCoordinationDispatcherPanel.DeleteFlightPanel;
+    opens com.scenes.TrafficCoordinationDispatcherPanel.Flights.DeleteFlightPanel to javafx.fxml;
+    exports com.scenes.TrafficCoordinationDispatcherPanel.Flights.DeleteFlightPanel;
 
     opens com.scenes.EconomistPanel to javafx.fxml;
     exports com.scenes.EconomistPanel;
@@ -137,8 +137,8 @@ module client {
     opens com.scenes.CustomerPanel.BookingPanel to javafx.fxml;
     exports com.scenes.CustomerPanel.BookingPanel;
 
-    opens com.scenes.ModalWindow to javafx.fxml;
-    exports com.scenes.ModalWindow;
+    opens com.scenes.GeneralScenes.ModalWindow to javafx.fxml;
+    exports com.scenes.GeneralScenes.ModalWindow;
 
     opens com.assets.services to javafx.fxml;
     exports com.assets.services;

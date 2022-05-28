@@ -5,7 +5,7 @@ import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
-import com.scenes.ModalWindow.ModalWindow;
+import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;

@@ -9,7 +9,7 @@ import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.assets.services.TableRows.CustomerRow;
 import com.scenes.CustomerPanel.BookingPanel.BookingPanel;
-import com.scenes.ModalWindow.ModalWindow;
+import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

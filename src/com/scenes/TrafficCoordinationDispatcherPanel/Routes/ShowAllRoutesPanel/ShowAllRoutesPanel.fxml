@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@ShowAllRoutesPanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.TrafficCoordinationDispatcherPanel.Routes.ShowAllRoutesPanel.ShowAllRoutesController">
+    <TableView fx:id="table" prefHeight="500.0" prefWidth="1000.0">
+      <columns>
+          <TableColumn editable="false" maxWidth="600.0" minWidth="200.0" prefWidth="400.0" text="From">
+              <columns>
+                  <TableColumn fx:id="fromCountryColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="Country" />
+                  <TableColumn fx:id="fromCityColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="City" />
+                  <TableColumn fx:id="fromAirportColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="Airport" />
+              </columns>
+          </TableColumn>
+          <TableColumn editable="false" maxWidth="600.0" minWidth="200.0" prefWidth="400.0" text="To">
+              <columns>
+                  <TableColumn fx:id="toCountryColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="Country" />
+                  <TableColumn fx:id="toCityColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="City" />
+                  <TableColumn fx:id="toAirportColumn" maxWidth="400.0" minWidth="75.0" prefWidth="133.0" text="Airport" />
+              </columns>
+          </TableColumn>
+      </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+    </TableView>
+</AnchorPane>

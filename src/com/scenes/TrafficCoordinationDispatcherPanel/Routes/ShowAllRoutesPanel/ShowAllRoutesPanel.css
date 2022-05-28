@@ -1,0 +1,13 @@
+* {
+    -fx-font: 14 Tahoma, sans-serif;
+}
+
+.table-view:focused {
+    -fx-faint-focus-color: none;
+    -fx-background-insets: -1, 10, 1, 1;
+}
+
+.table-row-cell:selected{
+    -fx-text-fill: white;
+    -fx-background-color: #003EB7;
+}

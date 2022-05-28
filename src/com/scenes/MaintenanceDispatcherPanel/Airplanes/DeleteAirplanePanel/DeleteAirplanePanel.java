@@ -1,12 +1,11 @@
 package com.scenes.MaintenanceDispatcherPanel.Airplanes.DeleteAirplanePanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
-import com.scenes.ModalWindow.ModalWindow;
+import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
