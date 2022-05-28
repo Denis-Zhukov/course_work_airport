@@ -1,7 +1,6 @@
-package com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel;
+package com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.DeleteSeatLayoutTemplatePanel;
 
 import com.App;
-import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -11,29 +10,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
-import java.util.Map;
+import java.util.List;
 
-
-public class DeleteAirplanePanel {
-    static Map<String, Integer> airplaneNumbersId;
-
+public class DeleteSeatLayoutTemplatePanel {
     public static void showModal() {
+        //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(DeleteAirplanePanel.class.getResource("DeleteAirplanePanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(DeleteSeatLayoutTemplatePanel.class.getResource("DeleteSeatLayoutTemplatePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
-            airplaneNumbersId = Requests.getAirplaneNumbers(App.getAccessToken());
-            ComboBox<String> numbersCB = ((ComboBox)stage.getScene().lookup("#airplaneNumberComboBox"));
-            numbersCB.getItems().addAll(airplaneNumbersId.keySet());
-            new AutoCompleteComboBoxListener<>(numbersCB);
+            //Load all id of layouts
+            List<Integer> ids = Requests.getIdSeatingLayouts(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#seatingLayoutComboBox")).getItems().setAll(ids);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
-
 
         stage.show();
     }

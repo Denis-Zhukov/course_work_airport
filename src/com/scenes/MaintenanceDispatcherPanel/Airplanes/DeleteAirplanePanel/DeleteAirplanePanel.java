@@ -1,6 +1,7 @@
-package com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel;
+package com.scenes.MaintenanceDispatcherPanel.Airplanes.DeleteAirplanePanel;
 
 import com.App;
+import com.assets.components.AutoCompleteComboBoxListener;
 import com.assets.services.Exceptions.NoServerResponseException;
 import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
@@ -10,28 +11,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
-import java.util.List;
+import java.util.Map;
 
-public class AddAirplanePanel {
+
+public class DeleteAirplanePanel {
+    static Map<String, Integer> airplaneNumbersId;
+
     public static void showModal() {
+        //Open needed window
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(AddAirplanePanel.class.getResource("AddAirplanePanel.fxml"));
+        FXMLLoader loader = new FXMLLoader(DeleteAirplanePanel.class.getResource("DeleteAirplanePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
-            List<Integer> ids = Requests.getIdSeatingLayouts(App.getAccessToken());
-            if (ids == null) {
-                ModalWindow.show("Error", "Error getting data\n", ModalWindow.Icon.error);
-                ((Stage) stage.getScene().getWindow()).close();
-                return;
-            }
-            ((ComboBox) stage.getScene().lookup("#seatingLayoutComboBox")).getItems().addAll(ids);
+            //Load all airplane numbers and their id
+            airplaneNumbersId = Requests.getAirplaneNumbers(App.getAccessToken());
+            ((ComboBox) stage.getScene().lookup("#airplaneNumberComboBox")).getItems().setAll(airplaneNumbersId.keySet());
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
             ((Stage) stage.getScene().getWindow()).close();
             return;
         }
+
+
         stage.show();
     }
 }

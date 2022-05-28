@@ -41,23 +41,23 @@ module client {
     opens com.scenes.MaintenanceDispatcherPanel to javafx.fxml;
     exports com.scenes.MaintenanceDispatcherPanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.AddAirplanePanel;
+    opens com.scenes.MaintenanceDispatcherPanel.Airplanes.AddAirplanePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.Airplanes.AddAirplanePanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.DeleteAirplanePanel;
+    opens com.scenes.MaintenanceDispatcherPanel.Airplanes.DeleteAirplanePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.Airplanes.DeleteAirplanePanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.EditAirplanePanel;
+    opens com.scenes.MaintenanceDispatcherPanel.Airplanes.EditAirplanePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.Airplanes.EditAirplanePanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel;
+    opens com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.AddSeatLayoutTemplatePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.AddSeatLayoutTemplatePanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel;
+    opens com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.DeleteSeatLayoutTemplatePanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.DeleteSeatLayoutTemplatePanel;
 
-    opens com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel to javafx.fxml;
-    exports com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel;
+    opens com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.ShowSeatingLayoutTemplatesPanel to javafx.fxml;
+    exports com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.ShowSeatingLayoutTemplatesPanel;
 
     opens com.scenes.TrafficCoordinationDispatcherPanel to javafx.fxml;
     exports com.scenes.TrafficCoordinationDispatcherPanel;

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="253.0" prefWidth="650.0" stylesheets="@AddSeatLayoutTemplatePanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel.AddSeatLayoutTemplateController">
+<AnchorPane prefHeight="253.0" prefWidth="650.0" stylesheets="@AddSeatLayoutTemplatePanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.AddSeatLayoutTemplatePanel.AddSeatLayoutTemplateController">
     <HBox layoutX="13.0" layoutY="63.0" prefHeight="115.0" prefWidth="623.0">
         <AnchorPane prefHeight="98.0" prefWidth="200.0">
             <HBox.margin>

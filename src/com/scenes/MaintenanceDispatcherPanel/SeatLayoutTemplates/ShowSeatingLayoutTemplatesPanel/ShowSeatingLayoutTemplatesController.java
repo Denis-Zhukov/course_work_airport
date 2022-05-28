@@ -1,4 +1,4 @@
-package com.scenes.MaintenanceDispatcherPanel.ShowSeatingLayoutTemplatesPanel;
+package com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.ShowSeatingLayoutTemplatesPanel;
 
 import com.assets.services.TableRows.SeatingLayoutRow;
 import javafx.fxml.FXML;

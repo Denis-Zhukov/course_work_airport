@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="263.0" prefWidth="434.0" stylesheets="@DeleteSeatLayoutTemplatePanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplateController">
+<AnchorPane prefHeight="263.0" prefWidth="434.0" stylesheets="@DeleteSeatLayoutTemplatePanel.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.DeleteSeatLayoutTemplatePanel.DeleteSeatLayoutTemplateController">
     <Label layoutX="124.0" layoutY="14.0" text="Seating layout" />
     <ComboBox fx:id="seatingLayoutComboBox" layoutX="124.0" layoutY="31.0" onAction="#preloadClasses" prefWidth="185.0" />
     <HBox layoutX="14.0" layoutY="83.0" prefHeight="100.0" prefWidth="397.0">

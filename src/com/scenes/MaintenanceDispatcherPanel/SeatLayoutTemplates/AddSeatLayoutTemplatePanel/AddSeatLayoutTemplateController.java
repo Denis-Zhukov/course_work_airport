@@ -1,4 +1,4 @@
-package com.scenes.MaintenanceDispatcherPanel.AddSeatLayoutTemplatePanel;
+package com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.AddSeatLayoutTemplatePanel;
 
 import com.App;
 import com.assets.components.NumberField;
@@ -23,8 +23,8 @@ public class AddSeatLayoutTemplateController {
     public void submit() {
         Map<Classes, SeatingLayout> classSeatingLayout = new HashMap<>();
 
+        //Validation data
         String error = "";
-
         int firstClassRows = firstClassRowsTextField.getValue();
         int firstClassCols = firstClassColsTextField.getValue();
         if ((firstClassRows > 0 && firstClassCols == 0) || (firstClassRows == 0 && firstClassCols > 0)) {
@@ -59,6 +59,7 @@ public class AddSeatLayoutTemplateController {
             return;
         }
 
+        //API Request
         try {
             String token = App.getAccessToken();
             int id = Requests.getNewSeatingLayoutId(token);
@@ -66,12 +67,12 @@ public class AddSeatLayoutTemplateController {
                 SeatingLayout layout = classSeatingLayout.get(key);
                 Requests.addSeatingLayout(id, key.getValue(), layout.getCountRows(), layout.getCountCols(), token);
             }
+
+            //Reset fields and combobox
             firstClassRowsTextField.setText("");
             firstClassColsTextField.setText("");
-
             businessClassRowsTextField.setText("");
             businessClassColsTextField.setText("");
-
             economyClassRowsTextField.setText("");
             economyClassColsTextField.setText("");
 

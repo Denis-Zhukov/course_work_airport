@@ -1,4 +1,4 @@
-package com.scenes.MaintenanceDispatcherPanel.DeleteSeatLayoutTemplatePanel;
+package com.scenes.MaintenanceDispatcherPanel.SeatLayoutTemplates.DeleteSeatLayoutTemplatePanel;
 
 import com.App;
 import com.assets.services.Exceptions.NoServerResponseException;
@@ -23,13 +23,42 @@ public class DeleteSeatLayoutTemplateController {
     @FXML
     Label economyClassCountRows, economyClassCountCols;
 
-    Map<String, SeatingLayout> seatingLayout = new HashMap<>();
-
-    public void preloadClasses() {
+    public void submit() {
         Integer id = seatingLayoutComboBox.getValue();
-        if (id == null) {
+        id = id == null ? -1 : id;
+
+        //Validation data
+        if (!seatingLayoutComboBox.getItems().contains(id)) {
+            ModalWindow.show("Error", "Invalid seating layout template", ModalWindow.Icon.error);
             return;
         }
+
+        //API Request
+        try {
+            Requests.deleteSeatLayoutTemplate(id, App.getAccessToken());
+
+            //Reset fields and combobox
+            seatingLayoutComboBox.getItems().remove(id);
+            seatingLayoutComboBox.setValue(null);
+            firstClassCountRows.setText("0");
+            firstClassCountCols.setText("0");
+            businessClassCountRows.setText("0");
+            businessClassCountCols.setText("0");
+            economyClassCountRows.setText("0");
+            economyClassCountCols.setText("0");
+
+            ModalWindow.show("Success", "Template has deleted", ModalWindow.Icon.success);
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nTemplate has not deleted", ModalWindow.Icon.error);
+        }
+    }
+
+    Map<String, SeatingLayout> seatingLayout = new HashMap<>();
+    public void preloadClasses() {
+        Integer id = seatingLayoutComboBox.getValue();
+        if (id == null)
+            return;
+
         seatingLayout.clear();
         Map<String, SeatingLayout> layout = Requests.getSeatingLayout(id, App.getAccessToken());
         if (layout == null) {
@@ -59,32 +88,4 @@ public class DeleteSeatLayoutTemplateController {
         }
     }
 
-    public void submit() {
-        Integer id = seatingLayoutComboBox.getValue();
-        id = id == null ? -1 : id;
-
-        if (!seatingLayoutComboBox.getItems().contains(id)) {
-            ModalWindow.show("Error", "Invalid seating layout template", ModalWindow.Icon.error);
-            return;
-        }
-
-        try {
-            Requests.deleteSeatLayoutTemplate(id, App.getAccessToken());
-            seatingLayoutComboBox.getItems().remove(id);
-            seatingLayoutComboBox.setValue(null);
-
-            firstClassCountRows.setText("0");
-            firstClassCountCols.setText("0");
-
-            businessClassCountRows.setText("0");
-            businessClassCountCols.setText("0");
-
-            economyClassCountRows.setText("0");
-            economyClassCountCols.setText("0");
-
-            ModalWindow.show("Success", "Template has removed.\n", ModalWindow.Icon.success);
-        } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nTemplate has not removed.\nTry again.", ModalWindow.Icon.error);
-        }
-    }
 }
