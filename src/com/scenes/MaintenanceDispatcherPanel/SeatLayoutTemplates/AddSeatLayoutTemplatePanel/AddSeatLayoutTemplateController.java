@@ -63,6 +63,7 @@ public class AddSeatLayoutTemplateController {
         try {
             String token = App.getAccessToken();
             int id = Requests.getNewSeatingLayoutId(token);
+            id = id == 0 ? id + 1 : id;
             for (Classes key : classSeatingLayout.keySet()) {
                 SeatingLayout layout = classSeatingLayout.get(key);
                 Requests.addSeatingLayout(id, key.getValue(), layout.getCountRows(), layout.getCountCols(), token);
