@@ -6,9 +6,17 @@ import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -22,19 +30,31 @@ public class RoutesPopularityPanel {
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
-        BarChart chart = ((BarChart) stage.getScene().lookup("#chart"));
-        List<XYChart.Series<String, Number>> series = new ArrayList<>();
+        PieChart chart = ((PieChart) stage.getScene().lookup("#chart"));
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         try {
             Map<String, Integer> popularity = Requests.getRoutesPopularity(App.getAccessToken());
-            int i = 0;
-            for (String key : popularity.keySet()) {
-                series.add(new XYChart.Series<>());
-                series.get(i).getData().add(new XYChart.Data(key, popularity.get(key)));
-                i++;
-            }
+            for (String key : popularity.keySet())
+                pieChartData.add(new PieChart.Data(key, popularity.get(key)));
+            chart.getData().setAll(pieChartData);
 
-            chart.getData().addAll(series);
+            final Label caption = ((Label) stage.getScene().lookup("#caption"));
+            caption.setTextFill(Color.LIGHTSKYBLUE);
+            caption.setStyle("-fx-font: 24 arial;");
+
+            for (final PieChart.Data data : chart.getData()) {
+                data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+                        e -> {
+                            caption.setTranslateX(e.getSceneX());
+                            caption.setTranslateY(e.getSceneY());
+                            caption.setText(Integer.toString((int) data.getPieValue()));
+                        });
+            }
+            for (final PieChart.Data data : chart.getData()) {
+                data.getNode().addEventHandler(MouseEvent.MOUSE_EXITED,
+                        e -> caption.setText(""));
+            }
 
         } catch (ResponseException | NoServerResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);
