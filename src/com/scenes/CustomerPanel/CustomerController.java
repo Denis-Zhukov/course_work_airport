@@ -50,11 +50,12 @@ public class CustomerController {
         date = date == null ? LocalDate.now() : date;
 
         String from = fromComboBox.getValue();
-        from = from == null ? "" : from.trim();
+        from = from == null ? "" : from;
 
         String to = toComboBox.getValue();
-        to = to == null ? "" : to.trim();
+        to = to == null ? "" : to;
 
+        //Validation data
         String error = "";
         if (!CustomerPanel.airportsId.containsKey(from))
             error += "Departure airport is not selected from dropdown list\n";
@@ -62,12 +63,12 @@ public class CustomerController {
             error += "Arrival airport is not selected from dropdown list\n";
         if (to.equals(from))
             error += "Departure and arrival airports are the same\n";
-
         if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
             return;
         }
 
+        //API Request
         try {
             int idFrom = CustomerPanel.airportsId.get(from);
             int idTo = CustomerPanel.airportsId.get(to);
@@ -95,6 +96,7 @@ public class CustomerController {
                         (e) -> BookingPanel.showModal(finalFrom, finalTo,  idCost.get(idFlight), idFlightDate.get(idFlight), idFlight)
                 ));
             }
+
             table.setItems(rows);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage(), ModalWindow.Icon.error);

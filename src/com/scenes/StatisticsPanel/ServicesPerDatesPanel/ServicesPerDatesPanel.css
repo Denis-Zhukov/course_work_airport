@@ -16,12 +16,49 @@
     -fx-background-color: #2060D0;
 }
 
+.button:focused {
+    -fx-border-color: #0033FF;
+}
+
 .button > .text {
-    -fx-fill: white;
+    -fx-fill: white !important;
 }
 
 .text {
     -fx-fill: #2871FF;
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #003EB7;
+    -fx-border-width: 2;
+    -fx-font: 14 Tahoma;
+    -fx-padding: 0 0 -3 0;
+    -fx-text-fill: black;
+    -fx-hgap: 0;
+}
+
+.combo-box > .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-style: hidden;
+}
+
+.arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #003EB7;
+    -fx-border-width: 2;
+    -fx-font: 14 Tahoma;
+    -fx-padding: 2 0;
+    -fx-text-fill: black;
+    -fx-hgap: 0;
 }
 
 .date-picker .arrow-button {
@@ -66,4 +103,19 @@
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
+}
+
+.table-view:focused {
+    -fx-faint-focus-color: none;
+    -fx-background-insets: -1, 10, 1, 1;
+}
+
+.table-row-cell:selected{
+    -fx-text-fill: white;
+    -fx-background-color: #003EB7;
+}
+
+#table:focused {
+    -fx-faint-focus-color: none;
+    -fx-background-insets: -1, 10, 1, 1;
 }

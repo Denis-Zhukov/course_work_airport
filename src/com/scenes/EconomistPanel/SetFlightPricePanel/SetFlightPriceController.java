@@ -19,26 +19,6 @@ public class SetFlightPriceController {
     @FXML
     private ComboBox<String> flightsComboBox;
 
-    public void preloadPrices() {
-        String flight = flightsComboBox.getValue();
-        flight = flight == null ? "" : flight.trim();
-
-        if (!SetFlightPricePanel.flightsId.containsKey(flight))
-            return;
-
-        int id = SetFlightPricePanel.flightsId.get(flight);
-        try {
-            PriceByFlight prices = Requests.getPrices(id);
-            if (prices == null) return;
-            var l = prices.getFirstPrice();
-            firstClassPriceTextField.setText(prices.getFirstPrice());
-            businessClassPriceTextField.setText(prices.getBusinessPrice());
-            economyClassPriceTextField.setText(prices.getEconomyPrice());
-        } catch (NoServerResponseException | ResponseException e) {
-            ModalWindow.show("Error", e.getSuspendedMessage() + "\nData loading error", ModalWindow.Icon.error);
-        }
-    }
-
     public void submit() {
         try {
             BigDecimal firstClassPrice = BigDecimal.valueOf(firstClassPriceTextField.getDoubleValue());
@@ -48,26 +28,49 @@ public class SetFlightPriceController {
             String flight = flightsComboBox.getValue();
             flight = flight == null ? "" : flight;
 
+            //Validation data
             String error = "";
             if (!SetFlightPricePanel.flightsId.containsKey(flight))
                 error += "Invalid flight selected\n";
-
             if (!error.equals("")) {
                 ModalWindow.show("Error", error, ModalWindow.Icon.error);
                 return;
             }
 
+            //API Request
             int idFlight = SetFlightPricePanel.flightsId.get(flight);
             Requests.setPrice(idFlight, firstClassPrice, businessClassPrice, economyClassPrice, App.getAccessToken());
+
+            //Reset fields and combobox
             firstClassPriceTextField.setText("");
             businessClassPriceTextField.setText("");
             economyClassPriceTextField.setText("");
             flightsComboBox.setValue("");
+
             ModalWindow.show("Success", "Prices for the flight have set", ModalWindow.Icon.success);
         } catch (NumberFormatException e) {
             ModalWindow.show("Error", "Invalid prices. Prices for the flight have not set", ModalWindow.Icon.error);
         } catch (NoServerResponseException | ResponseException e) {
             ModalWindow.show("Error", e.getSuspendedMessage() + "\nPrices for the flight have not set", ModalWindow.Icon.error);
+        }
+    }
+
+    public void preloadPrices() {
+        String flight = flightsComboBox.getValue();
+        flight = flight == null ? "" : flight;
+
+        if (!SetFlightPricePanel.flightsId.containsKey(flight))
+            return;
+
+        try {
+            int id = SetFlightPricePanel.flightsId.get(flight);
+            PriceByFlight prices = Requests.getPrices(id);
+            if (prices == null) return;
+            firstClassPriceTextField.setText(prices.getFirstPrice());
+            businessClassPriceTextField.setText(prices.getBusinessPrice());
+            economyClassPriceTextField.setText(prices.getEconomyPrice());
+        } catch (NoServerResponseException | ResponseException e) {
+            ModalWindow.show("Error", e.getSuspendedMessage() + "\nData loading error", ModalWindow.Icon.error);
         }
     }
 

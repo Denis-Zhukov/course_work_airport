@@ -10,7 +10,6 @@ public class ServicesPerDatesPanel {
         FXMLLoader loader = new FXMLLoader(ServicesPerDatesPanel.class.getResource("ServicesPerDatesPanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
-
         stage.show();
     }
 }

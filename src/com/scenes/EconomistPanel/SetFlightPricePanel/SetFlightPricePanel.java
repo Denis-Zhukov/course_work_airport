@@ -16,12 +16,14 @@ public class SetFlightPricePanel {
     static Map<String, Integer> flightsId;
 
     public static void showModal() {
+        //Open needed window
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(SetFlightPricePanel.class.getResource("SetFlightPricePanel.fxml"));
         InteractingWithWindow.showModal(stage, loader);
         stage.centerOnScreen();
 
         try {
+            //Load all flights and their id
             flightsId = Requests.getFlights(App.getAccessToken());
             ((ComboBox) stage.getScene().lookup("#flightsComboBox")).getItems().addAll(flightsId.keySet());
         } catch (NoServerResponseException | ResponseException e) {

@@ -122,12 +122,14 @@ public class EditAirplaneController {
         if (id == null) {
             return;
         }
+
         seatingLayouts.clear();
         Map<String, SeatingLayout> layout = Requests.getSeatingLayout(id, App.getAccessToken());
         if (layout == null) {
             ModalWindow.show("Error", "Failed to get seating layout", ModalWindow.Icon.error);
             return;
         }
+
         if (layout.containsKey("First")) {
             firstClassCountRows.setText(Integer.toString(layout.get("First").getCountRows()));
             firstClassCountCols.setText(Integer.toString(layout.get("First").getCountCols()));

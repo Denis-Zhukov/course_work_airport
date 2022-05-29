@@ -46,7 +46,7 @@ public class AllFlightsRow {
     private final Date boardingTime;
 
     public String getBoardingTime() {
-        DateFormat outputFormatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        DateFormat outputFormatter = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         return outputFormatter.format(boardingTime);
     }
 

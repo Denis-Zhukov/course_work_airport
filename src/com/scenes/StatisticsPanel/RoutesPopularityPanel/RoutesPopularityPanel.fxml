@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@RoutesPopularityPanel.css"
-            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-    <BarChart fx:id="chart" prefHeight="500.0" prefWidth="800.0">
-      <xAxis>
-          <CategoryAxis side="BOTTOM"/>
-      </xAxis>
-      <yAxis>
-          <NumberAxis side="LEFT"/>
-      </yAxis>
-    </BarChart>
-</AnchorPane>
+<?import javafx.scene.text.Font?>
+
+<BarChart fx:id="chart" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <xAxis>
+      <CategoryAxis animated="false" autoRanging="false" prefHeight="85.0" prefWidth="1143.0" side="BOTTOM">
+         <tickLabelFont>
+            <Font name="Tahoma" size="8.0" />
+         </tickLabelFont></CategoryAxis>
+   </xAxis>
+   <yAxis>
+      <NumberAxis side="LEFT" />
+   </yAxis>
+</BarChart>

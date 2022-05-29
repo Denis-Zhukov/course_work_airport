@@ -24,7 +24,6 @@ public class EconomistController {
     public void openShowAllFlightsWindow() {
         ShowAllFlightsPanel.showModal();
     }
-
     public void openSetFlightPriceWindow() {
         SetFlightPricePanel.showModal();
     }

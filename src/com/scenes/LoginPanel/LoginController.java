@@ -3,6 +3,7 @@ package com.scenes.LoginPanel;
 import com.App;
 import com.assets.services.Constants;
 import com.assets.services.Exceptions.NoServerResponseException;
+import com.assets.services.Exceptions.ResponseException;
 import com.assets.services.InteractingWithWindow;
 import com.assets.services.Requests;
 import com.scenes.GeneralScenes.ModalWindow.ModalWindow;
@@ -34,10 +35,8 @@ public class LoginController {
         String error = "";
         if (!regexLogin.matcher(login).find())
             error += "Wrong login\n";
-
         if (!regexPassword.matcher(password).find())
             error += "Wrong password\n";
-
         if (!error.equals("")) {
             ModalWindow.show("Error", error, ModalWindow.Icon.error);
             return;

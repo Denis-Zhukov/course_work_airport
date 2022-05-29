@@ -20,6 +20,7 @@ public class CustomerPanel {
         stage.centerOnScreen();
 
         try{
+            //Load airport and their id
             airportsId = Requests.getAirportsCitiesCountries();
             ((ComboBox<String>)stage.getScene().lookup("#fromComboBox")).getItems().addAll(airportsId.keySet());
             ((ComboBox<String>)stage.getScene().lookup("#toComboBox")).getItems().addAll(airportsId.keySet());

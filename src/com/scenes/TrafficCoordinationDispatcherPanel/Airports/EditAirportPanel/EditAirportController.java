@@ -68,6 +68,7 @@ public class EditAirportController {
 
         try {
             String city = Requests.getAirport(EditAirportPanel.airportsId.get(airport), App.getAccessToken());
+            city = city.replaceAll(" \\(.+\\)$", "");
             citiesComboBox.setValue(city);
             newAirportNameTextField.setText(airport);
         } catch (ResponseException | NoServerResponseException e) {

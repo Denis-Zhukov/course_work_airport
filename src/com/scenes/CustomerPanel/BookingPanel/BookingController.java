@@ -27,6 +27,7 @@ public class BookingController {
         String class_ = classesComboBox.getValue();
         class_ = class_ == null ? "" : class_;
 
+        //Validation data
         String error = "";
         if (!Constants.regexFullName.matcher(fullName).find())
             error += "Invalid full name\n";
@@ -40,13 +41,14 @@ public class BookingController {
             return;
         }
 
-        int idClass = 0;
+        int idClass = 0; //BAD, IK. Too little time, gotta hurry
         switch (classesComboBox.getValue()) {
             case "First class" -> idClass = 1;
             case "Business class" -> idClass = 2;
             case "Economy class" -> idClass = 3;
         }
 
+        //API Request
         try {
             Requests.addTicket(idFlight, idClass, fullName, passport);
             ((Stage)classesComboBox.getScene().getWindow()).close();

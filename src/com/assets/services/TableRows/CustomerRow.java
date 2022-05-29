@@ -3,6 +3,7 @@ package com.assets.services.TableRows;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerRow {
@@ -21,8 +22,9 @@ public class CustomerRow {
         return to;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public String getDateTime() {
+
+        return new SimpleDateFormat("yyyy.MM.dd hh:mm").format(dateTime);
     }
 
     public String getFirstCost() {

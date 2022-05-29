@@ -4,35 +4,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="190.0" prefWidth="605.0" stylesheets="@SetFlightPricePanel.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.scenes.EconomistPanel.SetFlightPricePanel.SetFlightPriceController">
-    <Button focusTraversable="false" layoutX="261.0" layoutY="149.0" mnemonicParsing="false" onAction="#submit" prefHeight="31.0" prefWidth="84.0" text="Set" />
-    <Label layoutX="14.0" layoutY="20.0" text="Flight:" />
-    <ComboBox onAction="#preloadPrices" fx:id="flightsComboBox" editable="true" focusTraversable="false" layoutX="53.0" layoutY="15.0" prefHeight="29.0" prefWidth="540.0" />
-   <HBox layoutX="21.0" layoutY="59.0" prefHeight="90.0" prefWidth="572.0">
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <NumberField fx:id="firstClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10" />
-         <Label layoutX="22.0" layoutY="23.0" text="First class price">
-            <font>
-               <Font name="Tahoma" size="14.0" />
-            </font>
-         </Label>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <NumberField fx:id="businessClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10" />
-         <Label layoutX="22.0" layoutY="23.0" text="Business class price">
-            <font>
-               <Font name="Tahoma" size="14.0" />
-            </font>
-         </Label>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <NumberField fx:id="economyClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10"/>
-         <Label layoutX="22.0" layoutY="23.0" text="Economy class price">
-            <font>
-               <Font name="Tahoma" size="14.0" />
-            </font>
-         </Label>
-      </AnchorPane>
-   </HBox>
+<AnchorPane prefHeight="190.0" prefWidth="605.0" stylesheets="@SetFlightPricePanel.css"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.scenes.EconomistPanel.SetFlightPricePanel.SetFlightPriceController">
+    <Button focusTraversable="false" layoutX="261.0" layoutY="149.0" mnemonicParsing="false" onAction="#submit"
+            prefHeight="31.0" prefWidth="84.0" text="Set"/>
+    <Label layoutX="14.0" layoutY="20.0" text="Flight:"/>
+    <ComboBox onAction="#preloadPrices" fx:id="flightsComboBox" editable="true" focusTraversable="false" layoutX="53.0"
+              layoutY="15.0" prefHeight="29.0" prefWidth="540.0"/>
+    <HBox layoutX="21.0" layoutY="59.0" prefHeight="90.0" prefWidth="572.0">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <NumberField fx:id="firstClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10"/>
+            <Label layoutX="22.0" layoutY="23.0" text="First class price">
+                <font>
+                    <Font name="Tahoma" size="14.0"/>
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <NumberField fx:id="businessClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10"/>
+            <Label layoutX="22.0" layoutY="23.0" text="Business class price">
+                <font>
+                    <Font name="Tahoma" size="14.0"/>
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <NumberField fx:id="economyClassPriceTextField" layoutX="22.0" layoutY="41.0" maxCharacters="10"/>
+            <Label layoutX="22.0" layoutY="23.0" text="Economy class price">
+                <font>
+                    <Font name="Tahoma" size="14.0"/>
+                </font>
+            </Label>
+        </AnchorPane>
+    </HBox>
 
 </AnchorPane>

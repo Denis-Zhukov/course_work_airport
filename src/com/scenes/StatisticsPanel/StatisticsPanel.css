@@ -16,6 +16,10 @@
     -fx-background-color: #2060D0;
 }
 
+.button:focused {
+    -fx-border-color: #0033FF;
+}
+
 .button > .text {
     -fx-fill: white;
 }

@@ -21,16 +21,16 @@ public class StatisticsController {
         stage.centerOnScreen();
     }
 
-    public void initialize() {
-        loginText.setText(App.getUsername());
-        roleText.setText(App.getRole());
-    }
-
     public void openRoutesPopularityWindow() {
         RoutesPopularityPanel.showModal();
     }
 
     public void openServicesProvedPerDatesWindow() {
         ServicesPerDatesPanel.showModal();
+    }
+
+    public void initialize() {
+        loginText.setText(App.getUsername());
+        roleText.setText(App.getRole());
     }
 }
