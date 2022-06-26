@@ -33,7 +33,6 @@ public class InteractingWithWindow {
             stage.getIcons().add(icon);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            //Logger!!
         }
     }
 

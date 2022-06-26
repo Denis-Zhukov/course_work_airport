@@ -13,7 +13,6 @@ public class Security {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
             char[] passwordBytes = password.toCharArray();
 
-            //!!! Сделать хеширование и на сервере!!! Соль только на клиенте не безопасна
             String salt = "salt";
             byte[] saltBytes = salt.getBytes();
 
