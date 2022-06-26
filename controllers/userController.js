@@ -30,8 +30,13 @@ class userController {
                                     LIMIT 1`;
 
             const [payload] = await connection.execute(query, [username, hashPassword]);
+
+            query = `SELECT COUNT(*) as count FROM accounts WHERE username=? AND hashPassword=? LIMIT 1`
+
+            const [result] = await connection.execute(query, [username, hashPassword]);
             connection.end();
-            if (!payload?.[0]) return res.status(400).json({message: "Wrong login or passowrd"});
+            if (!payload?.[0] && result?.[0].count === 1) return res.status(400).json({message: "Authorization successful\nBut your rights are not set"});
+            if (!payload?.[0]) return res.status(400).json({message: "Wrong login or password"});
             const token = generateAccessToken(payload[0]);
             return res.json({role: payload[0].role, username: payload[0].login, token});
         } catch (e) {
