@@ -3,7 +3,7 @@ import config from "config";
 import router from "./routers/router.js";
 import userRouter from "./routers/userRouter.js";
 
-
+//comment for recalculate on github
 const PORT = process.env.PORT ?? config.get("server.port");
 const HOST = process.env.PORT ?? config.get("server.host");
 
